@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="school_department_action" model="ir.actions.act_window">
+        <field name="name">Department</field>
+        <field name="res_model">school.department</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+     <record id="school_department_form_view" model="ir.ui.view">
+        <field name="name">school.department.form.view</field>
+        <field name="model">school.department</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="head_of_department_id"/>
+                    </group>
+                </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="message_ids"/>
+            </div>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="school_management_configuration_menu" name="Configuration" parent="school_management_root_menu"/>
+    <menuitem id="school_management_department_menu"  action="school_department_action" parent="school_management_configuration_menu"/>
+</odoo>

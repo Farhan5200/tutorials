@@ -1,0 +1,39 @@
+<odoo>
+        <record id="hospital_consult_form" model="ir.actions.act_window">
+        <field name="name">Consultation</field>
+        <field name="res_model">hospital.consultation</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <record id="hospital_consult_customizations_form" model="ir.ui.view">
+        <field name="name">Department</field>
+        <field name="model">hospital.consultation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="op_id"/>
+                        <field name="doctor_id"/>
+                        <field name="patient_id"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                        <field name="department_id"/>
+                    </group>
+                <notebook>
+                    <page string="Prescription">
+                        <field name="patient_prescription"/>
+                    </page>
+                    <page string="History">
+                        <field name="patient_history"/>
+                    </page>
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="hospital_consult" action="hospital_consult_form" parent="test_first_level_menu"/>
+
+
+</odoo>

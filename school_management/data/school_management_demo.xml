@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    to create record in department-->
+    <record id="school_department_demo1" model="school.department">
+        <field name="name">UP</field>
+    </record>
+
+    <record id="school_department_demo2" model="school.department">
+        <field name="name">LP</field>
+    </record>
+
+    <record id="school_department_demo3" model="school.department">
+        <field name="name">HS</field>
+    </record>
+
+<!--    to create record in subject-->
+    <record id="school_subject_demo1" model="school.subject">
+        <field name="name">English</field>
+        <field name="subject_department_id" eval="[(4,ref('school_department_demo1')),(4,ref('school_department_demo2'))]"/>
+    </record>
+
+    <record id="school_subject_demo2" model="school.subject">
+        <field name="name">Maths</field>
+        <field name="subject_department_id" eval="[(4,ref('school_department_demo1')),(4,ref('school_department_demo3'))]"/>
+    </record>
+
+<!--    to create record in class-->
+    <record id="school_class_demo1" model="school.class">
+        <field name="name">A1</field>
+        <field name="department_id" ref="school_department_demo1"/>
+    </record>
+
+    <record id="school_class_demo2" model="school.class">
+        <field name="name">A2</field>
+        <field name="department_id" ref="school_department_demo1"/>
+    </record>
+
+    <record id="school_class_demo3" model="school.class">
+        <field name="name">B1</field>
+        <field name="department_id" ref="school_department_demo2"/>
+    </record>
+</odoo>

@@ -1,0 +1,60 @@
+<odoo>
+    <record id="hospital_op_ticket_action" model="ir.actions.act_window">
+        <field name="name">OpTicket</field>
+        <field name="res_model">op.ticket</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <record id="ir_sequence_op_ticket" model="ir.sequence">
+        <field name="name">OP Number</field>
+        <field name="code">op.reference</field>
+        <field name="prefix">OP</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="hospital_op_ticket_view_form" model="ir.ui.view">
+        <field name="name">OpTicket</field>
+        <field name="model">op.ticket</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                <button name="button_confirm" class="oe_highlight" invisible="state  in 'confirm'" string="Confirm" type="object"/>
+                <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <h1><field name="name"/></h1>
+                    <group>
+                    <group>
+                        <field name="token_number"/>
+                        <field name="patient_id"/>
+                        <field name="patient_age"/>
+                    </group>
+                    <group>
+                        <field name="date"/>
+                        <field name="doctor_id"/>
+                        <field name="department_id"/>
+                    </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hospital_op_ticket_view_tree" model="ir.ui.view">
+        <field name="name">OpTicket</field>
+        <field name="model">op.ticket</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="patient_id"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <menuitem id="test_model_menu_action_one" action="hospital_op_ticket_action" parent="test_first_level_menu"/>
+
+</odoo>

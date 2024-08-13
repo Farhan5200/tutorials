@@ -1,0 +1,25 @@
+<odoo>
+    <record id="hospital_employee_action" model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record id="hr_employee_customizations_form_for_doctor" model="ir.ui.view">
+        <field name="name">Employee</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="age"/>
+                <field name="date_of_birth"/>
+                <field name="employee_fees"/>
+                <field name="room_no"/>
+                <field name="qualification"/>
+                </field>
+            </field>
+    </record>
+
+    <menuitem id="hospital_employee" action="hospital_employee_action" parent="test_first_level_menu"/>
+
+</odoo>

@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="new_estate_action" model="ir.actions.act_window">
+    <field name="name">property</field>
+    <field name="res_model">new.estate</field>
+    <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record id="new_estate_action_tree_view" model="ir.ui.view">
+        <field name="name">property</field>
+        <field name="model">new.estate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="post_code"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
+                <field name="availability_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="new_estate_action_form_view" model="ir.ui.view">
+        <field name="name">property</field>
+        <field name="model">new.estate</field>
+        <field name="arch" type="xml">
+                <form string="Test">
+                    <sheet>
+                        <h1>
+                            <field name="name" style="width:100%"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="post_code" />
+                                <field name="availability_date"/>
+                            </group>
+                            <group>
+                                <field name="expected_price"/>
+                                <field name="selling_price"/>
+                            </group>
+                        </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                            <field name="description"/>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="active"/>
+                            <field name="state"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+        </field>
+    </record>
+
+    <record id="new_estate_action_search_view" model="ir.ui.view">
+        <field name="name">property</field>
+        <field name="model">new.estate</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="post_code"/>
+                <field name="expected_price"/>
+                <field name="bedrooms"/>
+                <field name="living_area"/>
+                <filter name="state = Sold" domain="[('state', '=', 'sold')]"/>
+                <filter name="group by" string="group by state" context="{'group_by':'state'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="new_estate_action_one" model="ir.actions.act_window">
+    <field name="name">contact</field>
+    <field name="res_model">res.partner</field>
+    <field name="view_mode">kanban,tree,form,activity</field>
+    </record>
+
+    <menuitem id="test_menu_root" name="Real Estate">
+    <menuitem id="test_first_level_menu" name="properties">
+        <menuitem id="test_model_menu_action" action="new_estate_action"/>
+        <menuitem id="test_model_menu_action_one" action="new_estate_action_one"/>
+    </menuitem>
+</menuitem>
+</odoo>
