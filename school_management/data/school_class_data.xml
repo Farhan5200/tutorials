@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    to create record in class-->
+    <record id="school_class_demo_a1" model="school.class">
+        <field name="name">A1</field>
+        <field name="department_id" ref="school_department_demo_up"/>
+    </record>
+
+    <record id="school_class_demo_a2" model="school.class">
+        <field name="name">A2</field>
+        <field name="department_id" ref="school_department_demo_up"/>
+    </record>
+
+    <record id="school_class_demo_b1" model="school.class">
+        <field name="name">B1</field>
+        <field name="department_id" ref="school_department_demo_lp"/>
+    </record>
+</odoo>

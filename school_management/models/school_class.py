@@ -11,9 +11,10 @@ class SchoolClass(models.Model):
 
     name = fields.Char("Name", required=True, tracking=True)
     department_id = fields.Many2one("school.department", string="Department", tracking=True)
-    head_of_department_id = fields.Many2one('res.partner', string="Head", tracking=True)
+    head_of_department_id = fields.Many2one('res.partner', string="Head", tracking=True,
+                                            compute="_compute_department_id")
     school_id = fields.Many2one("res.company", string="School", tracking=True, default=lambda self: self.env.company)
 
-    @api.onchange('department_id')
-    def onchange_department_id(self):
+    @api.depends('department_id')
+    def _compute_department_id(self):
         self.head_of_department_id = self.department_id.head_of_department_id

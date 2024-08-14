@@ -10,4 +10,4 @@ class SchoolSubject(models.Model):
     _inherit = 'mail.thread'
 
     name = fields.Char("Name", required=True, tracking=True)
-    subject_department_id = fields.Many2many("school.department", "Department", tracking=True)
+    subject_department_id = fields.Many2many("school.department", string="Department", tracking=True)

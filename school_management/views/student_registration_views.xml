@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="button_confirm" string="Confirm" type="object" class="oe_highlight" invisible="status in 'registration'"/>
+                    <button name="action_button_confirm" string="Confirm" type="object" class="oe_highlight" invisible="status in 'registration'"/>
                     <field name="status" widget="statusbar" options="{'clickable':'1'}" />
                 </header>
                 <sheet>
@@ -23,7 +23,7 @@
                     <group>
                         <field name="registration_date" style="width: 50%;"/>
                         <field name="gender" style="width: 50%;" required="status in 'registration'"/>
-                        <field name="date_of_birth" style="width: 50%;" required="status in 'registration'"/>
+                        <field name="date_of_birth" style="width: 50%;"/>
                         <field name="age" required="status in 'registration'" style="width: 50%;"/>
                         <field name="father" style="width: 50%;"/>
                         <field name="mother" style="width: 50%;"/>
@@ -60,6 +60,7 @@
                                 <field name="previous_academic_department_id" options="{'no_create': True, 'no_create_edit':True}"/>
                                 <field name="previous_class_id" options="{'no_create': True, 'no_create_edit':True}" domain="[('department_id', '=', previous_academic_department_id)]"/>
                                 <field name="file" string="TC" options="{'accepted_file_extensions': '.pdf'}" filename="filename"/>
+                                <field name="club_id" widget="many2many_tags"/>
                                 <field name="school_id"/>
                             </group>
                         </page>
