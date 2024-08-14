@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="school_event_view_action" model="ir.actions.act_window">
+        <field name="name">Event</field>
+        <field name="res_model">school.event</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="school_event_menu" action="school_event_view_action" parent="school_management_student_menu"/>
+</odoo>
