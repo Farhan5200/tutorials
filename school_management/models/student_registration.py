@@ -2,7 +2,7 @@
 
 from odoo import api, fields, models, _
 from dateutil.relativedelta import relativedelta
-from datetime import datetime, date
+from datetime import datetime
 from odoo.exceptions import ValidationError
 
 
@@ -14,12 +14,12 @@ class StudentRegistration(models.Model):
 
     first_name = fields.Char("First Name", required=True, tracking=True)
     last_name = fields.Char("Last Name", tracking=True)
-    father = fields.Char("Father", tracking=True)
+    father = fields.Char("Father")
     mother = fields.Char("Mother", tracking=True)
     same_as_communication = fields.Boolean("Same as above", tracking=True)
     email = fields.Char("Email", required=True, tracking=True)
     Phone = fields.Char("Phone", required=True, tracking=True)
-    date_of_birth = fields.Date("DOB", tracking=True, required=True)
+    date_of_birth = fields.Date("DOB", tracking=True)
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female')
@@ -37,7 +37,7 @@ class StudentRegistration(models.Model):
     status = fields.Selection([
         ('draft', 'Draft'),
         ('registration', 'Registration')
-    ], default='draft', tracking=True)
+    ], default='draft', tracking=True, copy=False)
     school_id = fields.Many2one("res.company", string="School", tracking=True,
                                 default=lambda self: self.env.company)
     age = fields.Integer("Age", tracking=True, compute="_compute_calculate_age", store=True)
@@ -63,8 +63,15 @@ class StudentRegistration(models.Model):
         """works when clicking the confirm button"""
         self.write({
             'status': 'registration',
-            'name': self.env['ir.sequence'].next_by_code('student.reference')
         })
+        if not self.gender:
+            raise ValidationError("Gender details are required")
+        if not self.date_of_birth:
+            raise ValidationError("Date of birth is required")
+        if self.status == 'registration':
+            self.write({
+                'name': self.env['ir.sequence'].next_by_code('student.reference'),
+            })
 
     @api.depends('date_of_birth')
     def _compute_calculate_age(self):
@@ -80,8 +87,9 @@ class StudentRegistration(models.Model):
     def _check_age(self):
         """to check whether the age is greater than 0"""
         for rec in self:
-            if rec.age < 5:
-                raise ValidationError('Age should be greater than 4...!')
+            if rec.date_of_birth:
+                if rec.age < 5:
+                    raise ValidationError('Age should be greater than 4...!')
 
     @api.onchange('same_as_communication', 'c_street', 'c_street2', 'c_city', 'c_zip', 'c_state_id', 'c_country_id')
     def permanent_address(self):

@@ -7,8 +7,9 @@ class SchoolClub(models.Model):
     """used to create club creation form"""
     _name = "school.club"
     _description = "School Club"
+    _inherit = 'mail.thread'
 
-    name = fields.Char(string="Name", required=True)
+    name = fields.Char(string="Name", required=True, tracking=True)
     students_id = fields.Many2many(comodel_name="student.registration")
     event_count = fields.Integer(string="Events", compute="compute_event_count")
 
@@ -19,7 +20,8 @@ class SchoolClub(models.Model):
             'name': 'Event',
             'view_mode': 'tree',
             'res_model': 'school.event',
-            'domain': [("club_id.name", "=", self.name)]
+            'domain': [("club_id.name", "=", self.name)],
+            'context': "{'create': False}"
         }
 
     def compute_event_count(self):

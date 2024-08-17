@@ -17,10 +17,14 @@
                     </group>
                     <notebook>
                         <page string="Students">
-                            <field name="students_id"/>
+                            <field name="students_id" domain="[('status', '=', 'registration')]"/>
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
@@ -31,5 +35,5 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="school_club_menu" action="school_club_view_action" parent="school_management_student_menu"/>
+    <menuitem id="school_club_menu" action="school_club_view_action" parent="school_management_root_menu"/>
 </odoo>
