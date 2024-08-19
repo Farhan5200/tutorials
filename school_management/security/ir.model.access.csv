@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_school_department,access.school.department,model_school_department,base.group_user,1,1,1,1
+access_school_class,access.school.class,model_school_class,base.group_user,1,1,1,1
+access_school_subject,access.school.subject,model_school_subject,base.group_user,1,1,1,1
+access_school_academic_year,access.school.academic.year,model_school_academic_year,base.group_user,1,1,1,1
+access_student_registration,access.student.registration,model_student_registration,base.group_user,1,1,1,1
+access_school_club,access.school.club,model_school_club,base.group_user,1,1,1,1
+access_school_event,access.school.event,model_school_event,base.group_user,1,1,1,1
