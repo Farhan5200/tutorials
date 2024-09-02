@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_event">
+        <t t-call="web.html_container">
+<!--            <div class="page">-->
+<!--                <div class="oe_structure"/>-->
+<!--                <h2>Event Report</h2>-->
+<!--            </div>-->
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <h2>Event Report</h2>
+                        <p>
+                            <span t-field="o.name"/>
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -25,7 +25,7 @@
         </field>
     </record>
 
-    <menuitem id="school_management_configuration_menu" name="Configuration" parent="school_management_root_menu" sequence="7"/>
+    <menuitem id="school_management_configuration_menu" name="Configuration" parent="school_management_root_menu" sequence="8"/>
     <menuitem id="school_management_department_menu" action="school_department_action"
               parent="school_management_configuration_menu"/>
 </odoo>

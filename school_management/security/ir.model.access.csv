@@ -1,5 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
+access_school_event_report_wizard,access.school.event.report.wizard,model_school_event_report_wizard,school_management.school_management_office_staff,1,1,1,1
+
 access_school_exam_paper_student,access.school.exam.paper.student,model_school_exam_paper,school_management.school_management_student,1,0,0,0
 access_school_exam_paper_teacher,access.school.exam.paper.teacher,model_school_exam_paper,school_management.school_management_teacher,1,1,1,1
 access_school_exam_paper_office_staff,access.school.exam.paper.office.staff,model_school_exam_paper,school_management.school_management_office_staff,1,1,1,1
