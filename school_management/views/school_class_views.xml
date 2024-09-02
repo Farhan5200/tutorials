@@ -22,11 +22,16 @@
                             <field name="school_id" options="{'no_create': True, 'no_create_edit':True}"/>
                         </group>
                     </group>
+                    <notebook>
+                        <page string="Students" groups="school_management.school_management_teacher,school_management.school_management_office_staff">
+                            <field name="student_ids"/>
+                        </page>
+                    </notebook>
                 </sheet>
-            <div class="oe_chatter">
-                <field name="message_follower_ids"/>
-                <field name="message_ids"/>
-            </div>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>

@@ -11,8 +11,10 @@ class SchoolClub(models.Model):
 
     name = fields.Char(string="Name", required=True, tracking=True)
     students_ids = fields.Many2many(comodel_name="student.registration")
-    event_count = fields.Integer(string="Events", compute="compute_event_count")
+    event_count = fields.Integer(string="Events", compute="_compute_event_count")
     color = fields.Integer(string="Color")
+    school_id = fields.Many2one("res.company", string="School", tracking=True,
+                                default=lambda self: self.env.company)
 
     def get_events(self):
         """action for smart button"""
@@ -21,12 +23,12 @@ class SchoolClub(models.Model):
             'name': 'Event',
             'view_mode': 'tree',
             'res_model': 'school.event',
-            'domain': [("club_id.name", "=", self.name)],
+            'domain': [("club_ids.name", "=", self.name)],
             'context': "{'create': False}"
         }
 
-    def compute_event_count(self):
+    def _compute_event_count(self):
         """to count number of event in a club"""
         for record in self:
             record.event_count = self.env['school.event'].search_count(
-                [('club_id.name', '=', record.name)])
+                [('club_ids', '=', record.id)])

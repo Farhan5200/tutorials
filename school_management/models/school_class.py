@@ -14,3 +14,4 @@ class SchoolClass(models.Model):
     head_of_department_id = fields.Many2one('res.partner', string="Head", tracking=True,
                                             related="department_id.head_of_department_id", readonly=False)
     school_id = fields.Many2one("res.company", string="School", tracking=True, default=lambda self: self.env.company)
+    student_ids = fields.One2many("student.registration",inverse_name="current_class_id")

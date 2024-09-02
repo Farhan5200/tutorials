@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='discount_sale_order_lines']" position="inside">
+                <group>
+                    <field name="set_limit" invisible="not group_discount_per_so_line" string="Set Limit"/>
+                    <field name="select_type" widget="radio" invisible="not set_limit or not group_discount_per_so_line"/>
+                    <field name="discount_limit" widget="percentage" invisible="not select_type == 'percentage' or not set_limit or not group_discount_per_so_line"/>
+                    <field name="fixed_price" invisible="not select_type == 'fixed_amount' or not set_limit or not group_discount_per_so_line" widget="monetary"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

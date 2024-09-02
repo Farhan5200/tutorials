@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="sale_order_view_form" model="ir.ui.view">
+        <field name="name">sale.order.view.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="replace">
+                <button name="action_cancel" type="object" string="Cancel"
+                        invisible="state not in ['draft', 'sent', 'sale', 'to_approve'] or not id or locked"
+                        data-hotkey="x"/>
+            </button>
+            <button name="action_cancel" position="after">
+                <button name="action_approve" string="Approve" type="object" invisible="state not in 'to_approve'"
+                        groups="sales_team.group_sale_manager" class="btn-primary"/>
+            </button>
+        </field>
+    </record>
+</odoo>

@@ -6,22 +6,35 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                <group>
-                    <field name="name"/>
-                    <field name="department_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}"/>
-                </group>
+                    <group>
+                        <field name="name"/>
+                        <field name="department_ids" widget="many2many_tags"
+                               options="{'no_create': True, 'no_create_edit':True}"/>
+                    </group>
                 </sheet>
-                 <div class="oe_chatter">
-                <field name="message_follower_ids"/>
-                <field name="message_ids"/>
-            </div>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
+
+    <record id="school_subject_tree_view" model="ir.ui.view">
+        <field name="name">school.subject.tree.view</field>
+        <field name="model">school.subject</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="school_subject_action" model="ir.actions.act_window">
         <field name="name">Subject</field>
         <field name="res_model">school.subject</field>
         <field name="view_mode">tree,form</field>
     </record>
-    <menuitem id="school_subject_menu" action="school_subject_action" parent="school_management_configuration_menu"/>
+    <menuitem id="school_subject_menu" action="school_subject_action" parent="school_management_configuration_menu"
+              groups="school_management.school_management_office_staff"/>
 </odoo>

@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
+from email.policy import default
 
 from odoo import api, fields, models, _
 from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from odoo.exceptions import ValidationError
 
-
 class StudentRegistration(models.Model):
     """used to create student registration form"""
     _name = "student.registration"
     _description = "Student Registration"
     _inherit = 'mail.thread'
+    _rec_name = "first_name"
 
     first_name = fields.Char("First Name", required=True, tracking=True)
     last_name = fields.Char("Last Name", tracking=True)
@@ -55,9 +56,14 @@ class StudentRegistration(models.Model):
     permanent_zip = fields.Char(string="Permanent Zip")
     permanent_state_id = fields.Many2one("res.country.state", string="Permanent State")
     permanent_country_id = fields.Many2one("res.country", required=True, string="Permanent Country")
-    club_id = fields.Many2many("school.club", string="Club")
+    club_ids = fields.Many2many("school.club", string="Club")
+    exam_ids = fields.Many2many("school.exam", string="Exam")
+    current_class_id = fields.Many2one("school.class", string="Current class")
+    absent = fields.Boolean(string="Absent")
+
     _sql_constraints = [
-        ('aadhaar_number_uniq', 'unique(aadhaar_number)', "A aadhaar number can only be assigned to one student !")]
+        ('aadhaar_number_uniq', 'unique(aadhaar_number)', "A aadhaar number can only be assigned to one student !"),
+    ]
 
     def action_button_confirm(self):
         """works when clicking the confirm button
@@ -119,3 +125,32 @@ class StudentRegistration(models.Model):
         for rec in self:
             if rec.file and not rec.filename.endswith('.pdf'):
                 raise ValidationError('Only pdf format is supported')
+
+    def check_attendance(self):
+        """scheduled action : daily checks weather the student is present or not, if absent shows that record as
+         red color in tree view"""
+        self.search([]).absent = False
+        current_date = fields.Date.today()
+        all_leaves = self.env['school.leaves'].search([('start_date', '<=', current_date),
+                                                       ('end_date', '>=', current_date)])
+        for leave in all_leaves:
+            leave.student_id.absent = True
+
+    def create_user_automation(self):
+        """automation rules: creates user and partner once a student is registered """
+        partner_count = self.env['res.partner'].search_count([('email', '=', self.email)])
+        if not partner_count:
+            new_partner = self.env['res.partner'].create({
+                'name': self.first_name,
+                'email': self.email,
+                'employee_type': 'student',
+            })
+        else:
+            new_partner = self.env['res.partner'].search([('email', '=', self.email)])
+        user_count = self.env['res.users'].search_count([('login', '=', self.email)])
+        if not user_count:
+            self.env['res.users'].create({
+                'name': self.first_name,
+                'login': self.email,
+                'partner_id': new_partner.id
+            })

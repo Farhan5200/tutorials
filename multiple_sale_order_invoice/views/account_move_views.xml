@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_views_form" model="ir.ui.view">
+        <field name="name">account.move.views.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/notebook/page/field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                <field name="related_sale_order_id" invisible="1" nolabel="1"/>
+                <field name="order_line_id"  invisible="1" nolabel="1"/>
+            </xpath>
+            <page name="invoice_tab" position="after">
+                <page string="Related sale order">
+                    <field name="related_sale_order_ids" readonly="state == 'posted'"/>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

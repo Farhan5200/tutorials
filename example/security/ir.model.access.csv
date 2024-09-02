@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_example,access.example,model_example,base.group_user,1,1,1,1
+access_example_example,access.example.example,model_example_example,base.group_user,1,1,1,1
+access_example_tag,access.example.tag,model_example_tag,base.group_user,1,1,1,1
+access_example_line,access.example.line,model_example_line,base.group_user,1,1,1,1

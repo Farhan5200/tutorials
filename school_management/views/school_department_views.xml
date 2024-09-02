@@ -6,7 +6,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-     <record id="school_department_form_view" model="ir.ui.view">
+    <record id="school_department_form_view" model="ir.ui.view">
         <field name="name">school.department.form.view</field>
         <field name="model">school.department</field>
         <field name="arch" type="xml">
@@ -17,14 +17,15 @@
                         <field name="head_of_department_id" options="{'no_create': True, 'no_create_edit':True}"/>
                     </group>
                 </sheet>
-            <div class="oe_chatter">
-                <field name="message_follower_ids"/>
-                <field name="message_ids"/>
-            </div>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
 
-    <menuitem id="school_management_configuration_menu" name="Configuration" parent="school_management_root_menu"/>
-    <menuitem id="school_management_department_menu"  action="school_department_action" parent="school_management_configuration_menu"/>
+    <menuitem id="school_management_configuration_menu" name="Configuration" parent="school_management_root_menu" sequence="7"/>
+    <menuitem id="school_management_department_menu" action="school_department_action"
+              parent="school_management_configuration_menu"/>
 </odoo>

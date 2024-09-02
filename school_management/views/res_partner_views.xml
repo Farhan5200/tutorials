@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_views" model="ir.ui.view">
+        <field name="name">res.partner.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name="age" position="before">
+                <field name="employee_type"/>
+            </field>
+        </field>
+    </record>
+
+    <!--    Views and actions for teacher menu-->
+    <record id="teacher_registration_view_tree" model="ir.ui.view">
+        <field name="name">teacher_registration_view_tree</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="replace">
+                <field name="display_name" invisible="True" nolabel="True"/>
+            </field>
+            <field name="company_id" position="replace">
+                <field name="company_id" string="School"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="teacher_registration_views_action" model="ir.actions.act_window">
+        <field name="name">Teacher Registration</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('employee_type', '=', 'teacher')]</field>
+        <field name="context">{'default_employee_type':'teacher'}</field>
+    </record>
+
+    <!--    action for office staff menu-->
+    <record id="staff_registration_views_action" model="ir.actions.act_window">
+        <field name="name">Staff Registration</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('employee_type', '=', 'office staff')]</field>
+        <field name="context">{'default_employee_type':'office staff'}</field>
+    </record>
+
+    <menuitem id="employees_menu" name="Employees" parent="school_management_root_menu" groups="school_management_office_staff" sequence="2"/>
+    <menuitem id="teacher_registration_menu" name="Teachers" parent="employees_menu"
+              action="teacher_registration_views_action"/>
+    <menuitem id="staff_registration_menu" name="Office staff" action="staff_registration_views_action"
+              parent="employees_menu"/>
+
+</odoo>

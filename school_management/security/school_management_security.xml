@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--    creating record rules so that students can see only their details-->
+    <record id="student_registration_visibility_user_student" model="ir.rule">
+        <field name="name">Student can only see his/her details</field>
+        <field name="model_id" ref="model_student_registration"/>
+        <field name="groups" eval="[Command.link(ref('school_management_student'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">[('email','=',user.login)]</field>
+    </record>
+
+    <!--        creating record rules so that students can see only their class-->
+    <record id="school_class_visibility_user_student" model="ir.rule">
+        <field name="name">Student can only see his/her classes</field>
+        <field name="model_id" ref="model_school_class"/>
+        <field name="groups" eval="[Command.link(ref('school_management_student'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">[('student_ids.email','=',user.login)]</field>
+    </record>
+
+    <!--    create record rules so that students can see only their events-->
+    <record id="school_event_visibility_user_student" model="ir.rule">
+        <field name="name">Student can only see his/her Events</field>
+        <field name="model_id" ref="model_school_event"/>
+        <field name="groups" eval="[Command.link(ref('school_management_student'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">[('club_ids.students_ids.email','=',user.login)]</field>
+    </record>
+
+    <!--    create record rules so that Student can only see his/her Exams-->
+    <record id="school_exam_visibility_user_student" model="ir.rule">
+        <field name="name">Student can only see his/her Exams</field>
+        <field name="model_id" ref="model_school_exam"/>
+        <field name="groups" eval="[Command.link(ref('school_management_student'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">[('exam_assigned_student_ids.email','=',user.login)]</field>
+    </record>
+
+    <!--    create record rules so that Student can only see his/her leaves -->
+    <record id="school_leaves_visibility_user_student" model="ir.rule">
+        <field name="name">Student can only see his/her leaves</field>
+        <field name="model_id" ref="model_school_leaves"/>
+        <field name="groups" eval="[Command.link(ref('school_management_student'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">[('student_id.email','=',user.login)]</field>
+    </record>
+
+    <!--    create record rules so that teacher's can see and edit student details-->
+    <record id="student_registration_visibility_user_teacher" model="ir.rule">
+        <field name="name">Teacher can see and edit student details</field>
+        <field name="model_id" ref="model_student_registration"/>
+        <field name="groups" eval="[Command.link(ref('school_management_teacher'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!--    create record rules -->
+    <record id="school_exam_visibility_user_teacher" model="ir.rule">
+        <field name="name">Teacher can create exams</field>
+        <field name="model_id" ref="model_school_exam"/>
+        <field name="groups" eval="[Command.link(ref('school_management_teacher'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!--    create record rules so that Teacher's can view all events-->
+    <record id="school_event_visibility_user_teacher" model="ir.rule">
+        <field name="name">Teacher's can view all events</field>
+        <field name="model_id" ref="model_school_event"/>
+        <field name="groups" eval="[Command.link(ref('school_management_teacher'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!--    create record rules so that Teacher's can see and edit all leaves-->
+    <record id="school_leaves_visibility_user_teacher" model="ir.rule">
+        <field name="name">Teacher's can see and edit all leaves</field>
+        <field name="model_id" ref="model_school_leaves"/>
+        <field name="groups" eval="[Command.link(ref('school_management_teacher'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+    <!--    creating record rules so that Teacher's can see all classes-->
+    <record id="school_class_visibility_user_teacher" model="ir.rule">
+        <field name="name">Teacher's can see all classes</field>
+        <field name="model_id" ref="model_school_class"/>
+        <field name="groups" eval="[Command.link(ref('school_management_teacher'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+<!--    only shows students of selected school-->
+    <record id="ir_rule_student_registration_visibility" model="ir.rule">
+        <field name="name">Student registration: Multi School</field>
+        <field name="model_id" ref="model_student_registration"/>
+        <field name="domain_force">[('school_id', 'in', company_ids + [False])]</field>
+    </record>
+
+<!--        only shows classes of selected school-->
+    <record id="ir_rule_school_class_visibility" model="ir.rule">
+        <field name="name">School classes: Multi School</field>
+        <field name="model_id" ref="model_school_class"/>
+        <field name="domain_force">[('school_id', 'in', company_ids + [False])]</field>
+    </record>
+
+<!--        only shows club's of selected school-->
+    <record id="ir_rule_school_club_visibility" model="ir.rule">
+        <field name="name">School club: Multi School</field>
+        <field name="model_id" ref="model_school_club"/>
+        <field name="domain_force">[('school_id', 'in', company_ids + [False])]</field>
+    </record>
+
+<!--        only shows events of selected school-->
+    <record id="ir_rule_school_event_visibility" model="ir.rule">
+        <field name="name">School event: Multi School</field>
+        <field name="model_id" ref="model_school_event"/>
+        <field name="domain_force">[('school_id', 'in', company_ids + [False])]</field>
+    </record>
+
+<!--        only shows exams of selected school-->
+    <record id="ir_rule_school_exam_visibility" model="ir.rule">
+        <field name="name">School exam: Multi School</field>
+        <field name="model_id" ref="model_school_exam"/>
+        <field name="domain_force">[('school_id', 'in', company_ids + [False])]</field>
+    </record>
+
+<!--        only shows leaves of selected school-->
+    <record id="ir_rule_school_leaves_visibility" model="ir.rule">
+        <field name="name">School leaves: Multi School</field>
+        <field name="model_id" ref="model_school_leaves"/>
+        <field name="domain_force">[('school_id', 'in', company_ids + [False])]</field>
+    </record>
+</odoo>

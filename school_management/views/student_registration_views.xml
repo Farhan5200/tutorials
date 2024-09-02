@@ -6,69 +6,110 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_button_confirm" string="Confirm" type="object" class="oe_highlight" invisible="status in 'registration'"/>
+                    <button name="action_button_confirm" string="Confirm" type="object" class="oe_highlight"
+                            invisible="status in 'registration'"/>
                     <field name="status" widget="statusbar"/>
                 </header>
                 <sheet>
-                    <h1><field name="name"/></h1>
-                    <field name="photo" widget="image" options="{'size': [150, 150]}" style="position: absolute;left: 1000px;top: 10px;"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <field name="photo" widget="image" options="{'size': [150, 150]}"
+                           style="position: absolute;left: 1000px;top: 10px;"/>
                     <group>
-                     <group>
-                         <field name="first_name"/>
-                         <field name="last_name"/>
-                         <field name="email"/>
-                         <field name="Phone"/>
-                         <field name="aadhaar_number"/>
-                     </group>
-                    <group>
-                        <field name="registration_date" style="width: 50%;"/>
-                        <field name="gender" style="width: 50%;"/>
-                        <field name="date_of_birth" style="width: 50%;"/>
-                        <field name="age" style="width: 50%;"/>
-                        <field name="father" style="width: 50%;"/>
-                        <field name="mother" style="width: 50%;"/>
-                    </group>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="last_name"/>
+                            <field name="email"/>
+                            <field name="Phone"/>
+                            <field name="aadhaar_number"/>
+                        </group>
+                        <group>
+                            <field name="registration_date" style="width: 50%;"/>
+                            <field name="gender" style="width: 50%;"/>
+                            <field name="date_of_birth" style="width: 50%;"/>
+                            <field name="age" style="width: 50%;"/>
+                            <field name="father" style="width: 50%;"/>
+                            <field name="mother" style="width: 50%;"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Communication">
                             <group>
-                            <group string="Communication Address">
-                                <div class="o_address_format" colspan="2">
-                                <field name="communication_street" nolabel="1" placeholder="Street..."/>
-                                <field name="communication_street2" nolabel="1" placeholder="Street 2..."/>
-                                <field name="communication_city" nolabel="1" placeholder="City" class="o_address_city"/>
-                                <field name="communication_zip" nolabel="1" placeholder="ZIP" class="o_address_zip"/>
-                                <field name="communication_state_id" nolabel="1" class="o_address_state" placeholder="State"/>
-                                <field name="communication_country_id" nolabel="1" placeholder="Country"/>
-                                </div>
-                            </group>
-                            <group string="Permanent Address">
-                                <field name="same_as_communication"/>
-                                <div class="o_address_format" colspan="2">
-                                <field name="permanent_street" placeholder="Street..." class="o_address_street"/>
-                                <field name="permanent_street2" placeholder="Street 2..." class="o_address_street"/>
-                                <field name="permanent_city" placeholder="City" class="o_address_city"/>
-                                <field name="permanent_zip" placeholder="ZIP" class="o_address_zip"/>
-                                <field name="permanent_state_id" class="o_address_state" placeholder="State"/>
-                                <field name="permanent_country_id" placeholder="Country"/>
-                                </div>
-                            </group>
+                                <group string="Communication Address">
+                                    <div class="o_address_format" colspan="2">
+                                        <field name="communication_street" nolabel="1" placeholder="Street..."/>
+                                        <field name="communication_street2" nolabel="1" placeholder="Street 2..."/>
+                                        <field name="communication_city" nolabel="1" placeholder="City"
+                                               class="o_address_city"/>
+                                        <field name="communication_zip" nolabel="1" placeholder="ZIP"
+                                               class="o_address_zip"/>
+                                        <field name="communication_state_id" nolabel="1" class="o_address_state"
+                                               placeholder="State"/>
+                                        <field name="communication_country_id" nolabel="1" placeholder="Country"/>
+                                    </div>
+                                </group>
+                                <group string="Permanent Address">
+                                    <field name="same_as_communication"/>
+                                    <div class="o_address_format" colspan="2">
+                                        <field name="permanent_street" placeholder="Street..."
+                                               class="o_address_street"/>
+                                        <field name="permanent_street2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="permanent_city" placeholder="City" class="o_address_city"/>
+                                        <field name="permanent_zip" placeholder="ZIP" class="o_address_zip"/>
+                                        <field name="permanent_state_id" class="o_address_state" placeholder="State"/>
+                                        <field name="permanent_country_id" placeholder="Country"/>
+                                    </div>
+                                </group>
                             </group>
                         </page>
                         <page string="Academic">
                             <group>
-                                <field name="previous_academic_department_id" options="{'no_create': True, 'no_create_edit':True}"/>
-                                <field name="previous_class_id" options="{'no_create': True, 'no_create_edit':True}" domain="[('department_id', '=', previous_academic_department_id)]"/>
-                                <field name="file" string="TC" options="{'accepted_file_extensions': '.pdf'}" filename="filename"/>
-                                <field name="club_id" widget="many2many_tags" readonly="status in 'draft'" options="{'no_create': True, 'no_create_edit':True, 'color_field': 'color'}"/>
+                                <field name="previous_academic_department_id"
+                                       options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="previous_class_id" options="{'no_create': True, 'no_create_edit':True}"
+                                       domain="[('department_id', '=', previous_academic_department_id)]"/>
+                                <field name="current_class_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                                <field name="file" string="TC" options="{'accepted_file_extensions': '.pdf'}"
+                                       filename="filename"/>
+                                <field name="club_ids" widget="many2many_tags" readonly="status in 'draft'"
+                                       options="{'no_create': True, 'no_create_edit':True, 'color_field': 'color'}"/>
                                 <field name="school_id" options="{'no_create': True, 'no_create_edit':True}"/>
                             </group>
+                        </page>
+                        <page string="Exam" invisible="status in 'draft'">
+                            <field name="exam_ids" readonly="True">
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="name"/>
+                                            <field name="class_id" options="{'no_open':True}"/>
+                                        </group>
+                                        <group>
+                                            <field name="start_date"/>
+                                            <field name="end_date"/>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="Paper">
+                                            <field name="paper_ids">
+                                                <tree>
+                                                    <field name="subject_id"/>
+                                                    <field name="pass_mark"/>
+                                                    <field name="max_mark"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                <field name="message_follower_ids"/>
-                <field name="message_ids"/>
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
                 </div>
             </form>
         </field>
@@ -78,24 +119,52 @@
         <field name="name">Registration</field>
         <field name="model">student.registration</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-danger="absent">
                 <field name="name"/>
                 <field name="first_name"/>
                 <field name="last_name"/>
                 <field name="gender"/>
                 <field name="registration_date"/>
+                <field name="absent" invisible="True" nolabel="1"/>
             </tree>
         </field>
     </record>
 
-     <record id="student_registration_action" model="ir.actions.act_window">
+    <record id="student_registration_action" model="ir.actions.act_window">
         <field name="name">Student Registration</field>
         <field name="res_model">student.registration</field>
+        <field name="domain">[('status', '=', 'draft')]</field>
         <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Register a student
+            </p>
+            <p>
+                Click new to register new student
+            </p>
+        </field>
+    </record>
+
+    <!--    action for the menu students which shows only registered students-->
+    <record id="student_students_action" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="res_model">student.registration</field>
+        <field name="domain">[('status', '=', 'registration')]</field>
+        <field name="context">{'create': False}</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                All registered students can be seen here
+            </p>
+        </field>
     </record>
 
     <menuitem id="school_management_root_menu" name="School Management"/>
-    <menuitem id="school_management_student_menu" name="Students" parent="school_management_root_menu"/>
-    <menuitem id="school_management_registration_menu" name="Registration" parent="school_management_student_menu" action="student_registration_action"/>
+    <menuitem id="school_management_student_menu" name="Students" parent="school_management_root_menu" sequence="1"/>
+    <menuitem id="school_management_registration_menu" name="Registration" parent="school_management_student_menu"
+              action="student_registration_action" groups="school_management_office_staff"/>
+    <menuitem id="school_management_students_menu" name="Students" parent="school_management_student_menu"
+              action="student_students_action"/>
+
 
 </odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="create_user_automation_rules" model="base.automation">
+        <field name="name">Create User Automation</field>
+        <field name="model_id" ref="model_student_registration"/>
+        <field name="trigger">on_create_or_write</field>
+        <field name="filter_domain">[("status", "=", "registration")]</field>
+        <field name="action_server_ids" eval="[Command.link(ref('create_user_server_action'))]"/>
+    </record>
+
+</odoo>
