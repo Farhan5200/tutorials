@@ -29,8 +29,6 @@ class AccountMove(models.Model):
             for records in self.invoice_line_ids.related_sale_order_id.order_line:
                 if rec.order_line_id.id == records.id:
                     records.invoice_lines = [fields.Command.link(rec.id)]
-        print("hiiiiiiiiiii")
-        print("biiiiiiiiiii")
         return super().action_post()
 
 
