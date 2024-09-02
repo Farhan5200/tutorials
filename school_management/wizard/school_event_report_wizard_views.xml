@@ -5,9 +5,14 @@
         <field name="model">school.event.report.wizard</field>
         <field name="arch" type="xml">
             <form>
-                <span>
-                    You can't change it to draft once it is announced. Do you want to cancel it
-                </span>
+                <group>
+                    <group>
+                        <field name="start_date"/>
+                    </group>
+                    <group>
+                        <field name="end_date"/>
+                    </group>
+                </group>
                 <footer>
                     <button string="Cancel" special="cancel" class="oe_highlight"/>
                     <button name="demo" string="Ok" type="object"
@@ -25,5 +30,6 @@
     </record>
 
     <menuitem id="school_management_reports_menu" name="Reports" parent="school_management_root_menu" sequence="7"/>
-    <menuitem id="school_event_report" action="school_event_report_wizard_action" name="Event Report" parent="school_management_reports_menu"/>
+    <menuitem id="school_event_report" action="school_event_report_wizard_action" name="Event Report"
+              parent="school_management_reports_menu"/>
 </odoo>

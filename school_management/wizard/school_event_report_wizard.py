@@ -7,10 +7,15 @@ class SchoolEventReportWizard(models.TransientModel):
     _name = "school.event.report.wizard"
     _description = "School Event Report Wizard"
 
-    def demo(self):
-        data = {
+    start_date = fields.Date(string="From", required=True)
+    end_date = fields.Date(string="To",  required=True)
 
-            'doc_ids': self.env['school.event'].search([])
+    def demo(self):
+        print(self.env['school.event'].search_read([]))
+        data = {
+            'form': self.read()[0],
+            'events': self.env['school.event'].search_read([])
+
         }
         # docids = self.env['school.event'].search([])
         return self.env.ref('school_management.action_report_school_event').report_action(None, data=data)

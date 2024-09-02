@@ -2,20 +2,38 @@
 <odoo>
     <template id="report_event">
         <t t-call="web.html_container">
-<!--            <div class="page">-->
-<!--                <div class="oe_structure"/>-->
-<!--                <h2>Event Report</h2>-->
-<!--            </div>-->
-            <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
-                    <div class="page">
-                        <div class="oe_structure"/>
-                        <h2>Event Report</h2>
-                        <p>
-                            <span t-field="o.name"/>
-                        </p>
-                    </div>
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h2>
+                        <center>Event Report</center>
+                    </h2>
+                </div>
+                <div>
+                    <span>Events starts between
+                        <t t-esc="form['start_date']"/>
+                        and
+                        <t t-esc="form['end_date']"/>
+                    </span>
+                </div>
+                <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Club</th>
+                            <th>Status</th>
+                        </tr>
+                <t t-foreach="events" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['start_date']"/></td>
+                        <td><span t-esc="line['end_date']"/></td>
+                        <td><span t-esc="line['club_ids']"/></td>
+                        <td><span t-esc="line['status']"/></td>
+                    </tr>
                 </t>
+                </table>
             </t>
         </t>
     </template>
