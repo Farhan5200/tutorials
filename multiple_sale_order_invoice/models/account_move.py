@@ -14,11 +14,12 @@ class AccountMove(models.Model):
         """to add sale order lines to the invoice"""
         self.invoice_line_ids = [fields.Command.clear()]
         for rec in self.related_sale_order_ids.order_line:
-            if not rec.invoice_lines:
+            if rec.product_uom_qty != rec.qty_invoiced:
                 self.invoice_line_ids = [fields.Command.create({
                     'product_id': rec.product_id,
                     'related_sale_order_id': rec.order_id,
-                    'order_line_id': rec.id
+                    'order_line_id': rec.id,
+                    'quantity': rec.product_uom_qty - rec.qty_invoiced
                 })]
 
     def action_post(self):
