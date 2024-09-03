@@ -14,7 +14,7 @@ class SchoolEvent(models.Model):
     name = fields.Char("Name", required=True, tracking=True)
     start_date = fields.Date("Start Date", required=True)
     end_date = fields.Date("End Date", required=True)
-    club_ids = fields.Many2many("school.club")
+    club_ids = fields.Many2many("school.club", required=True)
     status = fields.Selection([
         ('draft', 'Draft'),
         ('announced', 'Announced'),

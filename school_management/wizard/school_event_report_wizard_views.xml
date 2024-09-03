@@ -7,15 +7,17 @@
             <form>
                 <group>
                     <group>
-                        <field name="start_date"/>
+                        <field name="event_start_date"/>
+                        <field name="from_date" invisible="not event_start_date == 'custom'"/>
                     </group>
                     <group>
-                        <field name="end_date"/>
+                        <field name="club_id" options="{'no_create' : True}"/>
+                        <field name="to_date" invisible="not event_start_date == 'custom'"/>
                     </group>
                 </group>
                 <footer>
-                    <button string="Cancel" special="cancel" class="oe_highlight"/>
-                    <button name="demo" string="Ok" type="object"
+                    <button string="Cancel" special="cancel"/>
+                    <button name="action_print_report" string="Print" type="object"
                             class="oe_highlight"/>
                 </footer>
             </form>
