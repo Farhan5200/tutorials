@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
 
 from odoo import api, fields, models
+import calendar
 
 
 class SchoolEventReportWizard(models.TransientModel):
@@ -12,7 +14,6 @@ class SchoolEventReportWizard(models.TransientModel):
     club_id = fields.Many2one('school.club', string="Club")
     event_start_date = fields.Selection([
         ('this_month', 'This Month'),
-        ('this_year', 'This Year'),
         ('this_week', 'This Week'),
         ('custom', 'Custom')
     ], string="Start Date")
@@ -44,17 +45,25 @@ class AllEventReport(models.AbstractModel):
         ((school_event inner join school_club_school_event_rel on school_event.id = 
         school_club_school_event_rel.school_event_id)inner join school_club on 
         school_club.id = school_club_school_event_rel.school_club_id)"""
-        if select_club_name and event_start_date == 'custom':
+
+        if event_start_date == 'this_month':
+            from_date = fields.Date.today().replace(day=1)
+            today = fields.Date.today()
+            to_date = today.replace(day=calendar.monthrange(today.year, today.month)[1])
+
+        if event_start_date == 'this_week':
+            from_date = fields.Date.today() - timedelta(days=fields.Date.today().weekday())
+            to_date = from_date + timedelta(days=6)
+
+        if select_club_name and event_start_date:
             query += " where school_club.name = '%s'" %select_club_name
             query += " and school_event.start_date >= '%s'" % from_date
             query += " and school_event.start_date <= '%s'" % to_date
-        if event_start_date == 'custom' and not select_club_name:
+        if event_start_date and not select_club_name:
             query += " where school_event.start_date >= '%s'" % from_date
             query += " and school_event.start_date <= '%s'" % to_date
         if select_club_name and not event_start_date:
             query += " where school_club.name = '%s'" %select_club_name
-
-        print(query)
 
         self.env.cr.execute(query)
         report = self.env.cr.dictfetchall()

@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="club_id"/>
+                    <field name="club_id" options="{'no_create' : True}"/>
                 </group>
                 <footer>
                     <button string="Cancel" special="cancel"/>
