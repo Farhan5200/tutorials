@@ -8,7 +8,7 @@
                     <h2>
                         <center>Club Report</center>
                     </h2>
-                    <h5>Club name:<span t-esc="club_name"/></h5>
+                    <h5>Club Name : <span t-esc="club_name"/></h5>
                 </div>
                 <table  class="table table-sm o_main_table">
                         <tr>

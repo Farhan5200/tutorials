@@ -9,24 +9,24 @@
                         <center>Student Report</center>
                     </h2>
                 </div>
-<!--                <table  class="table table-sm o_main_table">-->
-<!--                        <tr>-->
-<!--                            <th>Name</th>-->
-<!--                            <th>Start Date</th>-->
-<!--                            <th>End Date</th>-->
-<!--                            <th>Club</th>-->
-<!--                            <th>Status</th>-->
-<!--                        </tr>-->
-<!--                <t t-foreach="docs" t-as="line">-->
-<!--                    <tr>-->
-<!--                        <td><span t-esc="line['event_name']"/></td>-->
-<!--                        <td><span t-esc="line['start_date']"/></td>-->
-<!--                        <td><span t-esc="line['end_date']"/></td>-->
-<!--                        <td><span t-esc="line['club_name']"/></td>-->
-<!--                        <td><span t-esc="line['status']"/></td>-->
-<!--                    </tr>-->
-<!--                </t>-->
-<!--                </table>-->
+                <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Department</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                        <td><span t-esc="line['class_name']"/></td>
+                        <td><span t-esc="line['department_name']"/></td>
+                    </tr>
+                </t>
+                </table>
             </t>
         </t>
     </template>

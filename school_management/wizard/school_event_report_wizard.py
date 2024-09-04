@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from datetime import timedelta
 
 from odoo import api, fields, models
-import calendar
+
+from odoo.tools import date_utils
 
 
 class SchoolEventReportWizard(models.TransientModel):
@@ -15,8 +15,9 @@ class SchoolEventReportWizard(models.TransientModel):
     event_start_date = fields.Selection([
         ('this_month', 'This Month'),
         ('this_week', 'This Week'),
+        ('this_day', 'This Day'),
         ('custom', 'Custom')
-    ], string="Start Date")
+    ], string="Interval", default="custom")
 
     def action_print_report(self):
         data = {
@@ -39,6 +40,10 @@ class AllEventReport(models.AbstractModel):
         event_start_date = data['event_start_date']
         from_date = data['from_date']
         to_date = data['to_date']
+        today = fields.Date.today()
+        report_type = {'report_type': 'Complete Report',
+                       'event_start_date': event_start_date}
+
 
         query = """select school_event.id,school_event.name as event_name,school_event.start_date,
         school_event.end_date,school_event.status,school_club.name as club_name from 
@@ -47,28 +52,56 @@ class AllEventReport(models.AbstractModel):
         school_club.id = school_club_school_event_rel.school_club_id)"""
 
         if event_start_date == 'this_month':
-            from_date = fields.Date.today().replace(day=1)
-            today = fields.Date.today()
-            to_date = today.replace(day=calendar.monthrange(today.year, today.month)[1])
+            from_date = date_utils.start_of(today, "month")
+            to_date = date_utils.end_of(today, "month")
+            report_type['report_type'] = 'This Month Report'
 
         if event_start_date == 'this_week':
-            from_date = fields.Date.today() - timedelta(days=fields.Date.today().weekday())
-            to_date = from_date + timedelta(days=6)
+            from_date = date_utils.start_of(today, "week")
+            to_date = date_utils.end_of(today, "week")
+            report_type['report_type'] = 'This Week Report'
+
+
+        if event_start_date == 'this_day':
+            from_date = today
+            to_date = today
+            report_type['report_type'] = 'Today Report'
+
 
         if select_club_name and event_start_date:
-            query += " where school_club.name = '%s'" %select_club_name
-            query += " and school_event.start_date >= '%s'" % from_date
-            query += " and school_event.start_date <= '%s'" % to_date
+            if event_start_date != 'custom':
+                query += """ where school_club.name = '%s'and school_event.start_date >=
+                 '%s'and school_event.start_date <= '%s'""" % (select_club_name, from_date, to_date)
+            elif from_date and not to_date:
+                query += " where school_club.name = '%s' and school_event.start_date >='%s'" %(select_club_name,from_date)
+            elif to_date and not from_date:
+                query += " where school_club.name = '%s' and school_event.start_date <= '%s'" %(select_club_name,to_date)
+            elif from_date and to_date:
+                query += """ where school_club.name = '%s' and school_event.start_date >= '%s' and 
+                school_event.start_date <= '%s'""" % (select_club_name,from_date, to_date)
+            elif not from_date and not to_date:
+                query += " where school_club.name = '%s'" %select_club_name
+
         if event_start_date and not select_club_name:
-            query += " where school_event.start_date >= '%s'" % from_date
-            query += " and school_event.start_date <= '%s'" % to_date
+            if event_start_date != 'custom':
+                query += " where school_event.start_date >= '%s' and school_event.start_date <= '%s'" % (from_date, to_date)
+            elif from_date and not to_date:
+                query += " where school_event.start_date >='%s'" %from_date
+            elif to_date and not from_date:
+                query += " where school_event.start_date <= '%s'" %to_date
+            elif from_date and to_date:
+                query += " where school_event.start_date >= '%s' and school_event.start_date <= '%s'" % (
+                from_date, to_date)
+
         if select_club_name and not event_start_date:
             query += " where school_club.name = '%s'" %select_club_name
 
+
         self.env.cr.execute(query)
         report = self.env.cr.dictfetchall()
-        print(report)
         return {
-            'docs': report
+            'docs': report,
+            'report_type': report_type
         }
+
 

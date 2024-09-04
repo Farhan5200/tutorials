@@ -9,6 +9,16 @@
                         <center>Event Report</center>
                     </h2>
                 </div>
+                <t t-if="report_type['event_start_date'] != 'custom'">
+                <div>
+                    <span>Report Type : <t t-esc="report_type['report_type']"/></span>
+                </div>
+                </t>
+                <t t-if="report_type['event_start_date'] == 'custom'">
+                    <div>
+                        <span>Report Type : Custom Report</span>
+                    </div>
+                </t>
                 <table  class="table table-sm o_main_table">
                         <tr>
                             <th>Name</th>

@@ -9,24 +9,43 @@
                         <center>Leave Report</center>
                     </h2>
                 </div>
-<!--                <table  class="table table-sm o_main_table">-->
-<!--                        <tr>-->
-<!--                            <th>Name</th>-->
-<!--                            <th>Start Date</th>-->
-<!--                            <th>End Date</th>-->
-<!--                            <th>Club</th>-->
-<!--                            <th>Status</th>-->
-<!--                        </tr>-->
-<!--                <t t-foreach="docs" t-as="line">-->
-<!--                    <tr>-->
-<!--                        <td><span t-esc="line['event_name']"/></td>-->
-<!--                        <td><span t-esc="line['start_date']"/></td>-->
-<!--                        <td><span t-esc="line['end_date']"/></td>-->
-<!--                        <td><span t-esc="line['club_name']"/></td>-->
-<!--                        <td><span t-esc="line['status']"/></td>-->
-<!--                    </tr>-->
-<!--                </t>-->
-<!--                </table>-->
+                <t t-if="report_type['interval'] != 'custom'">
+                <div>
+                    <span>Report Type : <t t-esc="report_type['report_type']"/></span>
+                </div>
+                </t>
+                <t t-if="report_type['interval'] == 'custom'">
+                    <div>
+                        <span>Report Type : Custom Report</span>
+                    </div>
+                </t>
+                <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Class Name</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Days</th>
+                            <th>FN/AN</th>
+                            <th>Reason</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['student_name']"/></td>
+                        <td><span t-esc="line['class_name']"/></td>
+                        <td><span t-esc="line['start_date']"/></td>
+                        <td><span t-esc="line['end_date']"/></td>
+                        <td><span t-esc="line['duration']"/></td>
+                        <t t-if="line['half_day'] == True">
+                        <td><span t-esc="line['fn_or_an']"/></td>
+                        </t>
+                        <t t-if="line['half_day'] == False">
+                            <td>fn,an</td>
+                        </t>
+                        <td><span t-esc="line['reason']"/></td>
+                    </tr>
+                </t>
+                </table>
             </t>
         </t>
     </template>

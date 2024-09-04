@@ -6,12 +6,16 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-<!--                    <field name="club_id"/>-->
+                    <field name="class_id" options="{'no_create' : True}"/>
+                    <field name="student_id" options="{'no_create' : True}" invisible="not class_id"/>
+                    <field name="interval"/>
+                    <field name="from_date" invisible="not interval == 'custom'" required="interval == 'custom'"/>
+                    <field name="to_date" invisible="not interval == 'custom'" required="interval == 'custom'"/>
                 </group>
                 <footer>
-                    <button string="Cancel" special="cancel"/>
                     <button name="action_print_report" string="Print" type="object"
                             class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
                 </footer>
             </form>
         </field>
@@ -24,7 +28,7 @@
         <field name="target">new</field>
     </record>
 
-     <menuitem id="school_leave_report" action="school_leave_report_wizard_action" name="Leave Report"
+    <menuitem id="school_leave_report" action="school_leave_report_wizard_action" name="Leave Report"
               parent="school_management_reports_menu"/>
 
 </odoo>

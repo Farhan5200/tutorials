@@ -16,9 +16,9 @@
                     </group>
                 </group>
                 <footer>
-                    <button string="Cancel" special="cancel"/>
                     <button name="action_print_report" string="Print" type="object"
                             class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
                 </footer>
             </form>
         </field>

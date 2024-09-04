@@ -9,9 +9,9 @@
                     <field name="club_id" options="{'no_create' : True}"/>
                 </group>
                 <footer>
-                    <button string="Cancel" special="cancel"/>
                     <button name="action_print_report" string="Print" type="object"
                             class="oe_highlight"/>
+                    <button string="Cancel" special="cancel"/>
                 </footer>
             </form>
         </field>
@@ -24,7 +24,7 @@
         <field name="target">new</field>
     </record>
 
-     <menuitem id="school_club_report" action="school_club_report_wizard_action" name="Club Report"
+    <menuitem id="school_club_report" action="school_club_report_wizard_action" name="Club Report"
               parent="school_management_reports_menu"/>
 
 </odoo>
