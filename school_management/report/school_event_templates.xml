@@ -32,7 +32,13 @@
                         <td><span t-esc="line['event_name']"/></td>
                         <td><span t-esc="line['start_date']"/></td>
                         <td><span t-esc="line['end_date']"/></td>
-                        <td><span t-esc="line['club_name']"/></td>
+                        <td>
+                            <t t-foreach="all_club" t-as="square">
+                                <t t-if="line['id'] == square['id']">
+                                    <span><t t-esc="square['club_name']"/> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> </span>
+                                </t>
+                            </t>
+                        </td>
                         <td><span t-esc="line['status']"/></td>
                     </tr>
                 </t>

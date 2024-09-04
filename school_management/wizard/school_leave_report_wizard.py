@@ -13,7 +13,7 @@ class SchoolLeaveReportWizard(models.TransientModel):
         ('this_week', 'This Week'),
         ('this_day', 'This Day'),
         ('custom', 'Custom')
-    ], string="Interval", default="custom")
+    ], string="Interval", default="custom", required=True)
 
     from_date = fields.Date(string="From")
     to_date = fields.Date(string="To")

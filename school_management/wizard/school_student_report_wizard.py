@@ -8,7 +8,7 @@ class SchoolStudentReportWizard(models.TransientModel):
     _name = "school.student.report.wizard"
     _description = "School Student Report Wizard"
 
-    department_id = fields.Many2one('school.department', string="department")
+    department_id = fields.Many2one('school.department', string="Department")
     class_id = fields.Many2one('school.class', string="Class")
     # class_domain = fields.Char(compute="_onchange_department_id")
 

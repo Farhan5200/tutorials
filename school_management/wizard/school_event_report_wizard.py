@@ -17,7 +17,7 @@ class SchoolEventReportWizard(models.TransientModel):
         ('this_week', 'This Week'),
         ('this_day', 'This Day'),
         ('custom', 'Custom')
-    ], string="Interval", default="custom")
+    ], string="Interval", default="custom", required=True)
 
     def action_print_report(self):
         data = {
@@ -44,7 +44,6 @@ class AllEventReport(models.AbstractModel):
         report_type = {'report_type': 'Complete Report',
                        'event_start_date': event_start_date}
 
-
         query = """select school_event.id,school_event.name as event_name,school_event.start_date,
         school_event.end_date,school_event.status,school_club.name as club_name from 
         ((school_event inner join school_club_school_event_rel on school_event.id = 
@@ -61,12 +60,10 @@ class AllEventReport(models.AbstractModel):
             to_date = date_utils.end_of(today, "week")
             report_type['report_type'] = 'This Week Report'
 
-
         if event_start_date == 'this_day':
             from_date = today
             to_date = today
             report_type['report_type'] = 'Today Report'
-
 
         if select_club_name and event_start_date:
             if event_start_date != 'custom':
@@ -96,12 +93,19 @@ class AllEventReport(models.AbstractModel):
         if select_club_name and not event_start_date:
             query += " where school_club.name = '%s'" %select_club_name
 
-
         self.env.cr.execute(query)
         report = self.env.cr.dictfetchall()
-        return {
-            'docs': report,
-            'report_type': report_type
-        }
 
+        remove_duplicate = []
+        unique_event = []
+        for i in report:
+            if i['id'] not in remove_duplicate:
+                remove_duplicate.append(i['id'])
+                unique_event.append(i)
+
+        return {
+            'docs': unique_event,
+            'all_club': report,
+            'report_type': report_type,
+        }
 

@@ -8,8 +8,9 @@
                     <h2>
                         <center>Club Report</center>
                     </h2>
-                    <h5>Club Name : <span t-esc="club_name"/></h5>
                 </div>
+                <t t-if="club_name">
+                    <h5>Club Name : <span t-esc="club_name"/></h5>
                 <table  class="table table-sm o_main_table">
                         <tr>
                             <th>Admission Number</th>
@@ -26,6 +27,30 @@
                     </tr>
                 </t>
                 </table>
+                </t>
+                <t t-else="">
+                    <t t-foreach="all_club" t-as="line">
+                    <h5>Club Name : <span t-esc="line['name']"/></h5>
+                        <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Gender</th>
+                        </tr>
+                            <t t-foreach="docs" t-as="square">
+                                <t t-if="line['id'] == square['id']">
+                                    <tr>
+                                        <td><span t-esc="square['admission_no']"/></td>
+                                        <td><span t-esc="square['student_name']"/></td>
+                                        <td><span t-esc="square['class_name']"/></td>
+                                        <td><span t-esc="square['gender']"/></td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </table>
+                    </t>
+                </t>
             </t>
         </t>
     </template>

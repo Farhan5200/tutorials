@@ -35,3 +35,4 @@
     <menuitem id="school_event_report" action="school_event_report_wizard_action" name="Event Report"
               parent="school_management_reports_menu"/>
 </odoo>
+
