@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="club_id" options="{'no_create' : True}"/>
+                    <field name="club_id" options="{'no_create' : True}" widget="many2many_tags"/>
                 </group>
                 <footer>
                     <button name="action_print_report" string="Print" type="object"

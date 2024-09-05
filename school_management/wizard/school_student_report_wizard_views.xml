@@ -7,8 +7,10 @@
             <form>
                 <group>
                     <field name="department_id" options="{'no_create' : True}"/>
-                    <!--                    <field name="class_domain" invisible="0"/>-->
-                    <field name="class_id" options="{'no_create' : True}"/>
+                    <field name="class_domain_ids" invisible="1"/>
+                    <field name="class_id" options="{'no_create' : True}" domain="[('id', 'in', class_domain_ids)]"/>
+                    <field name="student_id" options="{'no_create' : True}" domain="[('id', 'in', student_domain_ids)]"/>
+                    <field name="student_domain_ids" invisible="1"/>
                 </group>
                 <footer>
                     <button name="action_print_report" string="Print" type="object"

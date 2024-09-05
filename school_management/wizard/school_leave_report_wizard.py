@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields,models
+from odoo.exceptions import ValidationError
 from odoo.tools import date_utils
 
 
@@ -19,7 +20,21 @@ class SchoolLeaveReportWizard(models.TransientModel):
     to_date = fields.Date(string="To")
     class_id = fields.Many2one('school.class', string="Class")
     student_id = fields.Many2one('student.registration', domain="[('current_class_id', '=', class_id)]", string="Student")
+    student_domain_ids = fields.Many2many('student.registration', compute='_compute_student_domain_ids')
 
+
+
+    @api.depends('class_id')
+    def _compute_student_domain_ids(self):
+        for rec in self:
+            if rec.class_id:
+                rec.student_domain_ids = rec.env['student.registration'].search([('current_class_id', '=', rec.class_id.id)])
+            else:
+                rec.student_domain_ids = rec.env['student.registration'].search([])
+
+    @api.onchange('class_id')
+    def _onchange_class_id(self):
+        self.student_id = False
 
     def action_print_report(self):
         data={
@@ -69,31 +84,96 @@ class AllLeaveReport(models.AbstractModel):
             report_type['report_type'] = 'Today Report'
 
         if select_class_name and interval and not select_student_name:
-            query += """ where school_class.name = '%s'and school_leaves.start_date >=
-             '%s'and school_leaves.start_date <= '%s'""" % (select_class_name, from_date, to_date)
+            if interval != 'custom':
+                query += """ where school_class.name = '%s'and school_leaves.start_date >=
+                 '%s'and school_leaves.start_date <= '%s'""" % (select_class_name, from_date, to_date)
+            elif from_date and not to_date:
+                query += " where school_class.name = '%s' and school_leaves.start_date >='%s'" %(select_class_name,from_date)
+            elif to_date and not from_date:
+                query += " where school_class.name = '%s' and school_leaves.start_date <= '%s'" %(select_class_name,to_date)
+            elif from_date and to_date:
+                query += """ where school_class.name = '%s' and school_leaves.start_date >= '%s' and 
+                                school_leaves.start_date <= '%s'""" % (select_class_name, from_date, to_date)
+            elif not from_date and not to_date:
+                query += " where school_class.name = '%s'" %select_class_name
+
+
         if interval and not select_class_name and not select_student_name:
-            query += " where school_leaves.start_date >= '%s' and school_leaves.start_date <= '%s'" % (from_date, to_date)
+            if interval != 'custom':
+                query += " where school_leaves.start_date >= '%s' and school_leaves.start_date <= '%s'" % (from_date, to_date)
+            elif from_date and not to_date:
+                query += " where school_leaves.start_date >='%s'" %from_date
+            elif to_date and not from_date:
+                query += " where school_leaves.start_date <= '%s'" %to_date
+            elif from_date and to_date:
+                query += " where school_leaves.start_date >= '%s' and school_leaves.start_date <= '%s'" % (
+                    from_date, to_date)
+
         if select_class_name and not interval and not select_student_name:
             query += " where school_class.name = '%s'" %select_class_name
+
         if select_class_name and select_student_name and interval:
-            query += (""" where school_class.name = '%s' and student_registration.first_name = '%s' and 
-            school_leaves.start_date >= '%s'and school_leaves.start_date <= '%s'"""
-                      %(select_class_name, select_student_name, from_date, to_date))
+            if interval != 'custom':
+                query += (""" where school_class.name = '%s' and student_registration.first_name = '%s' and 
+                school_leaves.start_date >= '%s' and school_leaves.start_date <= '%s'"""
+                          %(select_class_name, select_student_name, from_date, to_date))
+            elif from_date and not to_date:
+                query += """where school_class.name = '%s' and student_registration.first_name = '%s' and 
+                school_leaves.start_date >= '%s'"""%(select_class_name, select_student_name, from_date)
+            elif to_date and not from_date:
+                query += """where school_class.name = '%s' and student_registration.first_name = '%s' and 
+                school_leaves.start_date <= '%s'""" %(select_class_name, select_student_name, to_date)
+            elif from_date and to_date:
+                query += (""" where school_class.name = '%s' and student_registration.first_name = '%s' and 
+                                school_leaves.start_date >= '%s' and school_leaves.start_date <= '%s'"""
+                          % (select_class_name, select_student_name, from_date, to_date))
+            elif not from_date and not to_date:
+                query += ("""where school_class.name = '%s' and student_registration.first_name = '%s'"""
+                          %(select_class_name, select_student_name))
+
+
         if select_class_name and select_student_name and not interval:
             query += (""" where school_class.name = '%s' and student_registration.first_name = '%s'"""
                       %(select_class_name, select_student_name))
+
         if not select_class_name and select_student_name and interval:
-            query += """ where student_registration.first_name = '%s' and school_leaves.start_date >= '%s' 
-            and school_leaves.start_date <= '%s'""" %(select_student_name, from_date, to_date)
+            if interval != "custom":
+                query += """ where student_registration.first_name = '%s' and school_leaves.start_date >= '%s' 
+                and school_leaves.start_date <= '%s'""" %(select_student_name, from_date, to_date)
+            elif from_date and not to_date:
+                query += (""" where student_registration.first_name = '%s' and school_leaves.start_date >= '%s'"""
+                          % (select_student_name, from_date))
+            elif to_date and not from_date:
+                query += (""" where student_registration.first_name = '%s' and school_leaves.start_date <= '%s'"""
+                          % (select_student_name, to_date))
+            elif from_date and to_date:
+                query += """ where student_registration.first_name = '%s' and school_leaves.start_date >= '%s' 
+                                and school_leaves.start_date <= '%s'""" % (select_student_name, from_date, to_date)
+            elif not from_date and not to_date:
+                query += """ where student_registration.first_name = '%s'""" % select_student_name
+
+
+
         if not select_class_name and select_student_name and not interval:
             query += """ where student_registration.first_name = '%s'""" %select_student_name
+
+        dates = {
+            'from_date': from_date,
+            'to_date': to_date,
+            'current_date': today
+        }
 
 
 
         self.env.cr.execute(query)
         report = self.env.cr.dictfetchall()
-        return {
-            'docs': report,
-            'report_type': report_type
-        }
+
+        if report:
+            return {
+                'docs': report,
+                'report_type': report_type,
+                'dates': dates
+            }
+        else:
+            raise ValidationError('There are no records matching your condition')
 

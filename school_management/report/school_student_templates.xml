@@ -9,7 +9,10 @@
                         <center>Student Report</center>
                     </h2>
                 </div>
-                <table  class="table table-sm o_main_table">
+<!--                -->
+                <t t-if="selected_values['selected_department'] and selected_values['selected_class']">
+                    <t t-if="selected_values['selected_student']">
+                        <table  class="table table-sm o_main_table">
                         <tr>
                             <th>Admission Number</th>
                             <th>Name</th>
@@ -27,6 +30,173 @@
                     </tr>
                 </t>
                 </table>
+                    </t>
+                    <t t-else="">
+                        <span>Department Name : <t t-esc="selected_values['selected_department']"/></span><br/>
+                        <span>Class Name : <t t-esc="selected_values['selected_class']"/></span>
+                        <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                    </tr>
+                </t>
+                </table>
+                    </t>
+                </t>
+<!--                -->
+                <t t-if=" not selected_values['selected_department'] and not selected_values['selected_class']">
+                    <t t-if="selected_values['selected_student']">
+                        <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Department</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                        <td><span t-esc="line['class_name']"/></td>
+                        <td><span t-esc="line['department_name']"/></td>
+                    </tr>
+                </t>
+                </table>
+                    </t>
+                    <t t-else="">
+                    <t t-foreach="department_details" t-as="dep">
+                        <t t-foreach="class_details" t-as="cls">
+                            <t t-if="dep['dep_id'] == cls['department_id']">
+                            <span>Department Name : <t t-esc="dep['dept_name']"/></span><br/>
+                            <span>Class Name : <t t-esc="cls['class_name']"/></span>
+                                <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <t t-if="dep['dep_id'] == line['department_id']">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                    </tr>
+                    </t>
+                </t>
+                </table>
+                            </t>
+                        </t>
+                    </t>
+                    </t>
+                </t>
+<!--                -->
+                <t t-if="not selected_values['selected_department'] and selected_values['selected_class']">
+                    <t t-if="selected_values['selected_student']">
+                        <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Department</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                        <td><span t-esc="line['class_name']"/></td>
+                        <td><span t-esc="line['department_name']"/></td>
+                    </tr>
+                </t>
+                </table>
+                    </t>
+                    <t t-else="">
+                        <t t-foreach="department_details" t-as="dep">
+                        <t t-foreach="class_details" t-as="cls">
+                            <t t-if="dep['dep_id'] == cls['department_id'] and cls['class_name'] == selected_values['selected_class']">
+                            <span>Department Name : <t t-esc="dep['dept_name']"/></span><br/>
+                            <span>Class Name : <t t-esc="cls['class_name']"/></span>
+                                <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <t t-if="dep['dep_id'] == line['department_id'] and cls['class_name'] == selected_values['selected_class']">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                    </tr>
+                    </t>
+                </t>
+                </table>
+                            </t>
+                        </t>
+                    </t>
+                    </t>
+                </t>
+<!--                -->
+                <t t-if="selected_values['selected_department'] and not selected_values['selected_class']">
+                    <t t-if="selected_values['selected_student']">
+                        <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Class</th>
+                            <th>Department</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                        <td><span t-esc="line['class_name']"/></td>
+                        <td><span t-esc="line['department_name']"/></td>
+                    </tr>
+                </t>
+                </table>
+                    </t>
+                    <t t-else="">
+                        <t t-foreach="department_details" t-as="dep">
+                        <t t-foreach="class_details" t-as="cls">
+                            <t t-if="dep['dep_id'] == cls['department_id'] and dep['dept_name'] == selected_values['selected_department']">
+                            <span>Department Name : <t t-esc="dep['dept_name']"/></span><br/>
+                            <span>Class Name : <t t-esc="cls['class_name']"/></span>
+                                <table  class="table table-sm o_main_table">
+                        <tr>
+                            <th>Admission Number</th>
+                            <th>Name</th>
+                            <th>Gender</th>
+                        </tr>
+                <t t-foreach="docs" t-as="line">
+                    <t t-if="dep['dep_id'] == line['department_id'] and dep['dept_name'] == selected_values['selected_department']">
+                    <tr>
+                        <td><span t-esc="line['admission_no']"/></td>
+                        <td><span t-esc="line['name']"/></td>
+                        <td><span t-esc="line['gender']"/></td>
+                    </tr>
+                    </t>
+                </t>
+                </table>
+                            </t>
+                        </t>
+                    </t>
+                    </t>
+                </t>
             </t>
         </t>
     </template>

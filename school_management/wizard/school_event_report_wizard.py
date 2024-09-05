@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 from odoo.tools import date_utils
 
@@ -95,17 +96,25 @@ class AllEventReport(models.AbstractModel):
 
         self.env.cr.execute(query)
         report = self.env.cr.dictfetchall()
-
-        remove_duplicate = []
-        unique_event = []
-        for i in report:
-            if i['id'] not in remove_duplicate:
-                remove_duplicate.append(i['id'])
-                unique_event.append(i)
-
-        return {
-            'docs': unique_event,
-            'all_club': report,
-            'report_type': report_type,
+        dates ={
+            'from_date': from_date,
+            'to_date': to_date,
+            'current_date': today
         }
+        if report:
+            remove_duplicate = []
+            unique_event = []
+            for i in report:
+                if i['id'] not in remove_duplicate:
+                    remove_duplicate.append(i['id'])
+                    unique_event.append(i)
+
+            return {
+                'docs': unique_event,
+                'all_club': report,
+                'report_type': report_type,
+                'dates': dates
+            }
+        else:
+            raise ValidationError('There are no records matching your condition')
 

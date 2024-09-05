@@ -7,10 +7,11 @@
             <form>
                 <group>
                     <field name="class_id" options="{'no_create' : True}"/>
-                    <field name="student_id" options="{'no_create' : True}" invisible="not class_id"/>
+                    <field name="student_id" options="{'no_create' : True}" domain="[('id', 'in', student_domain_ids)]"/>
+                    <field name="student_domain_ids" invisible="1"/>
                     <field name="interval"/>
-                    <field name="from_date" invisible="not interval == 'custom'" required="interval == 'custom'"/>
-                    <field name="to_date" invisible="not interval == 'custom'" required="interval == 'custom'"/>
+                    <field name="from_date" invisible="not interval == 'custom'"/>
+                    <field name="to_date" invisible="not interval == 'custom'"/>
                 </group>
                 <footer>
                     <button name="action_print_report" string="Print" type="object"

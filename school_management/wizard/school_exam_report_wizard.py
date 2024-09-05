@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields,models
+from odoo.exceptions import ValidationError
+
 
 class SchoolExamReportWizard(models.TransientModel):
     _name = "school.exam.report.wizard"
@@ -64,8 +66,11 @@ class AllExamReport(models.AbstractModel):
         report = self.env.cr.dictfetchall()
         self.env.cr.execute(paper_query)
         paper = self.env.cr.dictfetchall()
-        return {
-            'docs': report,
-            'paper': paper
-        }
+        if report:
+            return {
+                'docs': report,
+                'paper': paper
+            }
+        else:
+            raise ValidationError('No records.....!')
 

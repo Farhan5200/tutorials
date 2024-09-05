@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class SchoolClubReportWizard(models.TransientModel):
     _name = "school.club.report.wizard"
     _description = "School Club Report Wizard"
 
-    club_id = fields.Many2one('school.club', string="Club")
+    club_id = fields.Many2many('school.club', string="Club")
 
     def action_print_report(self):
         data = {
-            'club_name': self.club_id.name
+            'selected_club': self.club_id.ids
         }
+
 
         return self.env.ref('school_management.action_report_school_club').report_action(None, data=data)
 
@@ -23,7 +25,6 @@ class AllClubReport(models.AbstractModel):
 
     @api.model
     def _get_report_values(self, docids, data=None):
-        club_name = data['club_name']
 
         query = """select school_club.id, school_club.name as club_name , student_registration.first_name as student_name,
          student_registration.name as admission_no, student_registration.gender as gender, school_class.name as 
@@ -34,16 +35,16 @@ class AllClubReport(models.AbstractModel):
 
         club_query = "select id,name from school_club"
 
-        if club_name:
-            query += "where school_club.name = '%s'" % club_name
 
         self.env.cr.execute(query)
         report = self.env.cr.dictfetchall()
         self.env.cr.execute(club_query)
         club_name = self.env.cr.dictfetchall()
 
-        return {
-            'docs': report,
-            'select_club_name': club_name,
-            'all_club': club_name
-        }
+        if club_name:
+            return {
+                'docs': report,
+                'all_club': club_name
+            }
+        else:
+            raise ValidationError('No records.....!')

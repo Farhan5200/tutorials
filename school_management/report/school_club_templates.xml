@@ -9,8 +9,11 @@
                         <center>Club Report</center>
                     </h2>
                 </div>
-                <t t-if="club_name">
-                    <h5>Club Name : <span t-esc="club_name"/></h5>
+                <t t-if="selected_club">
+                    <t t-foreach="selected_club" t-as="club_id">
+                        <t t-foreach="all_club" t-as="circle">
+                            <t t-if="club_id == circle['id']">
+                    <h5>Club Name : <span t-esc="circle['name']"/></h5>
                 <table  class="table table-sm o_main_table">
                         <tr>
                             <th>Admission Number</th>
@@ -18,15 +21,20 @@
                             <th>Class</th>
                             <th>Gender</th>
                         </tr>
-                <t t-foreach="docs" t-as="line">
+                    <t t-foreach="docs" t-as="line">
+                        <t t-if="circle['id'] == line['id']">
                     <tr>
                         <td><span t-esc="line['admission_no']"/></td>
                         <td><span t-esc="line['student_name']"/></td>
                         <td><span t-esc="line['class_name']"/></td>
                         <td><span t-esc="line['gender']"/></td>
                     </tr>
-                </t>
+                        </t>
+                    </t>
                 </table>
+                            </t>
+                    </t>
+                </t>
                 </t>
                 <t t-else="">
                     <t t-foreach="all_club" t-as="line">

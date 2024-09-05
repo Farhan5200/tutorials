@@ -11,9 +11,10 @@
                 </div>
                 <t t-foreach="docs" t-as="line">
                 <div>
-                    <span>Exam Name : <t t-esc="line['exam_name']"/> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> Start Date
-                        : <t t-esc="line['start_date']"/> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> End Date :
-                        <t t-esc="line['end_date']"/> <![CDATA[&nbsp;]]> <![CDATA[&nbsp;]]> Class : <t t-esc="line['class_name']"/></span>
+                    <span>Class : <t t-esc="line['class_name']"/></span><br/>
+                    <span>Exam Name : <t t-esc="line['exam_name']"/></span><br/>
+                    <span>Start Date : <t t-esc="line['start_date']"/></span><br/>
+                    <span>End Date :<t t-esc="line['end_date']"/> </span>
                 </div>
                 <table  class="table table-sm o_main_table">
                         <tr>

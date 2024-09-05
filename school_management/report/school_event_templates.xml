@@ -5,18 +5,35 @@
             <t t-call="web.external_layout">
                 <div class="page">
                     <div class="oe_structure"/>
-                    <h2>
+                    <h2 style="font-weight: bold;">
                         <center>Event Report</center>
                     </h2>
                 </div>
                 <t t-if="report_type['event_start_date'] != 'custom'">
                 <div>
-                    <span>Report Type : <t t-esc="report_type['report_type']"/></span>
+                    <span>Report Type : <t t-esc="report_type['report_type']"/></span><br/>
+                    <t t-if="report_type['event_start_date'] != 'this_day'">
+                    <span>From : <t t-esc="dates['from_date']"/></span><br/>
+                    <span>To : <t t-esc="dates['to_date']"/></span>
+                    </t>
+                    <t t-if="report_type['event_start_date'] == 'this_day'">
+                        <span>Date : <t t-esc="dates['current_date']"/></span>
+                    </t>
                 </div>
                 </t>
                 <t t-if="report_type['event_start_date'] == 'custom'">
                     <div>
-                        <span>Report Type : Custom Report</span>
+                        <span>Report Type : Custom Report</span><br/>
+                        <t t-if="dates['from_date'] and not dates['to_date']">
+                        <span>From : <t t-esc="dates['from_date']"/></span>
+                        </t>
+                        <t t-if="dates['to_date'] and not dates['from_date']">
+                        <span>Upto : <t t-esc="dates['to_date']"/></span>
+                        </t>
+                        <t t-if="dates['from_date'] and dates['to_date']">
+                            <span>From : <t t-esc="dates['from_date']"/></span><br/>
+                            <span>To : <t t-esc="dates['to_date']"/></span>
+                        </t>
                     </div>
                 </t>
                 <table  class="table table-sm o_main_table">
@@ -39,7 +56,18 @@
                                 </t>
                             </t>
                         </td>
-                        <td><span t-esc="line['status']"/></td>
+                        <t t-if="line['status'] == 'draft'">
+                        <td>Draft</td>
+                        </t>
+                        <t t-if="line['status'] == 'announced'">
+                        <td>Announced</td>
+                        </t>
+                        <t t-if="line['status'] == 'canceled'">
+                        <td>Canceled</td>
+                        </t>
+                        <t t-if="line['status'] == 'done'">
+                        <td>Done</td>
+                        </t>
                     </tr>
                 </t>
                 </table>
