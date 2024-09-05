@@ -6,7 +6,7 @@
         <field name="model">school.event.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
             <field name="report_name">school_management.report_event</field>
-<!--        <field name="report_file">school_event_reports.report_event</field>-->
+        <field name="report_file">school_event_report</field>
         <field name="binding_model_id" ref="school_management.model_school_event_report_wizard"/>
         <field name="binding_type">report</field>
     </record>
@@ -16,7 +16,7 @@
         <field name="model">school.club.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
             <field name="report_name">school_management.report_club</field>
-<!--        <field name="report_file">school_event_reports.report_event</field>-->
+        <field name="report_file">school_club_report</field>
         <field name="binding_model_id" ref="school_management.model_school_club_report_wizard"/>
         <field name="binding_type">report</field>
     </record>
@@ -26,7 +26,7 @@
         <field name="model">school.exam.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
             <field name="report_name">school_management.report_exam</field>
-<!--        <field name="report_file">school_event_reports.report_event</field>-->
+        <field name="report_file">school_exam_report</field>
         <field name="binding_model_id" ref="school_management.model_school_exam_report_wizard"/>
         <field name="binding_type">report</field>
     </record>
@@ -36,7 +36,7 @@
         <field name="model">school.leave.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
             <field name="report_name">school_management.report_leave</field>
-<!--        <field name="report_file">school_event_reports.report_event</field>-->
+        <field name="report_file">school_leave_report</field>
         <field name="binding_model_id" ref="school_management.model_school_leave_report_wizard"/>
         <field name="binding_type">report</field>
     </record>
@@ -46,7 +46,7 @@
         <field name="model">school.student.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
             <field name="report_name">school_management.report_student</field>
-<!--        <field name="report_file">school_event_reports.report_event</field>-->
+        <field name="report_file">school_student_report</field>
         <field name="binding_model_id" ref="school_management.model_school_student_report_wizard"/>
         <field name="binding_type">report</field>
     </record>

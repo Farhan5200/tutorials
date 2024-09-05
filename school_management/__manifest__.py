@@ -38,7 +38,7 @@
         'report/school_exam_templates.xml',
         'report/school_leave_templates.xml',
         'report/school_student_templates.xml',
-        'report/school_management_reports.xml',
+        'report/ir_actions_report.xml',
         'wizard/school_event_report_wizard_views.xml',
         'wizard/school_club_report_wizard_views.xml',
         'wizard/school_exam_report_wizard_views.xml',
