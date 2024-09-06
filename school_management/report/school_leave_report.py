@@ -6,11 +6,15 @@ from odoo.tools import date_utils
 
 
 class SchoolLeaveReport(models.AbstractModel):
+    """For passing values to the leave report"""
+
     _name = "report.school_management.report_leave"
     _description = "All leave report"
 
     @api.model
     def _get_report_values(self, docids, data=None):
+        """For passing values to the leave report"""
+
         select_student_name = data['select_student_name']
         select_class_name = data['select_class_name']
         interval = data['interval']

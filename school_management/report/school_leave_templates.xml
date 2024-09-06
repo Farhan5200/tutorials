@@ -38,8 +38,8 @@
                 </t>
                 <table  class="table table-sm o_main_table">
                         <tr>
-                            <th>Student Name</th>
-                            <th>Class Name</th>
+                            <th>Student</th>
+                            <th>Class</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Days</th>

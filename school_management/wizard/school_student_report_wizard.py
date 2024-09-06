@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields,models
-from odoo.exceptions import ValidationError
-from odoo.tools import json
 
 
 class SchoolStudentReportWizard(models.TransientModel):
+    """For student report wizard"""
+
     _name = "school.student.report.wizard"
     _description = "School Student Report Wizard"
 
@@ -19,6 +19,7 @@ class SchoolStudentReportWizard(models.TransientModel):
 
     @api.depends('department_id', 'class_id')
     def _compute_department_id_class_id(self):
+        """Dynamic domain for student_id and class_id"""
         for rec in self:
             if not rec.department_id:
                 rec.class_domain_ids = rec.env['school.class'].search([])
@@ -40,6 +41,8 @@ class SchoolStudentReportWizard(models.TransientModel):
 
 
     def action_print_report(self):
+        """For printing student report"""
+
         data={
             'class_name': self.class_id.name,
             'department_name': self.department_id.name,

@@ -7,8 +7,9 @@
     'description': 'for managing student registration and departments in school',
     'depends': [
         'base',
+        'web',
         'mail',
-        'sale'
+        'sale',
     ],
     'data': [
         'security/school_management_security_groups.xml',
@@ -45,6 +46,9 @@
         'wizard/school_leave_report_wizard_views.xml',
         'wizard/school_student_report_wizard_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': ['school_management/static/src/js/action_manager.js']
+    },
     'application': True,
     'installable': True,
 }

@@ -85,7 +85,7 @@
                             <th>Gender</th>
                         </tr>
                 <t t-foreach="docs" t-as="line">
-                    <t t-if="dep['dep_id'] == line['department_id']">
+                    <t t-if="cls['class_name'] == line['class_name']">
                     <tr>
                         <td><span t-esc="line['admission_no']"/></td>
                         <td><span t-esc="line['name']"/></td>
@@ -183,7 +183,7 @@
                             <th>Gender</th>
                         </tr>
                 <t t-foreach="docs" t-as="line">
-                    <t t-if="dep['dep_id'] == line['department_id'] and dep['dept_name'] == selected_values['selected_department']">
+                    <t t-if="cls['class_name'] == line['class_name'] and dep['dept_name'] == selected_values['selected_department']">
                     <tr>
                         <td><span t-esc="line['admission_no']"/></td>
                         <td><span t-esc="line['name']"/></td>

@@ -11,7 +11,9 @@
                     <field name="exam_domain_ids" invisible="1"/>
                 </group>
                 <footer>
-                    <button name="action_print_report" string="Print" type="object"
+                    <button name="action_print_report_pdf" string="Print PDF" type="object"
+                            class="oe_highlight"/>
+                    <button name="action_print_report_xlsx" string="Print XLSX" type="object"
                             class="oe_highlight"/>
                     <button string="Cancel" special="cancel"/>
                 </footer>

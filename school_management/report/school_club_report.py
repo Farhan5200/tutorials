@@ -6,11 +6,13 @@ from odoo.exceptions import ValidationError
 
 
 class SchoolClubReport(models.AbstractModel):
+    """For passing values to the club report"""
     _name = "report.school_management.report_club"
     _description = "All club report"
 
     @api.model
     def _get_report_values(self, docids, data=None):
+        """For passing values to the club report"""
 
         query = """select school_club.id, school_club.name as club_name , student_registration.first_name as student_name,
          student_registration.name as admission_no, student_registration.gender as gender, school_class.name as 

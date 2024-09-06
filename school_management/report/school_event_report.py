@@ -7,11 +7,15 @@ from odoo.tools import date_utils
 
 
 class SchoolEventReport(models.AbstractModel):
+    """For passing values to the event report"""
+
     _name = "report.school_management.report_event"
     _description = "All event report"
 
     @api.model
     def _get_report_values(self, docids, data=None):
+        """For passing values to the event pdf report"""
+
         select_club_name = data['select_club_name']
         event_start_date = data['event_start_date']
         from_date = data['from_date']
@@ -92,4 +96,3 @@ class SchoolEventReport(models.AbstractModel):
             }
         else:
             raise ValidationError('There are no records matching your condition')
-

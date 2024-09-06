@@ -5,11 +5,15 @@ from odoo.exceptions import ValidationError
 
 
 class SchoolExamReport(models.AbstractModel):
+    """For passing values to the exam report"""
+
     _name = "report.school_management.report_exam"
     _description = "All exam report"
 
     @api.model
     def _get_report_values(self, docids, data=None):
+        """For passing values to the exam report"""
+
         class_name = data['class_name']
         exam_name = data['exam_name']
 
