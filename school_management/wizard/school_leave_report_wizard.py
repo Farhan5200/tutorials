@@ -205,16 +205,25 @@ class SchoolLeaveReportWizard(models.TransientModel):
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
             sheet = workbook.add_worksheet()
             cell_format = workbook.add_format(
+                {'font_size': '10px', 'align': 'center', 'bold': True, 'border':1})
+            top_head = workbook.add_format(
                 {'font_size': '10px', 'align': 'center', 'bold': True})
             head = workbook.add_format(
                 {'align': 'center', 'bold': True, 'font_size': '20px'})
-            txt = workbook.add_format({'font_size': '10px', 'align': 'center'})
+            txt = workbook.add_format({'font_size': '10px', 'align': 'center', 'border':1})
 
-            sheet.merge_range('A1:F6', company_details, cell_format)
-            sheet.merge_range('B7:I8', 'LEAVE REPORT', head)
-            sheet.merge_range('A10:D10', f'Report Type : {report_type["report_type"]}', cell_format)
-            sheet.merge_range('A11:D11', f'From Date : {str(from_date)}', cell_format)
-            sheet.merge_range('F11:H11', f'To Date : {str(to_date)}', cell_format)
+            sheet.merge_range('A1:N6', company_details, cell_format)
+            sheet.merge_range('A7:N8', 'LEAVE REPORT', head)
+            sheet.merge_range('A10:D10', f'Report Type : {report_type["report_type"]}', top_head)
+            if from_date and to_date:
+                sheet.merge_range('A11:D11', f'From Date : {str(from_date)}', top_head)
+                sheet.merge_range('F11:H11', f'To Date : {str(to_date)}', top_head)
+            elif from_date and not to_date:
+                sheet.merge_range('A11:D11', f'From Date : {str(from_date)}', top_head)
+            elif not from_date and to_date:
+                sheet.merge_range('A11:D11', f'Upto : {str(to_date)}', top_head)
+
+
 
             # Heading
             sheet.merge_range('A13:B13', 'Student', cell_format)
@@ -249,5 +258,6 @@ class SchoolLeaveReportWizard(models.TransientModel):
             output.close()
         else:
             raise ValidationError('There are no records matching your condition')
+
 
 

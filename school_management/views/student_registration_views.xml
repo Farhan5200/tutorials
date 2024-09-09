@@ -166,5 +166,11 @@
     <menuitem id="school_management_students_menu" name="Students" parent="school_management_student_menu"
               action="student_students_action"/>
 
-
+<!--    website menu for student registration-->
+    <record id="student_data_menu" model="website.menu">
+        <field name="name">Students</field>
+        <field name="url">/students</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">11</field>
+    </record>
 </odoo>

@@ -131,13 +131,15 @@ class SchoolStudentReportWizard(models.TransientModel):
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
             sheet = workbook.add_worksheet()
             cell_format = workbook.add_format(
-                {'font_size': '12px', 'align': 'center'})
+                {'font_size': '10px', 'bold':True, 'align': 'center', 'border':1})
+            top_txt = workbook.add_format(
+                {'font_size': '12px', 'bold':True, 'align': 'center'})
             head = workbook.add_format(
                 {'align': 'center', 'bold': True, 'font_size': '20px'})
-            txt = workbook.add_format({'font_size': '10px', 'align': 'center'})
+            txt = workbook.add_format({'font_size': '10px', 'align': 'center', 'border':1})
 
             sheet.merge_range('A1:F6', company_details, cell_format)
-            sheet.merge_range('B7:I8', 'STUDENT REPORT', head)
+            sheet.merge_range('A7:F8', 'STUDENT REPORT', head)
 
             if student_name:
                 # Heading
@@ -159,8 +161,8 @@ class SchoolStudentReportWizard(models.TransientModel):
 
             elif department_name and class_name:
                 # Head
-                sheet.merge_range('A10:C10', f'Department Name : {department_name}', cell_format)
-                sheet.merge_range('A11:C11', f'Class Name : {class_name}', cell_format)
+                sheet.merge_range('A10:C10', f'Department Name : {department_name}', top_txt)
+                sheet.merge_range('A11:C11', f'Class Name : {class_name}', top_txt)
                 sheet.merge_range('A13:B13', 'Admission Number', cell_format)
                 sheet.merge_range('C13:D13', 'Name', cell_format)
                 sheet.merge_range('E13:F13', 'Gender', cell_format)
@@ -178,9 +180,9 @@ class SchoolStudentReportWizard(models.TransientModel):
                 for dep in department_details:
                     for cls in class_details:
                         if dep['dep_id'] == cls['department_id']:
-                            sheet.merge_range(f'A{row}:C{row}', f'Department Name : {dep["dept_name"]}', cell_format)
+                            sheet.merge_range(f'A{row}:C{row}', f'Department Name : {dep["dept_name"]}', top_txt)
                             row += 1
-                            sheet.merge_range(f'A{row}:C{row}', f'Class Name : {cls["class_name"]}', cell_format)
+                            sheet.merge_range(f'A{row}:C{row}', f'Class Name : {cls["class_name"]}', top_txt)
                             row += 2
                             sheet.merge_range(f'A{row}:B{row}', 'Admission Number', cell_format)
                             sheet.merge_range(f'C{row}:D{row}', 'Name', cell_format)
@@ -198,9 +200,9 @@ class SchoolStudentReportWizard(models.TransientModel):
                 for dep in department_details:
                     for cls in class_details:
                         if dep['dep_id'] == cls['department_id'] and cls['class_name'] == class_name:
-                            sheet.merge_range(f'A{row}:C{row}', f'Department Name : {dep["dept_name"]}', cell_format)
+                            sheet.merge_range(f'A{row}:C{row}', f'Department Name : {dep["dept_name"]}', top_txt)
                             row += 1
-                            sheet.merge_range(f'A{row}:C{row}', f'Class Name : {cls["class_name"]}', cell_format)
+                            sheet.merge_range(f'A{row}:C{row}', f'Class Name : {cls["class_name"]}', top_txt)
                             row += 2
                             sheet.merge_range(f'A{row}:B{row}', 'Admission Number', cell_format)
                             sheet.merge_range(f'C{row}:D{row}', 'Name', cell_format)
@@ -219,9 +221,9 @@ class SchoolStudentReportWizard(models.TransientModel):
                 for dep in department_details:
                     for cls in class_details:
                         if dep['dep_id'] == cls['department_id'] and dep['dept_name'] == department_name:
-                            sheet.merge_range(f'A{row}:C{row}', f'Department Name : {dep["dept_name"]}', cell_format)
+                            sheet.merge_range(f'A{row}:C{row}', f'Department Name : {dep["dept_name"]}', top_txt)
                             row += 1
-                            sheet.merge_range(f'A{row}:C{row}', f'Class Name : {cls["class_name"]}', cell_format)
+                            sheet.merge_range(f'A{row}:C{row}', f'Class Name : {cls["class_name"]}', top_txt)
                             row += 2
                             sheet.merge_range(f'A{row}:B{row}', 'Admission Number', cell_format)
                             sheet.merge_range(f'C{row}:D{row}', 'Name', cell_format)
@@ -239,3 +241,4 @@ class SchoolStudentReportWizard(models.TransientModel):
             output.close()
         else:
             raise ValidationError('There are no records...!')
+

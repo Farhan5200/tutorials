@@ -67,14 +67,14 @@ class SchoolClubReportWizard(models.TransientModel):
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
             sheet = workbook.add_worksheet()
             cell_format = workbook.add_format(
-                {'font_size': '12px', 'align': 'center'})
+                {'font_size': '10px', 'align': 'center', 'bold':True, 'border':1})
             head = workbook.add_format(
                 {'align': 'center', 'bold': True, 'font_size': '20px'})
-            txt = workbook.add_format({'font_size': '10px', 'align': 'center'})
+            txt = workbook.add_format({'font_size': '10px', 'align': 'center', 'border':1})
 
             row = 9
-            sheet.merge_range('A1:F6', company_details, cell_format)
-            sheet.merge_range('B7:I8', 'CLUB REPORT', head)
+            sheet.merge_range('A1:H6', company_details, cell_format)
+            sheet.merge_range('A7:H8', 'CLUB REPORT', head)
             if selected_club:
                 for selected in selected_club:
                     for all_club in club_name:

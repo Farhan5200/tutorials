@@ -96,15 +96,15 @@ class SchoolExamReportWizard(models.TransientModel):
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
             sheet = workbook.add_worksheet()
             cell_format = workbook.add_format(
-                {'font_size': '12px', 'align': 'center'})
+                {'font_size': '12px', 'align': 'center', 'border':1, 'bold':True})
             head = workbook.add_format(
                 {'align': 'center', 'bold': True, 'font_size': '20px'})
-            txt = workbook.add_format({'font_size': '10px', 'align': 'center'})
-            side = workbook.add_format({'font_size': '12px'})
+            txt = workbook.add_format({'font_size': '10px', 'align': 'center', 'border':1})
+            side = workbook.add_format({'font_size': '10px','bold':True})
 
 
             sheet.merge_range('A1:F6', company_details, cell_format)
-            sheet.merge_range('B7:I8', 'EXAM REPORT', head)
+            sheet.merge_range('A7:F8', 'EXAM REPORT', head)
             row = 9
             for rec in report:
                 row += 1
@@ -134,6 +134,7 @@ class SchoolExamReportWizard(models.TransientModel):
             output.close()
         else:
             raise ValidationError('No records.....!')
+
 
 
 

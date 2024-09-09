@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+<!--event creation page-->
+    <template id="event_creation_website_template" name="Event Creation">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <br/>
+                    <center>
+                        <h3>Event Creation</h3>
+                    </center>
+                    <br/>
+                    <form method="POST" action="/event-creation-success">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <!--                        Name-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="name">
+                                Name *
+                            </label>
+                            <div class="col-sm">
+                                <input id="name" type="text" class="form-control s_website_form_input"
+                                       name="name"
+                                       required="" data-fill-with="name" style="width: 65%"/>
+                                <br/>
+                            </div>
+                        </div>
+
+<!--                        start date-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="start_date">
+                                Start Date *
+                            </label>
+                            <div class="col-sm">
+                                <input id="start_date" type="date" class="form-control s_website_form_input"
+                                       name="start_date"
+                                       required="" data-fill-with="name" style="width: 65%"/>
+                                <br/>
+                            </div>
+                        </div>
+
+<!--                        end date-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="end_date">
+                                End Date *
+                            </label>
+                            <div class="col-sm">
+                                <input id="end_date" type="date" class="form-control s_website_form_input"
+                                       name="end_date"
+                                       required="" data-fill-with="name" style="width: 65%"/>
+                                <br/>
+                            </div>
+                        </div>
+
+<!--                        club-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="club">
+                                Club *
+                            </label>
+                            <div class="col-sm">
+                                <input id="club" type="text" class="form-control s_website_form_input"
+                                       name="club"
+                                       required="" data-fill-with="name" style="width: 65%"/>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <center>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </t>
+    </template>
+
+<!--event details main event menu-->
+    <template id="events_data_website_template" name="Event Details">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <br/>
+                    <center>
+                        <h3>Event Details</h3>
+                    </center>
+                    <br/>
+                </div>
+                <div style="padding: 5px;">
+                    <button onclick="location.href = '/event-creation'" type="button" class="btn btn-primary">Create
+                    </button>
+                </div>
+                <table class="table-striped table">
+                    <thead style="font-size: 23px;">
+                        <tr>
+                            <h6>
+                                <b>
+                                    <th>Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Status</th>
+                                </b>
+                            </h6>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="records" t-as="event">
+                            <tr>
+                                <td>
+                                    <span t-esc="event.name"/>
+                                </td>
+                                <td>
+                                    <span t-esc="event.start_date"/>
+                                </td>
+                                <td>
+                                    <span t-esc="event.end_date"/>
+                                </td>
+                                <td>
+                                    <span t-esc="event.status"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

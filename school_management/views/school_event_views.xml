@@ -66,4 +66,13 @@
     </record>
 
     <menuitem id="school_event_menu" action="school_event_view_action" parent="school_management_root_menu" sequence="6"/>
+
+<!--    Website menu of event-->
+    <record id="events_data_menu" model="website.menu">
+        <field name="name">Events</field>
+        <field name="url">/events</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">13</field>
+    </record>
+
 </odoo>

@@ -153,19 +153,28 @@ class SchoolEventReportWizard(models.TransientModel):
             workbook = xlsxwriter.Workbook(output, {'in_memory': True})
             sheet = workbook.add_worksheet()
             cell_format = workbook.add_format(
-                {'font_size': '12px', 'align': 'center'})
+                {'font_size': '12px', 'align': 'center', 'border':1, 'bold':True})
+            top_head = workbook.add_format(
+                {'font_size': '10px', 'bold':True, 'align': 'center'})
             head = workbook.add_format(
                 {'align': 'center', 'bold': True, 'font_size': '20px'})
-            txt = workbook.add_format({'font_size': '10px', 'align': 'center'})
+            txt = workbook.add_format({'font_size': '10px', 'align': 'center', 'border':1})
 
-            sheet.merge_range('A1:F6', company_details, cell_format)
-            sheet.merge_range('B7:I8', 'EVENT REPORT', head)
-            sheet.merge_range('A10:B10', 'Report Type: ', cell_format)
-            sheet.merge_range('C10:D10', report_type['report_type'], cell_format)
-            sheet.merge_range('A11:B11', 'From Date:', cell_format)
-            sheet.merge_range('C11:D11', from_date, txt)
-            sheet.write('F11', 'To Date:', cell_format)
-            sheet.merge_range('G11:H11', to_date, txt)
+            sheet.merge_range('A1:J6', company_details, cell_format)
+            sheet.merge_range('A7:J8', 'EVENT REPORT', head)
+            sheet.merge_range('A10:B10', 'Report Type: ', top_head)
+            sheet.merge_range('C10:D10', report_type['report_type'], top_head)
+            if from_date and to_date:
+                sheet.merge_range('A11:B11', 'From Date:', top_head)
+                sheet.merge_range('C11:D11', from_date, top_head)
+                sheet.write('F11', 'To Date:', top_head)
+                sheet.merge_range('G11:H11', to_date, top_head)
+            elif from_date and not to_date:
+                sheet.merge_range('A11:B11', 'From Date:', top_head)
+                sheet.merge_range('C11:D11', from_date, top_head)
+            elif not from_date and to_date:
+                sheet.merge_range('A11:B11', 'Upto:', top_head)
+                sheet.merge_range('C11:D11', to_date, top_head)
 
             # Heading
             sheet.merge_range('A13:B13', 'Name', cell_format)
