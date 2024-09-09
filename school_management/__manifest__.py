@@ -52,7 +52,8 @@
         'wizard/school_student_report_wizard_views.xml',
     ],
     'assets': {
-        'web.assets_backend': ['school_management/static/src/js/action_manager.js']
+        'web.assets_backend': ['school_management/static/src/js/action_manager.js'],
+        'web.assets_frontend': ['school_management/static/src/js/event_values.js'],
     },
     'application': True,
     'installable': True,

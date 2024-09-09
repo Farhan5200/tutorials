@@ -19,15 +19,31 @@ class EventCreationWebsiteController(http.Controller):
     @http.route(['/event-creation'], type="http", auth="public", website="True")
     def event_creation(self, **post):
         """goes to event creation menu"""
-        return request.render("school_management.event_creation_website_template")
+        club_rec = request.env['school.club'].search([])
+        values = {
+            'club_rec': club_rec,
+        }
+        return request.render("school_management.event_creation_website_template", values)
 
     @http.route(['/event-creation-success'], type="http", auth="public", website="True")
     def event_creation_success(self, **post):
         """creates event and return to main menu"""
+        club = []
+        club.append(post.get('club'))
         request.env['school.event'].sudo().create({
             'name': post.get('name'),
             'start_date': post.get('start_date'),
             'end_date': post.get('end_date'),
-            'club_ids': post.get('club'),
+            'club_ids': club,
+            'description': post.get('description'),
         })
         return request.redirect("/events")
+
+    @http.route(['/event/<int:id>'], type="http", auth="public", website="True")
+    def event_creation_success(self, id):
+        selected_event = request.env['school.event'].browse(id)
+        values = {
+            'selected_event': selected_event,
+        }
+        return request.render("school_management.selected_event_website_template", values)
+

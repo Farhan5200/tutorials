@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-<!--event creation page-->
+    <!--    selected event form page-->
+    <template id="selected_event_website_template" name="Selected Event">
+        <t t-call="website.layout">
+            <div class="oe_structure">
+                <div class="container">
+                    <span>Event Name : <t t-esc="selected_event.name"/></span><br/><br/>
+                    <span>Start Date : <t t-esc="selected_event.start_date"/></span><br/><br/>
+                    <span>End Date : <t t-esc="selected_event.end_date"/></span><br/><br/>
+                    <span>Club : </span>
+                    <t t-foreach="selected_event.club_ids" t-as="club">
+                    <span><t t-esc="club.name"/>,</span>
+                    </t>
+                    <br/><br/>
+                    <span>Description : <t t-esc="selected_event.description"/></span><br/><br/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--event creation page-->
     <template id="event_creation_website_template" name="Event Creation">
         <t t-call="website.layout">
             <div class="oe_structure">
@@ -28,7 +47,7 @@
                             </div>
                         </div>
 
-<!--                        start date-->
+                        <!--                        start date-->
                         <div class="row s_col_no_resize s_col_no_bgcolor">
                             <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
                                    for="start_date">
@@ -42,7 +61,7 @@
                             </div>
                         </div>
 
-<!--                        end date-->
+                        <!--                        end date-->
                         <div class="row s_col_no_resize s_col_no_bgcolor">
                             <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
                                    for="end_date">
@@ -56,16 +75,35 @@
                             </div>
                         </div>
 
-<!--                        club-->
+                        <!--                        club-->
                         <div class="row s_col_no_resize s_col_no_bgcolor">
                             <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
                                    for="club">
                                 Club *
                             </label>
                             <div class="col-sm">
-                                <input id="club" type="text" class="form-control s_website_form_input"
-                                       name="club"
-                                       required="" data-fill-with="name" style="width: 65%"/>
+                                <select id="club" type="text"
+                                        class="js-example-basic-multiple form-control s_website_form_input"
+                                        name="club"
+                                        required="" data-fill-with="name" style="width: 65%" multiple="multiple">
+                                    <t t-foreach="club_rec" t-as="rec">
+                                        <option t-att-value="rec.id" t-esc="rec.name"/>
+                                    </t>
+                                </select>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <!--                        description-->
+                        <div class="new-get_data row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="description">
+                                Description
+                            </label>
+                            <div class="col-sm">
+                                <textarea id="description" class="form-control s_website_form_input"
+                                          name="description"
+                                          data-fill-with="name" style="width: 65%"/>
                                 <br/>
                             </div>
                         </div>
@@ -79,7 +117,7 @@
         </t>
     </template>
 
-<!--event details main event menu-->
+    <!--event details main event menu-->
     <template id="events_data_website_template" name="Event Details">
         <t t-call="website.layout">
             <div class="oe_structure">
@@ -111,7 +149,7 @@
                         <t t-foreach="records" t-as="event">
                             <tr>
                                 <td>
-                                    <span t-esc="event.name"/>
+                                    <a t-attf-href="/event/{{event.id}}" t-esc="event.name"/>
                                 </td>
                                 <td>
                                     <span t-esc="event.start_date"/>
