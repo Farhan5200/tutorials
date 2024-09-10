@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<!--    <record id="student_registration_thank_you" model="website.page">-->
-<!--        <field name="name">Thanks</field>-->
-<!--        <field name="type">qweb</field>-->
-<!--        <field name="url">/students-form-success</field>-->
-<!--        <field name="website_indexed" eval="False"/>-->
-<!--        <field name="is_published">True</field>-->
-<!--        <field name="key">student_registration_thank_you</field>-->
+    <!--    <record id="student_registration_thank_you" model="website.page">-->
+    <!--        <field name="name">Thanks</field>-->
+    <!--        <field name="type">qweb</field>-->
+    <!--        <field name="url">/students-form-success</field>-->
+    <!--        <field name="website_indexed" eval="False"/>-->
+    <!--        <field name="is_published">True</field>-->
+    <!--        <field name="key">student_registration_thank_you</field>-->
 
-<!--    </record>-->
+    <!--    </record>-->
 
-<!--student creation page-->
+    <!--student creation page-->
     <template id="student_registration_website_template" name="Student Registration">
         <t t-call="website.layout">
             <div class="oe_structure">
@@ -20,7 +20,7 @@
                         <h3>Student Registration</h3>
                     </center>
                     <br/>
-                    <form method="POST" action="/students">
+                    <form method="POST" action="/student-registration-success">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
                         <!--                        First Name-->
@@ -75,14 +75,16 @@
                         </div>
                         <!--                        communication address-->
                         Communication Address
-                        <br/><br/>
+                        <br/>
+                        <br/>
                         <div class="row s_col_no_resize s_col_no_bgcolor">
                             <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
                                    for="communication_street">
                                 Street *
                             </label>
                             <div class="col-sm">
-                                <input id="communication_street" type="text" class="form-control s_website_form_input" name="communication_street"
+                                <input id="communication_street" type="text" class="form-control s_website_form_input"
+                                       name="communication_street"
                                        required="" data-fill-with="name" style="width: 65%"/>
                                 <br/>
                             </div>
@@ -94,7 +96,8 @@
                                 City *
                             </label>
                             <div class="col-sm">
-                                <input id="communication_city" type="text" class="form-control s_website_form_input" name="communication_city"
+                                <input id="communication_city" type="text" class="form-control s_website_form_input"
+                                       name="communication_city"
                                        required="" data-fill-with="name" style="width: 65%"/>
                                 <br/>
                             </div>
@@ -103,26 +106,30 @@
                         <div class="row s_col_no_resize s_col_no_bgcolor">
                             <label class="col-form-label col-sm-auto s_website_form_label" style="width: 300px"
                                    for="permanent_address_same_as_above">
-                                 Permanent address same as above*
+                                Permanent address same as above*
                             </label>
                             <div class="col-sm">
-                                <input id="permanent_address_same_as_above" type="checkbox"  name="permanent_address_same_as_above"
-                                       required="" data-fill-with="name" style="width: 10%" checked="yes"/>
+                                <input id="permanent_address_same_as_above" type="checkbox"
+                                       name="permanent_address_same_as_above"
+                                       style="width: 10%" value="true"/>
                             </div>
                         </div>
 
 
-<!--                        Permanent Address-->
+                        <!--                        Permanent Address-->
+                        <div id="test">
                         Permanent Address
-                        <br/><br/>
-                                                <div class="row s_col_no_resize s_col_no_bgcolor">
+                        <br/>
+                        <br/>
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
                             <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
                                    for="permanent_street">
                                 Street *
                             </label>
                             <div class="col-sm">
-                                <input id="permanent_street" type="text" class="form-control s_website_form_input" name="permanent_street"
-                                        data-fill-with="name" style="width: 65%"/>
+                                <input id="permanent_street" type="text" class="form-control s_website_form_input"
+                                       name="permanent_street"
+                                       data-fill-with="name" style="width: 65%"/>
                                 <br/>
                             </div>
                         </div>
@@ -133,15 +140,33 @@
                                 City *
                             </label>
                             <div class="col-sm">
-                                <input id="permanent_city" type="text" class="form-control s_website_form_input" name="permanent_city"
-                                        data-fill-with="name" style="width: 65%"/>
+                                <input id="permanent_city" type="text" class="form-control s_website_form_input"
+                                       name="permanent_city"
+                                       data-fill-with="name" style="width: 65%"/>
                                 <br/>
                             </div>
                         </div>
+                        </div>
 
+
+<!--                        date of birth-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="date_of_birth">
+                                DOB *
+                            </label>
+                            <div class="col-sm">
+                                <input id="date_of_birth" type="date" class="form-control s_website_form_input"
+                                       name="date_of_birth"
+                                       data-fill-with="name" style="width: 65%"/>
+                                <br/>
+                            </div>
+                        </div>
+                        <div style="padding: 10px;">
                         <center>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </center>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -149,8 +174,7 @@
     </template>
 
 
-
-<!--    all student data page main students menu -->
+    <!--    all student data page main students menu -->
 
     <template id="student_data_website_template" name="Student Details">
         <t t-call="website.layout">
@@ -163,7 +187,9 @@
                     <br/>
                 </div>
                 <div style="padding: 5px;">
-                    <button onclick="location.href = '/student-registration'" type="button" class="btn btn-primary">Create</button>
+                    <button onclick="location.href = '/student-registration'" type="button" class="btn btn-primary">
+                        Create
+                    </button>
                 </div>
                 <table class="table-striped table">
                     <thead style="font-size: 23px;">

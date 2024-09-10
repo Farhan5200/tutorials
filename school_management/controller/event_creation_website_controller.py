@@ -10,8 +10,10 @@ class EventCreationWebsiteController(http.Controller):
     def event_data(self, **post):
        """to pass records of all events to webpage"""
        events_data = request.env['school.event'].sudo().search([])
+       status = dict(request.env['school.event']._fields['status'].selection)
        values = {
-           'records': events_data
+           'records': events_data,
+           'status': status,
        }
        return request.render("school_management.events_data_website_template", values)
 
@@ -29,7 +31,11 @@ class EventCreationWebsiteController(http.Controller):
     def event_creation_success(self, **post):
         """creates event and return to main menu"""
         club = []
-        club.append(post.get('club'))
+        for i in post.get('club_id_storing'):
+            if i == ',':
+                pass
+            else:
+                club.append(int(i))
         request.env['school.event'].sudo().create({
             'name': post.get('name'),
             'start_date': post.get('start_date'),
@@ -39,8 +45,9 @@ class EventCreationWebsiteController(http.Controller):
         })
         return request.redirect("/events")
 
+
     @http.route(['/event/<int:id>'], type="http", auth="public", website="True")
-    def event_creation_success(self, id):
+    def event_details_page(self, id):
         selected_event = request.env['school.event'].browse(id)
         values = {
             'selected_event': selected_event,

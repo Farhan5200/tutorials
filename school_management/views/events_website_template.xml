@@ -5,7 +5,7 @@
     <template id="selected_event_website_template" name="Selected Event">
         <t t-call="website.layout">
             <div class="oe_structure">
-                <div class="container">
+                <div class="container" style="padding: 50px;">
                     <span>Event Name : <t t-esc="selected_event.name"/></span><br/><br/>
                     <span>Start Date : <t t-esc="selected_event.start_date"/></span><br/><br/>
                     <span>End Date : <t t-esc="selected_event.end_date"/></span><br/><br/>
@@ -15,6 +15,8 @@
                     </t>
                     <br/><br/>
                     <span>Description : <t t-esc="selected_event.description"/></span><br/><br/>
+                    <button onclick="location.href = '/events'" type="button" class="btn btn-primary">Back
+                    </button>
                 </div>
             </div>
         </t>
@@ -24,6 +26,7 @@
     <template id="event_creation_website_template" name="Event Creation">
         <t t-call="website.layout">
             <div class="oe_structure">
+                <div class="event_details_test">
                 <div class="container">
                     <br/>
                     <center>
@@ -40,9 +43,9 @@
                                 Name *
                             </label>
                             <div class="col-sm">
-                                <input id="name" type="text" class="form-control s_website_form_input"
+                                <input id="name" type="text" class="name form-control s_website_form_input"
                                        name="name"
-                                       required="" data-fill-with="name" style="width: 65%"/>
+                                       required=""  style="width: 65%"/>
                                 <br/>
                             </div>
                         </div>
@@ -56,7 +59,7 @@
                             <div class="col-sm">
                                 <input id="start_date" type="date" class="form-control s_website_form_input"
                                        name="start_date"
-                                       required="" data-fill-with="name" style="width: 65%"/>
+                                       required=""  style="width: 65%"/>
                                 <br/>
                             </div>
                         </div>
@@ -70,10 +73,11 @@
                             <div class="col-sm">
                                 <input id="end_date" type="date" class="form-control s_website_form_input"
                                        name="end_date"
-                                       required="" data-fill-with="name" style="width: 65%"/>
+                                       required=""  style="width: 65%"/>
                                 <br/>
                             </div>
                         </div>
+                        <br/>
 
                         <!--                        club-->
                         <div class="row s_col_no_resize s_col_no_bgcolor">
@@ -82,10 +86,10 @@
                                 Club *
                             </label>
                             <div class="col-sm">
-                                <select id="club" type="text"
+                                <select id="many2many_club"
                                         class="js-example-basic-multiple form-control s_website_form_input"
                                         name="club"
-                                        required="" data-fill-with="name" style="width: 65%" multiple="multiple">
+                                        required=""  style="width: 65%" multiple="multiple">
                                     <t t-foreach="club_rec" t-as="rec">
                                         <option t-att-value="rec.id" t-esc="rec.name"/>
                                     </t>
@@ -93,6 +97,12 @@
                                 <br/>
                             </div>
                         </div>
+                        <div class="col-sm">
+                                <input id="club_id_storing" type="hidden" class="form-control s_website_form_input"
+                                       name="club_id_storing"
+                                         style="width: 65%"/>
+                                <br/>
+                            </div>
 
                         <!--                        description-->
                         <div class="new-get_data row s_col_no_resize s_col_no_bgcolor">
@@ -103,20 +113,21 @@
                             <div class="col-sm">
                                 <textarea id="description" class="form-control s_website_form_input"
                                           name="description"
-                                          data-fill-with="name" style="width: 65%"/>
+                                           style="width: 65%"/>
                                 <br/>
                             </div>
                         </div>
-
+                        <div style="padding: 10px;">
                         <center>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" id="event_creation_submit_btn" class="btn btn-primary">Submit</button>
                         </center>
+                        </div>
                     </form>
                 </div>
             </div>
+            </div>
         </t>
     </template>
-
     <!--event details main event menu-->
     <template id="events_data_website_template" name="Event Details">
         <t t-call="website.layout">
@@ -137,6 +148,7 @@
                         <tr>
                             <h6>
                                 <b>
+                                    <th style="display:none;">Id</th>
                                     <th>Name</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
@@ -147,9 +159,13 @@
                     </thead>
                     <tbody>
                         <t t-foreach="records" t-as="event">
-                            <tr>
+<!--                            <a t-attf-href="/event/{{event.id}}">-->
+                            <tr class="events_table_row">
+                                <td style="display:none;">
+                                    <span t-esc="event.id"/>
+                                </td>
                                 <td>
-                                    <a t-attf-href="/event/{{event.id}}" t-esc="event.name"/>
+                                    <span t-esc="event.name"/>
                                 </td>
                                 <td>
                                     <span t-esc="event.start_date"/>
@@ -158,9 +174,10 @@
                                     <span t-esc="event.end_date"/>
                                 </td>
                                 <td>
-                                    <span t-esc="event.status"/>
+                                    <span t-esc="status[event.status]"/>
                                 </td>
                             </tr>
+<!--                            </a>-->
                         </t>
                     </tbody>
                 </table>
@@ -168,3 +185,4 @@
         </t>
     </template>
 </odoo>
+

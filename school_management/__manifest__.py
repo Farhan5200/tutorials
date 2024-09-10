@@ -28,6 +28,7 @@
         'views/sale_order_views.xml',
         'views/student_registration_website_template.xml',
         'views/events_website_template.xml',
+        'views/leaves_website_template.xml',
         # data
         'data/mail_template_data.xml',
         'data/cron_data.xml',
@@ -53,7 +54,10 @@
     ],
     'assets': {
         'web.assets_backend': ['school_management/static/src/js/action_manager.js'],
-        'web.assets_frontend': ['school_management/static/src/js/event_values.js'],
+        'web.assets_frontend': ['school_management/static/src/js/event_values.js',
+                                'school_management/static/src/js/student_registration_values.js',
+                                'school_management/static/src/js/leave_values.js',
+                                ],
     },
     'application': True,
     'installable': True,

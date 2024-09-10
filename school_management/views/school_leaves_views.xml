@@ -53,4 +53,13 @@
 
     <menuitem id="school_leave_menu" name="Leaves" action="school_leaves_view_action"
               parent="school_management_root_menu" sequence="3"/>
+
+<!--    Website menu of leaves-->
+    <record id="leaves_data_menu" model="website.menu">
+        <field name="name">Leaves</field>
+        <field name="url">/leaves</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">12</field>
+    </record>
+
 </odoo>

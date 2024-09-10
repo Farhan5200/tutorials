@@ -20,9 +20,10 @@ class StudentRegistrationWebsiteController(http.Controller):
         """goes to student creation menu"""
         return request.render("school_management.student_registration_website_template")
 
-    @http.route(['/contactus-thank-you'], type="http", auth="public", website="True")
+    @http.route(['/student-registration-success'], type="http", auth="public", website="True")
     def student_create(self, **post):
         """creates student and return to main menu"""
+        print(post)
         request.env['student.registration'].sudo().create({
             'first_name': post.get('first_name'),
             'last_name': post.get('last_name'),
@@ -33,5 +34,6 @@ class StudentRegistrationWebsiteController(http.Controller):
             'same_as_communication': post.get('permanent_address_same_as_above'),
             'permanent_street': post.get('permanent_street'),
             'permanent_city': post.get('permanent_city'),
+            'date_of_birth': post.get('date_of_birth'),
         })
         return request.redirect('/students')

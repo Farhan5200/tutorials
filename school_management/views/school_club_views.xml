@@ -38,4 +38,5 @@
 
     <menuitem id="school_club_menu" action="school_club_view_action" parent="school_management_root_menu"
               groups="school_management_teacher,school_management_office_staff" sequence="5"/>
+
 </odoo>
