@@ -1,5 +1,22 @@
 /** @odoo-module */
 import publicWidget from "@web/legacy/js/public/public_widget";
+import { jsonrpc } from "@web/core/network/rpc_service";
+//var TestController = PublicWidget.Widget.extend({
+//   willStart: async function () {
+//           const data = await jsonrpc('/event/delete', {})
+//       },
+//});
+
+//var ajax = require('web.ajax');
+
+$('#event_creation_test_btn').click(function(){
+    jsonrpc('/event/delete', {
+    'id':8
+    }).then(function(data){
+    console.log(data)
+    })
+})
+
 
 //takes clicked event id and creates a redirect link
 $('.events_table_row').click(function(){

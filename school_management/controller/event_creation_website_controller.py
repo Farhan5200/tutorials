@@ -54,3 +54,9 @@ class EventCreationWebsiteController(http.Controller):
         }
         return request.render("school_management.selected_event_website_template", values)
 
+    @http.route(['/event/delete'], type='json',  auth="public")
+    def event_delete(self, **kwargs):
+        # te = kwargs.get('id')
+        # teo = request.env['school.event'].sudo().browse(te)
+        # teo.unlink()
+        return 'nazil'

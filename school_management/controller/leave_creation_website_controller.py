@@ -36,10 +36,27 @@ class LeaveCreationWebsiteController(http.Controller):
     @http.route(['/leave-creation-success'], type="http", auth="public", website="True")
     def leave_creation_success_page(self, **post):
         print(post)
-        # request.env['school.leaves'].create({
-        #     'student_id': post.get('many2one_student'),
-        #     'start_date': post.get('leave_start_date'),
-        #     'end_date': post.get('leave_end_date'),
-        #     'reason': post.get('leave_reason')
-        # })
+        if post.get('leave_half_day'):
+            request.env['school.leaves'].create({
+                'student_id': post.get('many2one_student'),
+                'start_date': post.get('leave_start_date'),
+                'half_day': True,
+                'fn_or_an': post.get('leave_an_or_fn'),
+                'reason': post.get('leave_reason')
+            })
+        else:
+            request.env['school.leaves'].create({
+                'student_id': post.get('many2one_student'),
+                'start_date': post.get('leave_start_date'),
+                'end_date': post.get('leave_end_date'),
+                'half_day': False,
+                'reason': post.get('leave_reason')
+            })
         return request.redirect("/leaves")
+
+    @http.route(['/leave/class'], type='json',  auth="public")
+    def leave_class(self, **kwargs):
+        student_id = int(kwargs.get('id'))
+        selected_class = request.env['student.registration'].browse(student_id).current_class_id.name
+        return selected_class
+

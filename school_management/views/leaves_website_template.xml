@@ -24,10 +24,26 @@
                                 <select id="many2one_student" class="many2one_student form-control s_website_form_input"
                                         name="many2one_student"
                                         required="" style="width: 65%">
+                                    <option> </option>
                                     <t t-foreach="student_rec" t-as="rec">
                                         <option t-att-value="rec.id" t-esc="rec.first_name"/>
                                     </t>
                                 </select>
+                                <br/>
+                            </div>
+                        </div>
+
+<!--                        class-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="many2one_class">
+                                Class
+                            </label>
+                            <div class="col-sm">
+                                <input id="many2one_class" class="many2one_class form-control s_website_form_input"
+                                        name="many2one_class"
+                                        required="" style="width: 65%" readonly="1">
+                                </input>
                                 <br/>
                             </div>
                         </div>
@@ -49,19 +65,17 @@
 <!--                        end date-->
                         <div class="row s_col_no_resize s_col_no_bgcolor">
                             <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
-                                   for="leave_end_date">
+                                   for="leave_end_date" id="leave_end_date_label">
                                 End Date *
                             </label>
                             <div class="col-sm">
                                 <input id="leave_end_date" type="date" class="leave_end_date form-control s_website_form_input"
                                        name="leave_end_date"
                                        required="" style="width: 65%"/>
-                                <br/>
+                                <div id="leave_date_validation" class="col-sm" style="color:DarkRed;">
+                                </div>
                             </div>
-                        </div>
-<!--                        <div>-->
-<!--                            <label id="#leave_date_validation"></label>-->
-<!--                        </div>-->
+                        </div><br/>
 
 <!--                        total days-->
                         <div class="row s_col_no_resize s_col_no_bgcolor">
@@ -83,20 +97,20 @@
                                 Half Day *
                             </label>
                             <div class="col-sm">
-                                <input id="leave_half_day" type="checkbox" style="width: 10%" name="leave_half_day" checked="yes"/>
+                                <input id="leave_half_day" type="checkbox" style="width: 10%" name="leave_half_day"/>
                                 <br/>
                             </div>
                         </div>
 
 <!--                        an/fn-->
                          <div class="row s_col_no_resize s_col_no_bgcolor">
-                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px; display:none;"
                                    for="leave_an_or_fn" id="leave_an_or_fn_label">
                                 FN/AN *
                             </label>
                             <div class="col-sm">
                                 <select id="leave_an_or_fn" class="leave_an_or_fn form-control s_website_form_input"
-                                        style="width: 65%" name="leave_an_or_fn">
+                                            style="width: 65%; display:none;" name="leave_an_or_fn">
                                         <option value="fn">FN</option>
                                         <option value="an">AN</option>
                                 </select>

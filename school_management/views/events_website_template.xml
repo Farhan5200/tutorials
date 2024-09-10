@@ -17,6 +17,7 @@
                     <span>Description : <t t-esc="selected_event.description"/></span><br/><br/>
                     <button onclick="location.href = '/events'" type="button" class="btn btn-primary">Back
                     </button>
+                    <button id="event_creation_test_btn" class="btn btn-primary">Test</button>
                 </div>
             </div>
         </t>
