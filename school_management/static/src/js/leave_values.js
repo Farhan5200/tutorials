@@ -2,7 +2,6 @@
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { jsonrpc } from "@web/core/network/rpc_service";
 
-var check_date
 
 //to get class corresponding to student
 $('#many2one_student').change(function(){
@@ -22,7 +21,6 @@ $('.leave_details_table_row').click(function(){
 
 //to calculate total days
 function calculate_total_days(){
-    check_date = 0
     var start_date = new Date($('#leave_start_date').val())
     var end_date = new Date($('#leave_end_date').val())
     var start_date_milli = start_date.getTime()
@@ -30,13 +28,11 @@ function calculate_total_days(){
     var total_days = (((end_date_milli - start_date_milli)/86400000)+1)
     if (total_days < 1){
     $('#leave_total_days').val(0)
-    $('#leave_date_validation').text('start is greater than this')
-    check_date = 1
+    $('#leave_date_validation').text('Start date is greater than end date...!')
     }
     else{
     $('#leave_total_days').val(total_days)
     $('#leave_date_validation').text('')
-    check_date = 0
     }
 }
 
@@ -57,16 +53,6 @@ $("#leave_half_day").change(function() {
         }
     });
 
-//$('#leave_creation_submit_btn').click(function(e){
-//e.preventDefault();
-//if (check_date == 0){
-//window.location = '/leave-creation-success'
-//}
-//else{
-//alert('check all fields')
-//}
-//})
-
 
 $('#leave_start_date').change(function(){
    calculate_total_days()
@@ -74,6 +60,10 @@ $('#leave_start_date').change(function(){
 $('#leave_end_date').change(function(){
    calculate_total_days()
 })
+
+
+
+
 
 
 

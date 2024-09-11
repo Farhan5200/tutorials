@@ -6,18 +6,115 @@
         <t t-call="website.layout">
             <div class="oe_structure">
                 <div class="container" style="padding: 50px;">
-                    <span>Event Name : <t t-esc="selected_event.name"/></span><br/><br/>
-                    <span>Start Date : <t t-esc="selected_event.start_date"/></span><br/><br/>
-                    <span>End Date : <t t-esc="selected_event.end_date"/></span><br/><br/>
-                    <span>Club : </span>
-                    <t t-foreach="selected_event.club_ids" t-as="club">
-                    <span><t t-esc="club.name"/>,</span>
-                    </t>
-                    <br/><br/>
-                    <span>Description : <t t-esc="selected_event.description"/></span><br/><br/>
-                    <button onclick="location.href = '/events'" type="button" class="btn btn-primary">Back
-                    </button>
-                    <button id="event_creation_test_btn" class="btn btn-primary">Test</button>
+                    <form method="POST" action="/event/update">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="event_show_name">
+                                Event Name *
+                            </label>
+                            <div class="col-sm">
+                                <input id="event_show_name" type="text"
+                                       class="event_show_page form-control s_website_form_input"
+                                       name="event_show_name"
+                                       required="" style="width: 65%" t-att-value="selected_event.name" readonly="1"/>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <!--                    start date-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="event_show_start_date">
+                                Start Date *
+                            </label>
+                            <div class="col-sm">
+                                <input id="event_show_start_date" type="date"
+                                       class="event_show_page form-control s_website_form_input"
+                                       name="event_show_start_date"
+                                       required="" style="width: 65%" t-att-value="selected_event.start_date"
+                                       readonly="1"/>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <!--                    end date-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="event_show_end_date">
+                                Start Date *
+                            </label>
+                            <div class="col-sm">
+                                <input id="event_show_end_date" type="date"
+                                       class="event_show_page form-control s_website_form_input"
+                                       name="event_show_end_date"
+                                       required="" style="width: 65%" t-att-value="selected_event.end_date"
+                                       readonly="1"/>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <!--                    club-->
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px;"
+                                   for="event_show_club" id="event_show_club_label">
+                                Club *
+                            </label>
+                            <div class="col-sm">
+                                <select id="event_show_club"
+                                        class="js-example-basic-multiple form-control s_website_form_input"
+                                        name="event_show_club"
+                                        required="" style="width: 65%;" multiple="multiple" disabled="true">
+                                    <t t-foreach="club_rec" t-as="rec">
+                                        <t t-foreach="selected_event.club_ids" t-as="selected_club_id">
+                                            <t t-if="selected_club_id.id == rec.id">
+                                                <option t-att-value="rec.id" t-esc="rec.name" selected="1"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="rec.id not in selected_event.club_ids.ids">
+                                                <option t-att-value="rec.id" t-esc="rec.name"/>
+                                            </t>
+                                    </t>
+                                </select>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <input id="event_show_club_id_storing" type="text" class="form-control s_website_form_input"
+                                   name="event_show_club_id_storing"
+                                   style="width: 65%; display:none;"/>
+                            <br/>
+                        </div>
+
+                        <!--                    description-->
+                        <div class="new-get_data row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                   for="event_show_description">
+                                Description
+                            </label>
+                            <div class="col-sm">
+                                <textarea id="event_show_description"
+                                          class="event_show_page form-control s_website_form_input"
+                                          name="description"
+                                          style="width: 65%" readonly="1">
+                                    <t t-esc="description"/>
+                                </textarea>
+                                <br/>
+                            </div>
+                        </div>
+
+                        <input t-att-value="selected_event.id" name='selected_event_id' id="selected_event_id_del"
+                               style="display:none;"/>
+                        <button id="event_creation_save_btn" class="btn btn-primary" type="submit"
+                                style="display:none;">Save
+                        </button>
+                    </form>
+                    <center>
+                        <button id="event_creation_update_btn" class="btn btn-primary">Edit</button>
+                        <button id="event_creation_delete_btn" class="btn btn-primary">Delete</button>
+                        <button onclick="location.href = '/events'" type="button" class="btn btn-primary">Back</button>
+                    </center>
                 </div>
             </div>
         </t>
@@ -28,107 +125,111 @@
         <t t-call="website.layout">
             <div class="oe_structure">
                 <div class="event_details_test">
-                <div class="container">
-                    <br/>
-                    <center>
-                        <h3>Event Creation</h3>
-                    </center>
-                    <br/>
-                    <form method="POST" action="/event-creation-success">
-                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-
-                        <!--                        Name-->
-                        <div class="row s_col_no_resize s_col_no_bgcolor">
-                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
-                                   for="name">
-                                Name *
-                            </label>
-                            <div class="col-sm">
-                                <input id="name" type="text" class="name form-control s_website_form_input"
-                                       name="name"
-                                       required=""  style="width: 65%"/>
-                                <br/>
-                            </div>
-                        </div>
-
-                        <!--                        start date-->
-                        <div class="row s_col_no_resize s_col_no_bgcolor">
-                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
-                                   for="start_date">
-                                Start Date *
-                            </label>
-                            <div class="col-sm">
-                                <input id="start_date" type="date" class="form-control s_website_form_input"
-                                       name="start_date"
-                                       required=""  style="width: 65%"/>
-                                <br/>
-                            </div>
-                        </div>
-
-                        <!--                        end date-->
-                        <div class="row s_col_no_resize s_col_no_bgcolor">
-                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
-                                   for="end_date">
-                                End Date *
-                            </label>
-                            <div class="col-sm">
-                                <input id="end_date" type="date" class="form-control s_website_form_input"
-                                       name="end_date"
-                                       required=""  style="width: 65%"/>
-                                <br/>
-                            </div>
-                        </div>
+                    <div class="container">
                         <br/>
+                        <center>
+                            <h3>Event Creation</h3>
+                        </center>
+                        <br/>
+                        <form method="POST" action="/event-creation-success">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
 
-                        <!--                        club-->
-                        <div class="row s_col_no_resize s_col_no_bgcolor">
-                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
-                                   for="club">
-                                Club *
-                            </label>
-                            <div class="col-sm">
-                                <select id="many2many_club"
-                                        class="js-example-basic-multiple form-control s_website_form_input"
-                                        name="club"
-                                        required=""  style="width: 65%" multiple="multiple">
-                                    <t t-foreach="club_rec" t-as="rec">
-                                        <option t-att-value="rec.id" t-esc="rec.name"/>
-                                    </t>
-                                </select>
-                                <br/>
+                            <!--                        Name-->
+                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                       for="name">
+                                    Name *
+                                </label>
+                                <div class="col-sm">
+                                    <input id="name" type="text" class="name form-control s_website_form_input"
+                                           name="name"
+                                           required="" style="width: 65%"/>
+                                    <br/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm">
+
+                            <!--                        start date-->
+                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                       for="start_date">
+                                    Start Date *
+                                </label>
+                                <div class="col-sm">
+                                    <input id="start_date" type="date" class="form-control s_website_form_input"
+                                           name="start_date"
+                                           required="" style="width: 65%"/>
+                                    <br/>
+                                </div>
+                            </div>
+
+                            <!--                        end date-->
+                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                       for="end_date">
+                                    End Date *
+                                </label>
+                                <div class="col-sm">
+                                    <input id="end_date" type="date" class="form-control s_website_form_input"
+                                           name="end_date"
+                                           required="" style="width: 65%"/>
+                                    <br/>
+                                </div>
+                            </div>
+                            <br/>
+
+                            <!--                        club-->
+                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                       for="club">
+                                    Club *
+                                </label>
+                                <div class="col-sm">
+                                    <select id="many2many_club"
+                                            class="js-example-basic-multiple form-control s_website_form_input"
+                                            name="club"
+                                            required="" style="width: 65%" multiple="multiple">
+                                        <t t-foreach="club_rec" t-as="rec">
+                                            <option t-att-value="rec.id" t-esc="rec.name"/>
+                                        </t>
+                                    </select>
+                                    <br/>
+                                </div>
+                            </div>
+                            <div class="col-sm">
                                 <input id="club_id_storing" type="hidden" class="form-control s_website_form_input"
                                        name="club_id_storing"
-                                         style="width: 65%"/>
+                                       style="width: 65%"/>
                                 <br/>
                             </div>
 
-                        <!--                        description-->
-                        <div class="new-get_data row s_col_no_resize s_col_no_bgcolor">
-                            <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
-                                   for="description">
-                                Description
-                            </label>
-                            <div class="col-sm">
-                                <textarea id="description" class="form-control s_website_form_input"
-                                          name="description"
-                                           style="width: 65%"/>
-                                <br/>
+                            <!--                        description-->
+                            <div class="new-get_data row s_col_no_resize s_col_no_bgcolor">
+                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                       for="description">
+                                    Description
+                                </label>
+                                <div class="col-sm">
+                                    <textarea id="description" class="form-control s_website_form_input"
+                                              name="description"
+                                              style="width: 65%"/>
+                                    <br/>
+                                </div>
                             </div>
-                        </div>
-                        <div style="padding: 10px;">
-                        <center>
-                            <button type="submit" id="event_creation_submit_btn" class="btn btn-primary">Submit</button>
-                        </center>
-                        </div>
-                    </form>
+                            <div style="padding: 10px;">
+                                <center>
+                                    <button type="submit" id="event_creation_submit_btn" class="btn btn-primary">
+                                        Submit
+                                    </button>
+                                </center>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
             </div>
         </t>
     </template>
+
+
     <!--event details main event menu-->
     <template id="events_data_website_template" name="Event Details">
         <t t-call="website.layout">
@@ -160,25 +261,27 @@
                     </thead>
                     <tbody>
                         <t t-foreach="records" t-as="event">
-<!--                            <a t-attf-href="/event/{{event.id}}">-->
-                            <tr class="events_table_row">
+                            <tr>
                                 <td style="display:none;">
                                     <span t-esc="event.id"/>
                                 </td>
-                                <td>
+                                <td class="events_table_row">
                                     <span t-esc="event.name"/>
                                 </td>
-                                <td>
+                                <td class="events_table_row">
                                     <span t-esc="event.start_date"/>
                                 </td>
-                                <td>
+                                <td class="events_table_row">
                                     <span t-esc="event.end_date"/>
                                 </td>
-                                <td>
+                                <td class="events_table_row">
                                     <span t-esc="status[event.status]"/>
                                 </td>
+                                <td>
+                                    <span style="display:none;"><t t-esc="event.id"/></span>
+                                    <button id="event_creation_row_delete_btn" class="event_creation_row_delete_btn btn btn-primary">Delete</button>
+                                </td>
                             </tr>
-<!--                            </a>-->
                         </t>
                     </tbody>
                 </table>
