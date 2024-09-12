@@ -35,7 +35,6 @@ class LeaveCreationWebsiteController(http.Controller):
 
     @http.route(['/leave-creation-success'], type="http", auth="public", website="True")
     def leave_creation_success_page(self, **post):
-        print(post)
         if post.get('leave_half_day'):
             request.env['school.leaves'].create({
                 'student_id': post.get('many2one_student'),
@@ -59,4 +58,6 @@ class LeaveCreationWebsiteController(http.Controller):
         student_id = int(kwargs.get('id'))
         selected_class = request.env['student.registration'].browse(student_id).current_class_id.name
         return selected_class
+
+
 

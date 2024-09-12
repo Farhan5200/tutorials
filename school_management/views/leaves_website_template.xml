@@ -4,6 +4,7 @@
     <!--    leave creation page-->
     <template id="leave_creation_website_template" name="Leave Creation">
         <t t-call="website.layout">
+            <div class="for_js_selector">
             <div class="oe_structure">
                 <div class="container">
                     <br/>
@@ -71,7 +72,7 @@
                             <div class="col-sm">
                                 <input id="leave_end_date" type="date" class="leave_end_date form-control s_website_form_input"
                                        name="leave_end_date"
-                                       required="" style="width: 65%"/>
+                                       style="width: 65%"/>
                                 <div id="leave_date_validation" class="col-sm" style="color:DarkRed;">
                                 </div>
                             </div>
@@ -138,6 +139,7 @@
                     </form>
                 </div>
             </div>
+            </div>
         </t>
     </template>
 
@@ -146,9 +148,11 @@
         <t t-call="website.layout">
             <div class="oe_structure" style="padding: 50px;">
                 <div class="container">
-                    <span>Student :
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                    <h5 class="card-title">
                         <t t-esc="selected_leave.student_id.first_name"/>
-                    </span>
+                    </h5>
                     <br/>
                     <br/>
                     <span>Class :
@@ -190,6 +194,8 @@
                     <br/>
                     <button onclick="location.href = '/leaves'" type="button" class="btn btn-primary">Back
                     </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </t>
@@ -199,21 +205,22 @@
     <!--leave details main leave menu-->
     <template id="leaves_data_website_template" name="Leave Details">
         <t t-call="website.layout">
+            <div class="for_row_selector">
             <div class="oe_structure">
-                <div class="container">
-                    <br/>
+                <div class="container" style="padding:25px;">
                     <center>
                         <h3>Leave Details</h3>
                     </center>
                     <br/>
                 </div>
+                <div class="container">
                 <div style="padding: 5px;">
                     <button onclick="location.href = '/leave-creation'" type="button" class="btn btn-primary">Create
                     </button>
                 </div>
-                <table class="table-striped table">
+                <table class="table-striped table" border="1">
                     <thead style="font-size: 23px;">
-                        <tr>
+                        <tr class="row_head">
                             <h6>
                                 <b>
                                     <th style="display: none;">Id</th>
@@ -251,6 +258,8 @@
                         </t>
                     </tbody>
                 </table>
+                </div>
+                </div>
             </div>
         </t>
     </template>

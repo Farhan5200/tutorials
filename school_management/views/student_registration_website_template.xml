@@ -92,6 +92,7 @@
     <template id="student_registration_website_template" name="Student Registration">
         <t t-call="website.layout">
             <div class="oe_structure">
+                <div class="student_creation_selector">
                 <div class="container">
                     <br/>
                     <center>
@@ -314,6 +315,7 @@
                         </div>
                     </form>
                 </div>
+                </div>
             </div>
         </t>
     </template>
@@ -324,6 +326,7 @@
     <template id="student_data_website_template" name="Student Details">
         <t t-call="website.layout">
             <div class="oe_structure">
+                <div class="student_table_row">
                 <div class="container">
                     <br/>
                     <center>
@@ -376,6 +379,7 @@
                         </t>
                     </tbody>
                 </table>
+                </div>
             </div>
         </t>
     </template>

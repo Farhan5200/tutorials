@@ -1,0 +1,9 @@
+input[type=text]:hover{
+    border:1px solid;
+}
+input[type=email]:hover{
+    border:1px solid;
+}
+input[type=date]:hover{
+    border:1px solid;
+}

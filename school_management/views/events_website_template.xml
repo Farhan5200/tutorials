@@ -5,6 +5,7 @@
     <template id="selected_event_website_template" name="Selected Event">
         <t t-call="website.layout">
             <div class="oe_structure">
+            <div class="event_details_selector">
                 <div class="container" style="padding: 50px;">
                     <form method="POST" action="/event/update">
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
@@ -62,7 +63,7 @@
                             </label>
                             <div class="col-sm">
                                 <select id="event_show_club"
-                                        class="js-example-basic-multiple form-control s_website_form_input"
+                                        class="many2many_select form-control s_website_form_input"
                                         name="event_show_club"
                                         required="" style="width: 65%;" multiple="multiple" disabled="true">
                                     <t t-foreach="club_rec" t-as="rec">
@@ -77,7 +78,7 @@
                                     </t>
                                 </select>
                                 <br/>
-                            </div>
+                        </div>
                         </div>
 
                         <div class="col-sm">
@@ -117,6 +118,7 @@
                     </center>
                 </div>
             </div>
+            </div>
         </t>
     </template>
 
@@ -124,7 +126,7 @@
     <template id="event_creation_website_template" name="Event Creation">
         <t t-call="website.layout">
             <div class="oe_structure">
-                <div class="event_details_test">
+                <div class="event_creation_selector">
                     <div class="container">
                         <br/>
                         <center>
@@ -225,7 +227,7 @@
                         </form>
                     </div>
                 </div>
-            </div>
+                </div>
         </t>
     </template>
 
@@ -234,6 +236,7 @@
     <template id="events_data_website_template" name="Event Details">
         <t t-call="website.layout">
             <div class="oe_structure">
+                <div class="event_main_menu_row_selector">
                 <div class="container">
                     <br/>
                     <center>
@@ -285,6 +288,7 @@
                         </t>
                     </tbody>
                 </table>
+                </div>
             </div>
         </t>
     </template>

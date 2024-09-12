@@ -38,25 +38,29 @@
         'data/school_department_data.xml',
         'data/school_subject_data.xml',
         'data/school_class_data.xml',
-        # report
+        # reports
         'report/school_event_templates.xml',
         'report/school_club_templates.xml',
         'report/school_exam_templates.xml',
         'report/school_leave_templates.xml',
         'report/school_student_templates.xml',
         'report/ir_actions_report.xml',
-        # wizard
+        # wizards
         'wizard/school_event_report_wizard_views.xml',
         'wizard/school_club_report_wizard_views.xml',
         'wizard/school_exam_report_wizard_views.xml',
         'wizard/school_leave_report_wizard_views.xml',
         'wizard/school_student_report_wizard_views.xml',
+        # snippets
+        'views/snippets/s_basic.xml',
+        'views/snippets/snippets.xml',
     ],
     'assets': {
         'web.assets_backend': ['school_management/static/src/js/action_manager.js'],
         'web.assets_frontend': ['school_management/static/src/js/event_values.js',
                                 'school_management/static/src/js/student_registration_values.js',
                                 'school_management/static/src/js/leave_values.js',
+                                'school_management/static/src/css/leave_website.css',
                                 ],
     },
     'application': True,

@@ -56,7 +56,6 @@ class EventCreationWebsiteController(http.Controller):
         club_rec = request.env['school.club'].search([])
         if selected_event.description:
             description = html2text.html2text(selected_event.description)
-        print(selected_event.club_ids.ids)
         values = {
             'selected_event': selected_event,
             'club_rec': club_rec,
@@ -70,7 +69,7 @@ class EventCreationWebsiteController(http.Controller):
         selected_event_id = int(kwargs.get('id'))
         selected_event = request.env['school.event'].sudo().browse(selected_event_id)
         selected_event.unlink()
-        return request.redirect("/events")
+        return True
 
     @http.route(['/event/update'], type="http", auth="public", website="True")
     def event_update(self, **post):
@@ -82,8 +81,6 @@ class EventCreationWebsiteController(http.Controller):
                 pass
             else:
                 club.append(int(rec))
-
-        print(club)
         selected_event.update({
              'name': post.get('event_show_name'),
             'start_date': post.get('event_show_start_date'),

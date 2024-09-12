@@ -30,7 +30,6 @@ class StudentRegistrationWebsiteController(http.Controller):
     @http.route(['/student-registration-success'], type="http", auth="public", website="True")
     def student_create(self, **post):
         """creates student and return to main menu"""
-        print(post)
         request.env['student.registration'].sudo().create({
             'first_name': post.get('first_name'),
             'last_name': post.get('last_name'),
