@@ -12,6 +12,7 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="photo"/>
                             <field name="name"/>
                             <field name="club_ids" widget="many2many_tags"
                                    options="{'no_create': True, 'no_create_edit':True, 'color_field': 'color'}"/>

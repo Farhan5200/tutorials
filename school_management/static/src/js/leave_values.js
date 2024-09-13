@@ -21,7 +21,6 @@ publicWidget.registry.leaveCreationDetails = publicWidget.Widget.extend({
             $('#leave_total_days').val(0.5)
             $("#leave_end_date").hide()
             $('#leave_end_date_label').hide()
-            console.log(this)
         }
         else {
             $('#leave_an_or_fn_label').hide()

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="vehicle_management.repair_order_wise">
+        <div id="top_selling_products_carousel" class="container">
+            <div id="TopuniqueId" class="large-12 columns">
+                    <div class="card-deck" style="display: flex; gap: 20px;">
+                        <t t-foreach="chunkData" t-as="data" t-key="data_index">
+                            <t t-foreach="data" t-as="vals" t-key="vals_index">
+                                <div class="card" style="width: 18rem; height:21rem; display:inline-block;">
+                                    <div class="card-body">
+                                        <div class="image-field" style="height:142px;">
+                                            <t t-if="vals.image == false">
+                                                <img class="card-img-top o_img_product_square o_img_product_cover"
+                                                     t-attf-src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg"
+                                                     style="height:142px;"/>
+                                            </t>
+                                            <t t-else="">
+                                                <img class="card-img-top o_img_product_square o_img_product_cover"
+                                                     t-attf-src="data:image/jpeg;base64,{{vals.image}}" style="height:142px;"/>
+                                            </t>
+                                        </div>
+                                        <div class="data-field">
+                                            <h5 class="card-title text-center" t-esc="vals.name"/>
+                                            <div class="row">
+                                                <h5>Vehicle:</h5>
+                                                <h6 t-esc="vals.vehicle_id[1]"/>
+                                            </div>
+                                            <div class="row">
+                                                <h5>Vehicle number:</h5>
+                                                <h6 t-esc="vals.vehicle_number"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                        <div class="row justify-content-center">
+                            <a type="button" >
+                                <span style='font-size:100px;'>&#8594;</span>
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </t>
+</templates>

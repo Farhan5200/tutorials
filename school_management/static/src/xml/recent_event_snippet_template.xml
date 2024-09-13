@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <t t-name="school_management.recent_event_wise">
+        <div class="container" style="display: flex;">
+            <t t-foreach="result['recent_events']" t-as="value" t-key="val_index">
+                <div class="card-deck snippet" style="width: 18rem; padding:10px; margin:10px; border-radius:10px; box-shadow: 10px 10px 10px 10px  #BCBCCB48;">
+                    <div class="card" style="height:100%;color:white;">
+                    <span style="display:none">
+                        <t t-esc="value.id"/>
+                    </span>
+                    <div class="card-body">
+                        <t t-if="value.photo">
+                        <img class="card-img-top" t-attf-src="data:image/jpeg;base64,{{value.photo}}" style="height:142px;"/>
+                        </t>
+                        <t t-else="">
+                        <img class="card-img-top" src="/school_management/static/src/img/snippets/burfoot.jpeg" alt="Card image cap"/>
+                        </t>
+                        <h5 class="card-title text-center">
+                            <t t-esc="value.name"/>
+                        </h5>
+                        <br/>
+                        <br/>
+                        <p class="card-text">
+                            <t t-esc="value.description"/>
+                        </p>
+                    </div>
+                    </div>
+                </div>
+            </t>
+            <br/>
+        </div>
+    </t>
+</odoo>

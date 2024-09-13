@@ -15,6 +15,7 @@ class SchoolEvent(models.Model):
     start_date = fields.Date("Start Date", required=True)
     end_date = fields.Date("End Date", required=True)
     club_ids = fields.Many2many("school.club", required=True)
+    photo = fields.Image("Photo")
     status = fields.Selection([
         ('draft', 'Draft'),
         ('announced', 'Announced'),

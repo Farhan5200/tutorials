@@ -7,3 +7,6 @@ input[type=email]:hover{
 input[type=date]:hover{
     border:1px solid;
 }
+.snippet:hover{
+        border:3px solid white;
+}

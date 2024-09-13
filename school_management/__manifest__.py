@@ -52,7 +52,7 @@
         'wizard/school_leave_report_wizard_views.xml',
         'wizard/school_student_report_wizard_views.xml',
         # snippets
-        'views/snippets/s_basic.xml',
+        'views/snippets/s_event.xml',
         'views/snippets/snippets.xml',
     ],
     'assets': {
@@ -61,6 +61,8 @@
                                 'school_management/static/src/js/student_registration_values.js',
                                 'school_management/static/src/js/leave_values.js',
                                 'school_management/static/src/css/leave_website.css',
+                                'school_management/static/src/xml/recent_event_snippet_template.xml',
+                                'school_management/static/src/js/event_snippet.js',
                                 ],
     },
     'application': True,
