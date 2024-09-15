@@ -7,10 +7,8 @@ class DynamicEventSnippets(http.Controller):
    """This class is for the getting values for dynamic event snippets"""
    @http.route('/recent-events', type='json', auth='public')
    def event_snippet(self):
-       print('hi')
-       recent_events = request.env['school.event'].sudo().search_read([],limit=4,order='start_date desc')
+       recent_events = request.env['school.event'].sudo().search_read([], order='start_date desc', limit=10)
        values = {
            'recent_events': recent_events,
        }
-       print(recent_events)
        return values

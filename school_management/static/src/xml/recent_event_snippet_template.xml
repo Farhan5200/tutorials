@@ -1,33 +1,140 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<odoo>
+<templates id="sem" xml:space="preserve">
     <t t-name="school_management.recent_event_wise">
-        <div class="container" style="display: flex;">
-            <t t-foreach="result['recent_events']" t-as="value" t-key="val_index">
-                <div class="card-deck snippet" style="width: 18rem; padding:10px; margin:10px; border-radius:10px; box-shadow: 10px 10px 10px 10px  #BCBCCB48;">
-                    <div class="card" style="height:100%;color:white;">
-                    <span style="display:none">
-                        <t t-esc="value.id"/>
-                    </span>
-                    <div class="card-body">
-                        <t t-if="value.photo">
-                        <img class="card-img-top" t-attf-src="data:image/jpeg;base64,{{value.photo}}" style="height:142px;"/>
-                        </t>
-                        <t t-else="">
-                        <img class="card-img-top" src="/school_management/static/src/img/snippets/burfoot.jpeg" alt="Card image cap"/>
-                        </t>
-                        <h5 class="card-title text-center">
-                            <t t-esc="value.name"/>
-                        </h5>
-                        <br/>
-                        <br/>
-                        <p class="card-text">
-                            <t t-esc="value.description"/>
-                        </p>
+        <div id="course_carousel" class="container carousel slide" data-bs-ride="carousel"
+             t-att-data-bs-interval="interval" style="height:100%;">
+            <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                <t t-foreach="result" t-as="res" t-key="val_res">
+                    <div t-att-class="res.is_active ? 'carousel-item active' : 'carousel-item'">
+                        <div class="row">
+                            <t t-foreach="res" t-as="value" t-key="val_index">
+                                <div class="block span3 col-3">
+                                    <div class="card-group">
+                                        <div class="card-deck snippet"
+                                             style="width: 18rem; padding:10px; margin:10px; border-radius:10px; box-shadow: 10px 10px 10px 10px  #BCBCCB48;">
+                                            <div class="card">
+                                                <span style="display:none">
+                                                    <t t-esc="value.id"/>
+                                                </span>
+                                                <div class="card-body">
+                                                    <t t-if="value.photo">
+                                                        <img class="card-img-top"
+                                                             t-attf-src="data:image/jpeg;base64,{{value.photo}}"
+                                                             style="height:142px;"/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <img class="card-img-top"
+                                                             src="/school_management/static/src/img/snippets/no_image_available.jpg"
+                                                             style="height:142px;"/>
+                                                    </t>
+                                                    <h5 class="card-title text-center">
+                                                        <t t-esc="value.name"/>
+                                                    </h5>
+                                                    <br/>
+                                                    <br/>
+                                                    <p class="card-text">
+                                                        <t t-esc="value.description"/>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
                     </div>
-                    </div>
-                </div>
-            </t>
-            <br/>
+                </t>
+                <br/>
+            </div>
         </div>
+        <a t-attf-href="#course_carousel" class="carousel-control-prev" data-bs-slide="prev" role="button"
+           aria-label="Previous" title="Previous">
+
+            <span class="fa fa-chevron-circle-left fa-2x"/>
+            <span class="visually-hidden">Previous</span>
+
+        </a>
+        <a t-attf-href="#course_carousel" class="carousel-control-next" data-bs-slide="next" role="button"
+           aria-label="Next" title="Next">
+
+            <span class="fa fa-chevron-circle-right fa-2x"/>
+
+            <span class="visually-hidden">Next</span>
+
+        </a>
     </t>
-</odoo>
+</templates>
+
+
+
+<!--<t t-name="school_management.recent_event_wise">-->
+
+<!--<div id="course_carousel" class="container carousel slide" data-bs-ride="carousel" t-att-data-bs-interval="interval">-->
+
+<!--<div class="carousel-inner row w-100 mx-auto" role="listbox">-->
+
+<!--<t t-foreach="result" t-as="chunk" t-key="val_chunk">-->
+
+<!--<div t-att-class="chunk.is_active ? 'carousel-item active' : 'carousel-item'">-->
+
+<!--<div class="row">-->
+
+<!--<t t-foreach="chunk" t-as="item" t-key="val_item">-->
+
+<!--<div class="block span3 col-3">-->
+
+<!--<div class="card-group">-->
+
+<!--<div class="card">-->
+<!-- <t t-if="item.photo">-->
+<!--<img class="card-img-top" t-attf-src="data:image/jpeg;base64,{{item.photo}}"-->
+
+<!--style="padding: 0px; margin: 0px; height: 160px; width:305px;"/>-->
+<!-- </t>-->
+
+<!-- <t t-else="">-->
+<!--  <img class="card-img-top" t-attf-src="/school_management/static/src/img/snippets/no_image_available.jpg"-->
+
+<!--style="padding: 0px; margin: 0px; height: 160px; width:305px;"/>-->
+<!-- </t>-->
+
+<!--<h5 class="mb-0"><t t-esc="item.name"/></h5>-->
+
+<!--<a t-attf-href="/slides/{{item.id}}" class="btn btn-primary">-->
+
+<!--Goto Courses-->
+
+<!--</a>-->
+
+<!--</div>-->
+
+<!--</div>-->
+
+<!--</div>-->
+
+<!--</t>-->
+
+<!--</div>-->
+
+<!--</div>-->
+
+<!--</t>-->
+
+<!--</div>-->
+
+<!--</div>-->
+
+<!--<a t-attf-href="#course_carousel" class="carousel-control-prev" data-bs-slide="prev" role="button" aria-label="Previous" title="Previous">-->
+
+<!--<span class="fa fa-chevron-circle-left fa-2x"/>-->
+<!--<span class="visually-hidden">Previous</span>-->
+
+<!--</a>-->
+<!-- <a t-attf-href="#course_carousel" class="carousel-control-next" data-bs-slide="next" role="button" aria-label="Next" title="Next">-->
+
+<!--<span class="fa fa-chevron-circle-right fa-2x"/>-->
+
+<!--<span class="visually-hidden">Next</span>-->
+
+<!--</a>-->
+<!--</t>-->

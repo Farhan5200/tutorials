@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<templates>
+<templates id="sem" xml:space="preserve">
     <t t-name="vehicle_management.repair_order_wise">
-        <div id="top_selling_products_carousel" class="container">
-            <div id="TopuniqueId" class="large-12 columns">
-                    <div class="card-deck" style="display: flex; gap: 20px;">
-                        <t t-foreach="chunkData" t-as="data" t-key="data_index">
-                            <t t-foreach="data" t-as="vals" t-key="vals_index">
-                                <div class="card" style="width: 18rem; height:21rem; display:inline-block;">
-                                    <div class="card-body">
-                                        <div class="image-field" style="height:142px;">
-                                            <t t-if="vals.image == false">
-                                                <img class="card-img-top o_img_product_square o_img_product_cover"
-                                                     t-attf-src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg"
-                                                     style="height:142px;"/>
-                                            </t>
-                                            <t t-else="">
-                                                <img class="card-img-top o_img_product_square o_img_product_cover"
-                                                     t-attf-src="data:image/jpeg;base64,{{vals.image}}" style="height:142px;"/>
-                                            </t>
-                                        </div>
-                                        <div class="data-field">
-                                            <h5 class="card-title text-center" t-esc="vals.name"/>
-                                            <div class="row">
-                                                <h5>Vehicle:</h5>
-                                                <h6 t-esc="vals.vehicle_id[1]"/>
-                                            </div>
-                                            <div class="row">
-                                                <h5>Vehicle number:</h5>
-                                                <h6 t-esc="vals.vehicle_number"/>
-                                            </div>
+      <div class="carousel-wrapper">
+          <div t-att-id="'cour-'+ unique_id" class="container carousel slide"
+         data-bs-ride="carousel" t-att-data-bs-interval="interval">
+        <div class="carousel-inner row w-100 mx-auto" role="listbox">
+            <t t-foreach="chunkData" t-as="chunk" t-key="chunk_index">
+                <div t-att-class="chunk.is_active ? 'carousel-item active' : 'carousel-item'">
+                    <div class="row">
+                        <t t-foreach="chunk" t-as="item" t-key="item_index">
+                            <div class="block span3 col-3">
+                                <div class="card-group">
+                                    <div class="card" style="width: 18rem; height:21rem; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); border: 1px solid #c9c9c9;">
+                                         <t t-if="item.image == false">
+                                             <img class="card-img-top"
+                                                  t-attf-src="https://png.pngtree.com/png-vector/20221125/ourmid/pngtree-no-image-available-icon-flatvector-illustration-thumbnail-graphic-illustration-vector-png-image_40966590.jpg"
+                                                  style="height:142px;"/>
+                                         </t>
+                                        <t t-else="">
+                                            <img class="card-img-top"
+                                                 t-attf-src="data:image/jpeg;base64,{{item.image}}"
+                                                 style="height:142px;"/>
+                                        </t>
+                                        <div class="data-field" style="padding:2px 16px">
+                                        <h5 class="card-title text-center"><t t-esc="item.name"/></h5>
+                                         <div class="row">
+                                                        <h5>Vehicle:</h5>
+                                                        <h6 t-esc="item.vehicle_id[1]"/>
+                                                    </div>
+                                                    <div class="row">
+                                                        <h5>Vehicle number:</h5>
+                                                        <h6 t-esc="item.vehicle_number"/>
+                                                    </div>
                                         </div>
                                     </div>
                                 </div>
-                            </t>
+                            </div>
                         </t>
-                        <div class="row justify-content-center">
-                            <a type="button" >
-                                <span style='font-size:100px;'>&#8594;</span>
-                            </a>
-                        </div>
                     </div>
-            </div>
+                </div>
+            </t>
         </div>
+    </div>
+          <a t-attf-href="#cour-#{unique_id}" class="carousel-control-prev"
+             data-bs-slide="prev" role="button" aria-label="Previous"
+             title="Previous">
+              <span class="fa fa-chevron-circle-left fa-2x" style="color:black;"/>
+              <span class="visually-hidden">Previous</span>
+          </a>
+          <a t-attf-href="#cour-#{unique_id}" class="carousel-control-next"
+             data-bs-slide="next" role="button" aria-label="Next" title="Next">
+              <span class="fa fa-chevron-circle-right fa-2x" style="color:black;"/>
+              <span class="visually-hidden">Next</span>
+          </a>
+      </div>
     </t>
 </templates>
