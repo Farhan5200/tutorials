@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--<template id="products_shop_qty" inherit_id="website_sale.products" name="Add qty">-->
+
+    <!--  <xpath expr="//div[@class='o_wsale_product_grid_wrapper']" position="inside">-->
+    <!--&lt;!&ndash;    <div class="o_wsale_product_information_text flex-grow-1">&ndash;&gt;-->
+    <!--                    <h6 class="o_wsale_products_item_title mb-2">-->
+    <!--                      Hiiiii-->
+    <!--&lt;!&ndash;                        <a class="text-primary text-decoration-none" itemprop="name" t-att-href="product_href" t-att-content="product.name" t-field="product.name" />&ndash;&gt;-->
+    <!--&lt;!&ndash;                        <a t-if="not product.website_published" role="button" t-att-href="product_href" class="btn btn-sm btn-danger" title="This product is unpublished.">&ndash;&gt;-->
+    <!--&lt;!&ndash;                            Unpublished&ndash;&gt;-->
+    <!--&lt;!&ndash;                        </a>&ndash;&gt;-->
+    <!--                    </h6>-->
+    <!--&lt;!&ndash;                </div>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    <input name="product_id" t-att-value="product.product_variant_ids[0].id" type="hidden"/>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    <t t-if="len(product.product_variant_ids) == 1">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;      <a class="btn btn-default btn-xs fa fa-shopping-cart a-submit"/>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    </t>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    <t t-if="len(product.product_variant_ids) &gt; 1">&ndash;&gt;-->
+
+    <!--&lt;!&ndash;      <a class="btn btn-default btn-xs fa fa-shopping-cart" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))"/>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;    </t>&ndash;&gt;-->
+
+    <!--  </xpath>-->
+
+    <!--</template>-->
+
+
+    <!--    <template id="product_add_qty" inherit_id="website_sale.product" name="Add To Cart Button" priority="20">-->
+    <!--        <xpath expr="//div[@id='product_option_block']" position="inside">-->
+    <!--            <t t-nocache="The wishlist depends on the user and must not be shared with other users. The product come from the controller.">-->
+    <!--                <t t-set="product_variant" t-value="product_variant or product._create_first_product_variant()"/>-->
+    <!--                <t t-set="in_wish" t-value="product_variant and product_variant._is_in_wishlist()"/>-->
+    <!--                <button t-if="product_variant" type="button" role="button" class="btn btn-link px-0 pe-3 o_add_wishlist_dyn" t-att-disabled='in_wish or None' t-att-data-product-template-id="product.id" t-att-data-product-product-id="product_variant.id" data-action="o_wishlist" title="Add to cart"><i class="fa fa-heart-o me-2" role="img" aria-label="Add to cart"/>Add to cart</button>-->
+    <!--            </t>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+
+    <template id="add_to_cart" inherit_id="website_sale.products_item" name="cart Button" priority="20">
+        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="after">
+            <div name="website_sale_cart_line_quantity" class="css_quantity" style="display:flex; padding:15px;">
+<div style="display:flex;" class="input-group ">
+        <button class="btn btn-link d-inline-block border-end-0" title="Remove one">
+            <i class="position-relative z-index-1 fa fa-minus"/>
+        </button>
+        <input type="text" class="js_quantity quantity form-control border-start-0 border-end-0" value="1"/>
+        <button class="d-inline-block float_left btn btn-link border-start-0" title="Add one">
+            <i class="fa fa-plus position-relative z-index-1"/>
+        </button>
+</div>
+                <div>
+            <button type="button" role="button" class="btn btn-outline-primary bg-white o_add_cart" title="Add to cart">
+                <span class="fa fa-shopping-cart" role="img" aria-label="Add to cart"/>
+            </button>
+                </div>
+                        </div>
+        </xpath>
+    </template>
+
+
+</odoo>

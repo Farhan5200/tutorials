@@ -29,6 +29,7 @@
         'views/student_registration_website_template.xml',
         'views/events_website_template.xml',
         'views/leaves_website_template.xml',
+        'views/website_shop_template.xml',
         # data
         'data/mail_template_data.xml',
         'data/cron_data.xml',

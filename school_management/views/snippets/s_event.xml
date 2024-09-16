@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-<template id="event_snippet" name="Event Snippet">
-      <section class="recent_event_snippet">
-          <div class="container">
-          <center><h1>Events</h1></center>
-          <div id="recent_events"/>
-          </div>
-      </section>
-   </template>
+    <template id="event_snippet" name="Event Snippet">
+        <section class="recent_event_snippet">
+            <div class="container">
+                <h2 class="h4 my-0 me-auto pe-sm-4"  style="padding:10px;">
+                    Events
+                </h2>
+                <div id="recent_events"/>
+            </div>
+        </section>
+    </template>
 </odoo>

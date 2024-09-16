@@ -1,140 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<templates id="sem" xml:space="preserve">
-    <t t-name="school_management.recent_event_wise">
-        <div id="course_carousel" class="container carousel slide" data-bs-ride="carousel"
-             t-att-data-bs-interval="interval" style="height:100%;">
-            <div class="carousel-inner row w-100 mx-auto" role="listbox">
-                <t t-foreach="result" t-as="res" t-key="val_res">
-                    <div t-att-class="res.is_active ? 'carousel-item active' : 'carousel-item'">
-                        <div class="row">
-                            <t t-foreach="res" t-as="value" t-key="val_index">
-                                <div class="block span3 col-3">
-                                    <div class="card-group">
-                                        <div class="card-deck snippet"
-                                             style="width: 18rem; padding:10px; margin:10px; border-radius:10px; box-shadow: 10px 10px 10px 10px  #BCBCCB48;">
-                                            <div class="card">
+<t t-name="school_management.recent_event_wise">
+    <div t-att-id="'course_carousel'+unique_id" class="container carousel slide" data-bs-ride="carousel"
+         t-att-data-bs-interval="interval" style="height:100%;">
+        <div class="carousel-inner row w-100 mx-auto" role="listbox" style="height:22rem;">
+            <t t-foreach="result" t-as="res" t-key="val_res">
+                <div t-att-class="res.is_active ? 'carousel-item active' : 'carousel-item'">
+                    <div class="row g-4 g-lg-3 g-xxl-4" style="height:20rem;">
+                        <t t-foreach="res" t-as="value" t-key="val_index">
+                            <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="snippet h-100 card" t-att-id="value.id">
+                                    <div class="h-100 d-flex flex-wrap flex-column">
+                                        <header class="card-header overflow-hidden bg-secondary p-0 border-0 rounded-0 col-12 ">
+                                            <div class="d-block h-100 w-100">
                                                 <span style="display:none">
                                                     <t t-esc="value.id"/>
                                                 </span>
-                                                <div class="card-body">
-                                                    <t t-if="value.photo">
-                                                        <img class="card-img-top"
-                                                             t-attf-src="data:image/jpeg;base64,{{value.photo}}"
-                                                             style="height:142px;"/>
-                                                    </t>
-                                                    <t t-else="">
-                                                        <img class="card-img-top"
-                                                             src="/school_management/static/src/img/snippets/no_image_available.jpg"
-                                                             style="height:142px;"/>
-                                                    </t>
-                                                    <h5 class="card-title text-center">
-                                                        <t t-esc="value.name"/>
-                                                    </h5>
-                                                    <br/>
-                                                    <br/>
-                                                    <p class="card-text">
-                                                        <t t-esc="value.description"/>
-                                                    </p>
-                                                </div>
+                                                <t t-if="value.photo">
+                                                    <img class="card-img-top"
+                                                         t-attf-src="data:image/jpeg;base64,{{value.photo}}"
+                                                         style="height:142px;"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <img class="card-img-top"
+                                                         src="/school_management/static/src/img/snippets/no_image_available.jpg"
+                                                         style="height:142px;"/>
+                                                </t>
                                             </div>
+                                        </header>
+                                        <div class="card-body position-relative d-flex flex-column">
+                                            <h5 class="card-title my-2 ">
+                                                <t t-esc="value.name"/>
+                                            </h5>
+                                            <small class="o_not_editable opacity-75" style="text-align:top;">
+                                                <span>From :
+                                                    <t t-esc="value.start_date"/>
+                                                </span>
+                                                <br/>
+                                                <br/>
+                                                <t t-esc="value.description"/>
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
-                            </t>
-                        </div>
+                            </div>
+                        </t>
                     </div>
-                </t>
-                <br/>
-            </div>
+                </div>
+            </t>
         </div>
-        <a t-attf-href="#course_carousel" class="carousel-control-prev" data-bs-slide="prev" role="button"
-           aria-label="Previous" title="Previous">
-
-            <span class="fa fa-chevron-circle-left fa-2x"/>
-            <span class="visually-hidden">Previous</span>
-
-        </a>
-        <a t-attf-href="#course_carousel" class="carousel-control-next" data-bs-slide="next" role="button"
-           aria-label="Next" title="Next">
-
-            <span class="fa fa-chevron-circle-right fa-2x"/>
-
-            <span class="visually-hidden">Next</span>
-
-        </a>
-    </t>
-</templates>
-
-
-
-<!--<t t-name="school_management.recent_event_wise">-->
-
-<!--<div id="course_carousel" class="container carousel slide" data-bs-ride="carousel" t-att-data-bs-interval="interval">-->
-
-<!--<div class="carousel-inner row w-100 mx-auto" role="listbox">-->
-
-<!--<t t-foreach="result" t-as="chunk" t-key="val_chunk">-->
-
-<!--<div t-att-class="chunk.is_active ? 'carousel-item active' : 'carousel-item'">-->
-
-<!--<div class="row">-->
-
-<!--<t t-foreach="chunk" t-as="item" t-key="val_item">-->
-
-<!--<div class="block span3 col-3">-->
-
-<!--<div class="card-group">-->
-
-<!--<div class="card">-->
-<!-- <t t-if="item.photo">-->
-<!--<img class="card-img-top" t-attf-src="data:image/jpeg;base64,{{item.photo}}"-->
-
-<!--style="padding: 0px; margin: 0px; height: 160px; width:305px;"/>-->
-<!-- </t>-->
-
-<!-- <t t-else="">-->
-<!--  <img class="card-img-top" t-attf-src="/school_management/static/src/img/snippets/no_image_available.jpg"-->
-
-<!--style="padding: 0px; margin: 0px; height: 160px; width:305px;"/>-->
-<!-- </t>-->
-
-<!--<h5 class="mb-0"><t t-esc="item.name"/></h5>-->
-
-<!--<a t-attf-href="/slides/{{item.id}}" class="btn btn-primary">-->
-
-<!--Goto Courses-->
-
-<!--</a>-->
-
-<!--</div>-->
-
-<!--</div>-->
-
-<!--</div>-->
-
-<!--</t>-->
-
-<!--</div>-->
-
-<!--</div>-->
-
-<!--</t>-->
-
-<!--</div>-->
-
-<!--</div>-->
-
-<!--<a t-attf-href="#course_carousel" class="carousel-control-prev" data-bs-slide="prev" role="button" aria-label="Previous" title="Previous">-->
-
-<!--<span class="fa fa-chevron-circle-left fa-2x"/>-->
-<!--<span class="visually-hidden">Previous</span>-->
-
-<!--</a>-->
-<!-- <a t-attf-href="#course_carousel" class="carousel-control-next" data-bs-slide="next" role="button" aria-label="Next" title="Next">-->
-
-<!--<span class="fa fa-chevron-circle-right fa-2x"/>-->
-
-<!--<span class="visually-hidden">Next</span>-->
-
-<!--</a>-->
-<!--</t>-->
+    </div>
+    <a t-attf-href="#course_carousel#{unique_id}" class="carousel-control-prev" data-bs-slide="prev" role="button"
+       aria-label="Previous" title="Previous" style="margin-left: -100px;">
+        <span class="fa fa-chevron-circle-left fa-2x" style="color:black;"/>
+    </a>
+    <a t-attf-href="#course_carousel#{unique_id}" class="carousel-control-next" data-bs-slide="next" role="button"
+       aria-label="Next" title="Next" style="margin-right: -100px;">
+        <span class="fa fa-chevron-circle-right fa-2x" style="color:black;"/>
+    </a>
+</t>

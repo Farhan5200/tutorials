@@ -3,7 +3,7 @@
 
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { jsonrpc } from "@web/core/network/rpc_service";
-import { renderToFragment } from "@web/core/utils/render";
+    import { renderToFragment } from "@web/core/utils/render";
 
 
 export function _chunk(array, size) {
@@ -22,7 +22,7 @@ publicWidget.registry.snippet_clicking_page = publicWidget.Widget.extend({
     },
 
     _onClickSnippet: function(e){
-        var clicked_event_id = $(e.currentTarget).children().children().html()
+        var clicked_event_id = e.currentTarget.id
         window.location = `/event/${clicked_event_id}`;
     },
 
@@ -41,9 +41,10 @@ var RecentEvents = publicWidget.Widget.extend({
         })
         var result = _chunk(result['recent_events'],4)
         result[0].is_active = true
-        console.log(result)
+        const unique_id = Date.now()
         refEl.html(renderToFragment('school_management.recent_event_wise', {
             result,
+            unique_id,
         }))
         })
     },

@@ -7,8 +7,11 @@ input[type=email]:hover{
 input[type=date]:hover{
     border:1px solid;
 }
+.snippet{
+    box-shadow: 5px 5px 5px 5px #BCBCCB48;
+}
 .snippet:hover{
-        border:3px solid white;
+    box-shadow:none;
 }
 
 
