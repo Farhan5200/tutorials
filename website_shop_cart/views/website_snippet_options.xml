@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="qty_options" inherit_id="website.snippet_options" name="e-commerce snippet options">
+        <xpath expr="//we-row[hasclass('o_we_full_row')][3]" position="after">
+            <we-row string="Add to Cart" class="o_we_full_row">
+                <we-button title="Add to Cart" class="fa fa-fw fa-list"
+                           data-customize-website-views="website_shop_cart.add_to_cart"
+                           data-no-preview="true"
+                           data-reload="/"/>
+            </we-row>
+        </xpath>
+    </template>
+</odoo>

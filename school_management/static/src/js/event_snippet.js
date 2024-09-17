@@ -3,7 +3,7 @@
 
 import publicWidget from "@web/legacy/js/public/public_widget";
 import { jsonrpc } from "@web/core/network/rpc_service";
-    import { renderToFragment } from "@web/core/utils/render";
+import { renderToFragment } from "@web/core/utils/render";
 
 
 export function _chunk(array, size) {

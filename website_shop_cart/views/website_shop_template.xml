@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="add_to_cart" inherit_id="website_sale.products_item" name="cart Button" priority="20">
+        <xpath expr="//div[hasclass('o_wsale_product_sub')]" position="after">
+            <div name="website_shop_cart" class="website_shop_cart css_quantity" style="display:flex; padding:15px;">
+                <div style="display:flex;" class="input-group ">
+                    <button class="qty_sub btn border-end-0" title="Remove one">
+                        <i class="fa fa-minus"/>
+                    </button>
+                    <input type="text" min='1' class="shop_qty js_quantity quantity form-control border-start-0 border-end-0" value="1" style="-webkit-appearance: none;"/>
+                    <button class="qty_add d-inline-block float_left btn border-start-0" title="Add one">
+                        <i class="fa fa-plus position-relative z-index-1"/>
+                    </button>
+                </div>
+                <div>
+                    <span style="display:none;"><t t-esc="product.product_variant_id.id"/></span>
+                    <button type="button" role="button" class="shop_cart btn btn-outline-primary bg-white o_add_cart"
+                            title="Add to cart">
+                        <span class="fa fa-shopping-cart" role="img" aria-label="Add to cart"/>
+                    </button>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
