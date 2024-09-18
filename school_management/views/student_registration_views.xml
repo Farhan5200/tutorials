@@ -11,11 +11,10 @@
                     <field name="status" widget="statusbar"/>
                 </header>
                 <sheet>
+                    <field name="photo" widget="image" class="oe_avatar" options="{'size': [120, 120]}"/>
                     <h1>
                         <field name="name"/>
                     </h1>
-                    <field name="photo" widget="image" options="{'size': [150, 150]}"
-                           style="position: absolute;left: 1000px;top: 10px;"/>
                     <group>
                         <group>
                             <field name="first_name"/>
@@ -166,7 +165,7 @@
     <menuitem id="school_management_students_menu" name="Students" parent="school_management_student_menu"
               action="student_students_action"/>
 
-<!--    website menu for student registration-->
+    <!--    website menu for student registration-->
     <record id="student_data_menu" model="website.menu">
         <field name="name">Students</field>
         <field name="url">/students</field>
