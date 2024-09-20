@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<t t-name="pos_rating.ProductCard"
-   t-inherit="point_of_sale.ProductCard"
+<t t-name="pos_rating.Orderline"
+   t-inherit="point_of_sale.Orderline"
    t-inherit-mode="extension">
-    <xpath expr="//div[hasclass('product-information-tag')]" position="before">
-        <div>
-            <t t-if="props.rating">
+    <xpath expr="//ul" position="before">
+        <div class="info-list ms-2">
+            <t t-if="line.rating">
                 <t t-set="foo" t-value="false"/>
-                <t t-set="rating" t-value="props.rating"/>
-                <t t-foreach="['2','3','4','5','6']" t-as="rat" t-key="product_card_rating">
+                <t t-set="rating" t-value="line.rating"/>
+                <t t-foreach="['2','3','4','5','6']" t-as="rat" t-key="order_line_rating">
                     <t t-if="foo == false">
                         <i class="fa fa-star text-warning"/>
                         <t t-if="rat == rating">
