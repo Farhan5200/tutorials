@@ -3,6 +3,8 @@
 
 import { patch } from "@web/core/utils/patch";
 import { Order } from "@point_of_sale/app/store/models";
+import { ErrorPopup } from "@point_of_sale/app/errors/popups/error_popup";
+
 
 //checks the total discount given in a session if it is greater than limit given in settings shows warning and stops the flow
 patch(Order.prototype, {
@@ -13,10 +15,16 @@ patch(Order.prototype, {
     var current_order_total_disc = this.get_total_discount()
     console.log(result)
     if (current_order_total_disc > setting_limit){
-        alert('noooo')
+        this.env.services.popup.add(ErrorPopup, {
+            title:"Error",
+            body:"ttnoooo",
+        });
     }
     else if((result+current_order_total_disc) > setting_limit){
-        alert('greater')
+         this.env.services.popup.add(ErrorPopup, {
+            title:"Error",
+            body:"greater",
+        });
     }
     else{
         return {
