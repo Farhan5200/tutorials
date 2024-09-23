@@ -2,6 +2,9 @@
 
 {
     'name': 'POS Session Discount Limit',
+    'version': '17.0.1.0.0',
+    'summary': 'To manage session wise discount limt',
+    'description': 'Adds a field in settings to set discount limit and if session wise discount exceeds the limit it shows a popup',
     'depends': [
         'base',
         'point_of_sale',
@@ -16,4 +19,5 @@
             'pos_session_discount_limit/static/src/js/order.js',
         ],
     },
+    'installable': True,
 }

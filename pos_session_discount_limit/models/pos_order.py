@@ -15,7 +15,10 @@ class PosOrder(models.Model):
         for rec in self:
             total_discount_amount = 0
             for records in rec.lines:
-                total_discount_amount += records.discount_amount
+                if records.price_unit < 0:
+                    total_discount_amount += (records.discount_amount - records.price_subtotal_incl)
+                else:
+                    total_discount_amount += records.discount_amount
                 rec.total_discount_amount = total_discount_amount
 
     @api.model
@@ -26,6 +29,11 @@ class PosOrder(models.Model):
         for rec in records:
             total_discount += rec.total_discount_amount
         return total_discount
+
+    @api.model
+    def send_product_tax(self,product_id):
+        """returns tax amount of the discount product"""
+        return self.env['product.product'].browse(product_id).taxes_id.amount
 
 
 class PosOrderLine(models.Model):
@@ -44,3 +52,4 @@ class PosOrderLine(models.Model):
                                               rec.discount / 100)
             else:
                 rec.discount_amount = rec.qty * rec.price_unit * (rec.discount / 100)
+

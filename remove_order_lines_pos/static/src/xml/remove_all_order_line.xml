@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t t-name="remove_order_lines_pos.RemoveAllOrderLineButton">
+    <button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="removeAllOrderLine">
+        <i class="fa fa-trash" style="margin-right:5px;"/>
+        <span>Clear All Lines</span>
+    </button>
+</t>
