@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<t t-name="pos_rating.Orderline"
+   t-inherit="point_of_sale.Orderline"
+   t-inherit-mode="extension">
+    <xpath expr="//ul" position="before">
+        <div class="info-list ms-2">
+            <t t-if="line.rating">
+                <t t-set="rating" t-value='line.rating'/>
+                <t t-if="rating == 1">
+                    <t t-foreach="[1]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star text-warning"/>
+                    </t>
+                    <t t-foreach="[1, 2, 3, 4]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star-o text-warning"/>
+                    </t>
+                </t>
+                <t t-if="rating == 2">
+                    <t t-foreach="[1, 2]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star text-warning"/>
+                    </t>
+                    <t t-foreach="[1, 2, 3]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star-o text-warning"/>
+                    </t>
+                </t>
+                <t t-if="rating == 3">
+                    <t t-foreach="[1, 2, 3]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star text-warning"/>
+                    </t>
+                    <t t-foreach="[1, 2]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star-o text-warning"/>
+                    </t>
+                </t>
+                <t t-if="rating == 4">
+                    <t t-foreach="[1, 2, 3, 4]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star text-warning"/>
+                    </t>
+                    <t t-foreach="[1]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star-o text-warning"/>
+                    </t>
+                </t>
+                <t t-if="rating == 5">
+                    <t t-foreach="[1, 2, 3, 4, 5]" t-as="star" t-key="rating_index_one">
+                        <span class="fa fa-star text-warning"/>
+                    </t>
+                </t>
+            </t>
+        </div>
+
+    </xpath>
+</t>
+

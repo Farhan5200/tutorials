@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
             <field name="user_id" position="after">
-                    <field name="total_price_components"/>
+                <field name="total_price_components"/>
             </field>
             <xpath expr="//notebook" position="inside">
                 <page string="Extra Cost">
@@ -23,8 +23,8 @@
                 <field name="total_line_price"/>
             </xpath>
             <button name="button_mark_done" position="after">
-            <button name="create_bill" string="Create Bill" type="object"/>
-        </button>
+                <button name="create_bill" string="Create Bill" type="object"/>
+            </button>
         </field>
     </record>
 </odoo>
