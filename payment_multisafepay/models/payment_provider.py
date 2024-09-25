@@ -12,5 +12,11 @@ class PaymentProvider(models.Model):
     multisafepay_api_key = fields.Char(
         string="MultiSafePay API Key",
         help="The Test or Live API Key depending on the configuration of the provider",
-        required_if_provider="multisafepay", groups="base.group_system"
+        groups="base.group_system"
     )
+
+    def demoooo(self):
+        for rec in self.env['payment.provider'].search([]):
+            if rec.code == 'multisafepay':
+                print(rec.get_base_url())
+                print(rec.multisafepay_api_key)

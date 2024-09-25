@@ -35,8 +35,9 @@ patch(InputBox.prototype, {
         console.log('useeffect')
     },
 //    action service
-    input_valoo(){
+    async input_valoo(){
         this.input_boxoo.el.value='iii'
+        await this.orm.call('payment.provider','demoooo',[18])
         this.action.doAction({
                 type: 'ir.actions.act_window',
                 res_model: 'sale.order',

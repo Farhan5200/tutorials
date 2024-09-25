@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-   <t t-name="custom_pos_receipt.ProductWidget" t-inherit="point_of_sale.ProductsWidget" t-inherit-mode="extension">
-       <xpath expr="//ProductCard" position="attributes">
-           <attribute name="product_rating">product.product_rating</attribute>
-       </xpath>
-   </t>

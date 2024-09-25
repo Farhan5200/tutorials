@@ -7,9 +7,9 @@
         <field name="inherit_id" ref="payment.payment_provider_form"/>
         <field name="arch" type="xml">
             <group name="provider_credentials" position="inside">
-<!--                <group invisible="code != 'multisafepay'">-->
+                <group invisible="code != 'multisafepay'">
                     <field name="multisafepay_api_key" string="API Key" required="code == 'multisafepay' and state != 'disabled'" password="True"/>
-<!--                </group>-->
+                </group>
             </group>
         </field>
     </record>
