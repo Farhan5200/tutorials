@@ -37,7 +37,7 @@ patch(InputBox.prototype, {
 //    action service
     async input_valoo(){
         this.input_boxoo.el.value='iii'
-        await this.orm.call('payment.provider','demoooo',[18])
+        await this.orm.call('payment.provider','demoooo',[5])
         this.action.doAction({
                 type: 'ir.actions.act_window',
                 res_model: 'sale.order',
