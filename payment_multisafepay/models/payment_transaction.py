@@ -84,9 +84,10 @@ class PaymentTransaction(models.Model):
             [('reference', '=', notification_data.get('ref')), ('provider_code', '=', 'multisafepay')]
         )
         if not tx:
-            raise ValidationError("Mollie: " + _(
+            raise ValidationError("MultiSafePay: " + _(
                 "No transaction found matching reference %s.", notification_data.get('ref')
             ))
+        tx._process_notification_data(notification_data)
         return tx
 
     def _process_notification_data(self, notification_data):
