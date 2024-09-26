@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="payment_method_multisafepay" model="payment.method">
+        <field name="name">Multi Safe</field>
+        <field name="code">multisafe</field>
+        <field name="sequence">1000</field>
+        <field name="active">False</field>
+        <field name="image" type="base64" file="payment_multisafepay/static/description/MultiSafePay.jpeg"/>
+        <field name="support_tokenization">False</field>
+        <field name="support_express_checkout">False</field>
+        <field name="support_refund">partial</field>
+        <field name="supported_country_ids"
+               eval="[Command.set([
+                         ref('base.pr'),
+                         ref('base.us'),
+                     ])]"
+        />
+        <field name="supported_currency_ids"
+               eval="[Command.set([
+                         ref('base.USD'),
+                     ])]"
+        />
+    </record>
+</odoo>

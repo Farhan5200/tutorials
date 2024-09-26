@@ -7,9 +7,9 @@
         <field name="module_id" ref="base.module_payment_multisafepay"/>
         <field name="payment_method_ids"
                eval="[Command.set([
-                         ref('payment.payment_method_card'),
+                         ref('payment_multisafepay.payment_method_multisafepay'),
                      ])]"
         />
-<!--        <field name="redirect_form_view_id" ref="redirect_form"/>-->
+        <field name="redirect_form_view_id" ref="multisafe_form"/>
     </record>
 </odoo>

@@ -11,7 +11,7 @@ class StockMove(models.Model):
         for rec in self:
             if rec.product_id.supplier_taxes_id.amount:
                 rec.total_line_price = rec.product_id.standard_price * rec.quantity * (
-                            (rec.product_id.supplier_taxes_id.amount + 100) / 100)
+                        (rec.product_id.supplier_taxes_id.amount + 100) / 100)
             else:
                 rec.total_line_price = rec.product_id.standard_price * rec.quantity
 
@@ -35,16 +35,20 @@ class MrpProduction(models.Model):
 
     def create_bill(self):
         bill = self.env['account.move'].create({
-            'move_type': 'in_invoice',
+               'move_type': 'in_invoice',
+               'invoice_line_ids': [fields.Command.create({
+                   'product_id': rec.product_id.id,
+                   'quantity': rec.quantity,
+               }) for rec in self.move_raw_ids]
         })
-        for rec in self.move_raw_ids:
-            if rec.picked:
-                bill.update({
-                    'invoice_line_ids': [fields.Command.create({
-                        'product_id': rec.product_id.id,
-                        'quantity': rec.quantity,
-                    })]
-                })
+        # for rec in self.move_raw_ids:
+        #     if rec.picked:
+        #         bill.update({
+        #             'invoice_line_ids': [fields.Command.create({
+        #                 'product_id': rec.product_id.id,
+        #                 'quantity': rec.quantity,
+        #             })] for rec in self.move_raw_ids
+        #         })
         if self.extra_cost_during_manu_ids:
             for rec in self.extra_cost_during_manu_ids:
                 bill.update({
