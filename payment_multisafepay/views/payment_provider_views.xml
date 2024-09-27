@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="payment_provider_form_multisafepay" model="ir.ui.view">
         <field name="name">MultiSafePay Provider Form</field>
         <field name="model">payment.provider</field>
@@ -13,5 +12,4 @@
             </group>
         </field>
     </record>
-
 </odoo>

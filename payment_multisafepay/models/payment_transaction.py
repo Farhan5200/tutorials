@@ -16,7 +16,7 @@ class PaymentTransaction(models.Model):
     _inherit = "payment.transaction"
     
     def _get_specific_rendering_values(self, processing_values):
-        print('first')
+        """redirects to the payment page"""
         res = super()._get_specific_rendering_values(processing_values)
         if self.provider_code != 'multisafepay':
             return res
@@ -24,16 +24,14 @@ class PaymentTransaction(models.Model):
         payload = self._multisafe_prepare_payment_request_payload()
         _logger.info("sending '/payments' request for link creation:\n%s", pprint.pformat(payload))
         payment_data = self.provider_id._multisafe_make_request(api_key=api_key, data=payload, method='POST')
-        # print(payment_data,'payment_data')
-        self.provider_reference = payment_data.get('id')
+        self.provider_reference = payment_data['data']['order_id']
         checkout_url = payment_data['data']['payment_url']
         parsed_url = urls.url_parse(checkout_url)
         url_params = urls.url_decode(parsed_url.query)
-        # print(url_params,'url_params')
         return {'api_url': checkout_url, 'url_params': url_params}
 
     def _multisafe_prepare_payment_request_payload(self):
-        print('second')
+        """prepares the data to be send to the url"""
         base_url = self.provider_id.get_base_url()
         redirect_url = urls.url_join(base_url, MultiSafeController._return_url)
 
@@ -68,7 +66,7 @@ class PaymentTransaction(models.Model):
         }
     
     def _get_tx_from_notification_data(self, provider_code, notification_data):
-        """ Override of payment to find the transaction based on Mollie data.
+        """ Override of payment to find the transaction based on MultiSafePay data.
 
         :param str provider_code: The code of the provider that handled the transaction
         :param dict notification_data: The notification data sent by the provider
@@ -91,23 +89,23 @@ class PaymentTransaction(models.Model):
         return tx
 
     def _process_notification_data(self, notification_data):
-        """ Override of payment to process the transaction based on Mollie data.
-
-        Note: self.ensure_one()
-
+        """ Override of payment to process the transaction based on MultiSafePay data.
         :param dict notification_data: The notification data sent by the provider
         :return: None
         """
         super()._process_notification_data(notification_data)
         if self.provider_code != 'multisafepay':
             return
-        payment_method = self.env['payment.method'].search([('code', '=', 'multisafe')])
-        print(payment_method.id,'done')
-        self.payment_method_id = payment_method.id or self.payment_method_id
         transaction_id = notification_data['transactionid']
         api_key = self.provider_id.multisafepay_api_key
         payment_data = self.provider_id._multisafe_make_request(api_key=api_key, data=transaction_id, method='GET')
-        print(payment_data,'zzzsuper')
-        if payment_data['data']['status'] == 'completed':
-            print('hi')
+        payment_status = payment_data['data']['status']
+        if payment_status in ['initialized', 'uncleared']:
+            self._set_pending()
+        elif payment_status in ['completed','shipped']:
             self._set_done()
+        elif payment_status in ['void', 'cancel', 'declined']:
+            self._set_canceled("MultiSafePay: " + _("Canceled payment with status: %s", payment_status))
+        else:
+            self._set_error('Error')
+        
