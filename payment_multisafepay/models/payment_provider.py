@@ -3,7 +3,6 @@
 import logging
 
 import requests
-from docutils.nodes import header
 from odoo import fields,models
 
 _logger = logging.getLogger(__name__)
