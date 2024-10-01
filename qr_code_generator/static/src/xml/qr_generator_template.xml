@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<t t-name="qr_code_generator.qr_generator_modal">
+    <div>
+        hiiiiiiiiiiiiiiiii
+        <button t-on-click="suuuuuur">jjjj</button>
+    </div>
+</t>

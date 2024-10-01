@@ -1,9 +1,7 @@
 /** @odoo-module */
 import { registry } from "@web/core/registry";
 import { InputBox} from "./input_box";
-import {
-    Component,
- } from "@odoo/owl";
+import { Component } from "@odoo/owl";
 
 class AdvancedDashboard extends Component {
 
