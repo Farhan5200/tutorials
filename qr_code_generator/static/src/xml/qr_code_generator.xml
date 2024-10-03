@@ -3,6 +3,6 @@
    t-inherit="mail.MessagingMenu"
    t-inherit-mode="extension">
     <xpath expr="//Dropdown" position="before">
-        <button id="qr_menu" t-on-click="generate_qr">QR</button>
+        <i id="qr_menu" t-on-click="generate_qr" class="fa fa-qrcode" style="color:white;padding:13px;margin-bottom:10px;font-size: 1.5em;"/>
     </xpath>
 </t>
