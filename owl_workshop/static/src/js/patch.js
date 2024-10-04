@@ -37,7 +37,7 @@ patch(InputBox.prototype, {
 //    action service
     async input_valoo(){
         this.input_boxoo.el.value='iii'
-        await this.orm.call('payment.provider','demoooo',[5])
+//        await this.orm.call('payment.provider','demoooo',[5])
         this.action.doAction({
                 type: 'ir.actions.act_window',
                 res_model: 'sale.order',
@@ -48,7 +48,7 @@ patch(InputBox.prototype, {
             });
     },
     async fetch_data(){
-        var datasss = await this.orm.call('dem.dem', 'sales',[11])
+        var datasss = await this.orm.call('dem.dem', 'sales',[4])
 //        var datasss = await  this.orm.search("sale.order", [], { limit: 10 })
 //        var datasss = await  this.orm.searchRead("sale.order",[],[], { limit: 10 })
         console.log(datasss)
