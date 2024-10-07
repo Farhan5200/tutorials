@@ -9,9 +9,13 @@
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
                     <button name="action_send_sales_report" string="Start" type="object"
                             class="oe_highlight"/>
+                    <button name="action_print_sale_pdf_report" string="Print PDF" type="object" class="oe_highlight"/>
 <!--                    <button string="Cancel" special="cancel"/>-->
                 </header>
                 <sheet>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
                 <group>
                     <field name="sales_team_id" options="{'no_create' : True}"/>
                     <field name="partner_ids" options="{'no_create' : True}" widget="many2many_tags"/>
@@ -29,6 +33,7 @@
         <field name="model">sale.report.automation</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="name"/>
                 <field name="sales_team_id" options="{'no_create' : True}"/>
                 <field name="partner_ids" options="{'no_create' : True}" widget="many2many_tags"/>
                 <field name="report_type"/>
