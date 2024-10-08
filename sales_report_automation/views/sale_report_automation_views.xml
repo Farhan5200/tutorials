@@ -7,22 +7,19 @@
             <form>
                 <header>
                     <field name="state" widget="statusbar" options="{'clickable':'1'}"/>
-                    <button name="action_send_sales_report" string="Start" type="object"
-                            class="oe_highlight"/>
                     <button name="action_print_sale_pdf_report" string="Print PDF" type="object" class="oe_highlight"/>
-<!--                    <button string="Cancel" special="cancel"/>-->
                 </header>
                 <sheet>
                     <h1>
                         <field name="name"/>
                     </h1>
-                <group>
-                    <field name="sales_team_id" options="{'no_create' : True}"/>
-                    <field name="partner_ids" options="{'no_create' : True}" widget="many2many_tags"/>
-                    <field name="report_type"/>
-                    <field name="from_date"/>
-                    <field name="to_date"/>
-                </group>
+                    <group>
+                        <field name="sales_team_id" options="{'no_create' : True}"/>
+                        <field name="partner_ids" options="{'no_create' : True}" widget="many2many_tags"/>
+                        <field name="report_type"/>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                    </group>
                 </sheet>
             </form>
         </field>
@@ -47,7 +44,6 @@
         <field name="name">Sale PDF Report</field>
         <field name="res_model">sale.report.automation</field>
         <field name="view_mode">tree,form</field>
-        <!--        <field name="target">new</field>-->
     </record>
 
     <menuitem id="sale_report_automation_menu" action="sale_report_automation_action" name="Sale Report Automation"

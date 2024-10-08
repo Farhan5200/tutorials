@@ -11,8 +11,9 @@ class SalePDFReportValues(models.AbstractModel):
 
     @api.model
     def _get_report_values(self, docids, data=None):
-        print('nooo')
+        """to pass datas to pdf report"""
         details = self.env['sale.order'].search([])
+        partner_id = self.env['res.partner'].search([])
         today = fields.Date.today()
 
         selected_interval = data['selected_interval']
@@ -28,7 +29,6 @@ class SalePDFReportValues(models.AbstractModel):
             selected_from_date = date_utils.start_of(today, "week")
             selected_to_date = date_utils.end_of(today, "week")
 
-        print(selected_interval, selected_from_date, selected_to_date, selected_sales_team, selected_partner)
         if selected_sales_team and not selected_partner:
             details = self.env['sale.order'].search(
                 [('team_id', '=', selected_sales_team), ('date_order', '>=', selected_from_date),
@@ -38,7 +38,6 @@ class SalePDFReportValues(models.AbstractModel):
                 [('partner_id', '=', selected_partner), ('date_order', '>=', selected_from_date),
                  ('date_order', '<=', selected_to_date)])
         elif selected_sales_team and selected_partner:
-            print('hii')
             details = self.env['sale.order'].search(
                 [('team_id', '=', selected_sales_team), ('partner_id', '=', selected_partner),
                  ('date_order', '>=', selected_from_date), ('date_order', '<=', selected_to_date)])
@@ -46,8 +45,15 @@ class SalePDFReportValues(models.AbstractModel):
             details = self.env['sale.order'].search(
                 [('date_order', '>=', selected_from_date), ('date_order', '<=', selected_to_date)])
 
+        state = dict(self.env['sale.order']._fields['state'].selection)
+        interval_state = dict(self.env['sale.report.automation']._fields['report_type'].selection)
+
         return {
             'docs': details,
             'selected_from_date': selected_from_date,
-            'selected_to_date':selected_to_date
+            'selected_to_date':selected_to_date,
+            'selected_state':state,
+            'selected_partner':selected_partner,
+            'partner_id':partner_id,
+            'interval_state':interval_state,
         }
