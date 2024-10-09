@@ -4,6 +4,8 @@
     'name': 'Project Template',
     'depends':['base','project'],
     'data':[
-        # 'views/project_project_views.xml',
+        'security/ir.model.access.csv',
+        'views/task_template_views.xml',
+        'views/project_template_views.xml',
     ],
 }
