@@ -48,15 +48,14 @@ class ProjectTemplate(models.Model):
         "Timesheets",default=True)
     allocated_hours = fields.Float(string='Allocated Hours')
     access_instruction_message = fields.Char('Access Instruction Message', compute='_compute_access_instruction_message')
+    task_ids = fields.One2many('task.template','project_template_id')
     _sql_constraints = [
         ('project_date_greater', 'check(date >= date_start)', "The project's start date must be before its end date.")
     ]
-    # active = fields.Boolean(default=True,
-    #                         help="If the active field is set to False, it will allow you to hide the project without removing it.")
-
 
     @api.depends('privacy_visibility')
     def _compute_access_instruction_message(self):
+        """to show instruction under privacy_visibility field"""
         for project in self:
             if project.privacy_visibility == 'portal':
                 project.access_instruction_message = _(
@@ -70,13 +69,13 @@ class ProjectTemplate(models.Model):
                 project.access_instruction_message = ''
 
 
-    def action_create_task(self):
+    def action_create_project(self):
+        """to create a project"""
         project_obj = self.env['project.project']
-        project_obj.create({
+        created_project = project_obj.create({
             'name':self.name,
             'description':self.description,
             'partner_id':self.partner_id.id,
-            # 'company_id':self.company_id.id,
             'label_tasks':self.label_tasks,
             'user_id':self.user_id.id,
             'privacy_visibility':self.privacy_visibility,
@@ -89,3 +88,6 @@ class ProjectTemplate(models.Model):
             'allow_timesheets':self.allow_timesheets,
             'allocated_hours':self.allocated_hours,
         })
+        if self.task_ids:
+            for rec in self.task_ids:
+                rec.action_create_task(created_project.id)

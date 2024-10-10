@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                <button type="object" name="action_create_task" class="oe_highlight" string="Create Project"/>
+                <button type="object" name="action_create_project" class="oe_highlight" string="Create Project"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -90,6 +90,14 @@
                                     </div>
                                 </group>
                             </group>
+                        </page>
+                        <page string="Tasks">
+                            <field name="task_ids">
+                                <tree editable="bottom" open_form_view="True">
+                                    <field name="name"/>
+                                    <field name="user_ids" widget="many2many_avatar_user"/>
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
