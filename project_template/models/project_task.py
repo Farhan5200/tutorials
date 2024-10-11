@@ -6,7 +6,7 @@ class ProjectTask(models.Model):
     _inherit = 'project.task'
 
     def create_tasks_template(self, created_project_template=None, self_task=None):
-        """to create sub task"""
+        """to create task template"""
         task_template_obj = self.env['task.template']
         created_task_template = task_template_obj.create({
             'name': self.name,

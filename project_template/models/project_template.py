@@ -8,7 +8,7 @@ class ProjectTemplate(models.Model):
 
     name = fields.Char(required=True)
     description = fields.Html()
-    partner_id = fields.Many2one('res.partner', string='Customer', auto_join=True, tracking=True, domain="['|', ('company_id', '=?', company_id), ('company_id', '=', False)]")
+    partner_id = fields.Many2one('res.partner', string='Customer')
     company_id = fields.Many2one('res.company', string='Company')
     label_tasks = fields.Char(string='Use Tasks as', default=lambda s: _('Tasks'), translate=True,
                               help="Name used to refer to the tasks of your project e.g. tasks, tickets, sprints, etc...")

@@ -7,6 +7,7 @@ class ProjectProject(models.Model):
     _inherit = 'project.project'
 
     def action_create_project_template(self):
+        """to create project template"""
         project_template_obj = self.env['project.template']
         created_project_template = project_template_obj.create({
             'name': self.name,
